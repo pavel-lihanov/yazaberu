@@ -1,0 +1,23 @@
+{% extends "globals/base.html"%}
+
+{% block popup %}
+	 <!-- авторизация -->
+	<div class="login-form">
+    <h4>Войти <a href="#">Еще нет аккаунта?</a></h4>
+		<div class="auth-signin">	
+      <p>Авторизуйтесь через социальные сети</p>
+      <div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
+      <div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
+      <div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
+      <div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
+      <div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
+		</div>
+		<div class="tradition-reg">
+      <p>или войдите по логину/паролю</p>
+      <p><input type="text" value="" placeholder="Телефон или E-mail"></p>
+      <p><input type="text" value="" placeholder="Пароль"></p>
+      <p><button class="btn noactive blk">Войти в ЯЗабе.ру</button></p>
+		</div>		
+		<p class="haveaccount">Забыли пароль? <a href="#">Восстановить доступ</a></p>
+	</div>
+{% endblock%}

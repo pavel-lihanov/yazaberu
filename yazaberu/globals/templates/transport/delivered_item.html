@@ -1,0 +1,29 @@
+{% load rating %}
+<div class="one-ben">
+	<div class="way">
+		<strong>{{delivery.trip.route.start.city.name}} – {{delivery.trip.route.end.city.name}}</strong>
+		<div class="deal-resp">
+			<div class="sender">
+        <div class="avatar"><img src="avatars/av1.jpg"></div>
+        <p><a href="#">{{delivery.parcel.owner.first_name}}</a><span>отправитель</span></p>
+			</div>
+			<div class="date car">
+        <img src="files/t-car.svg">	
+        <span>{{delivery.trip.end_date}}</span>
+      </div>
+      <div class="transporter">
+        <div class="avatar"><img src="avatars/av4.jpg"></div>
+        <p><a href="#">{{delivery.trip.rider.first_name}}</a><span>перевозчик</span></p>
+      </div>
+		</div>
+	</div>
+  <div class="whatsent">
+    <div class="c8"><p>{{delivery.parcel.description}}</p></div>
+    <div class="c4"><img src="{{delivery.parcel.image.url}}"></div>	
+  </div>
+	<div class="response">
+		Доставлено за {{delivery.duration}} часов
+      {% rating delivery.rating %}
+		<p>Вознаграждение за доставку <span>{{delivery.price}} руб.</span></p>
+	</div>
+</div>

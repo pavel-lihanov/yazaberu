@@ -1,0 +1,11 @@
+<section class="benefits container15">
+<h3>Доставленные посылки</h3>
+<p>Путешественники передали эти посылки даже в самые удаленные части страны. Надежно, быстро и дешево.</p>
+<div class="columns">
+  {% for item in delivered %}
+    <div class="c4 xsc12">
+      {% include "transport/delivered_item.html" with delivery=item only %}
+    </div>
+  {% endfor %}
+<a class="resp-more" href="#">Все отзывы пользователей</a>
+</section>

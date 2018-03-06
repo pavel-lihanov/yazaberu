@@ -1,0 +1,15 @@
+{% extends "globals/base.html" %}
+
+{% block content %}
+
+{% include "globals/banner.html" %}
+
+{% include "globals/popular.html" %}
+
+{% include "globals/transporter_advert.html" %}
+
+{% include "globals/benefits.html" %}
+
+{% include "transport/delivered.html" with deliveries=advert_deliveries %}
+
+{% endblock %}
