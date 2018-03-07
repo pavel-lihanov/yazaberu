@@ -17,12 +17,13 @@ textarea,input  {outline:none;}
 section {margin-bottom:50px;}
 a {color:#000; text-decoration:none;outline:none;transition: all 0.5s ease;}
 a:hover {color:#00acec}
-.burger {display:none}
+.burger,.f-hidden {display:none}
 .clear {clear:both;}
 .header {height:49px;  display: flex; align-items: center;    justify-content: space-between;    flex-grow: 1;padding:5px 15px; }
 input, textarea, select, button {font-size:17px;outline:none;border:0;}
 .container15 {padding:0px 15px;max-width:1903px}
 .container980 {max-width:980px;margin: 0 auto; padding: 0 15px;}
+.container400 {margin:0 auto;max-width:400px}
 .btn {color:#fff;padding:14px 33px;}
 .blu {background-color:#15b3ee;}
 .blu:hover {background-color:#00acec;}
@@ -60,18 +61,24 @@ svg {vertical-align: middle;}
 .info-point {position:absolute; top:0px; right:0px;width:10px;height:10px;border-radius:50%;background-color:#eb5834;border:1px #fff solid}
 .notifications img{margin-right:9px; cursor:pointer}	
 .lk-menu .sub-menu   {position:absolute;top:43px;right:0;z-index:999;background-color:#fff;padding:20px 40px;display:none}
-.lk-menu .sub-menu ul {list-style:none;margin:0;padding:0}
-.lk-menu .sub-menu li {margin:11px 0}
+.lk-menu .sub-menu li {margin:10px 0}
+.sub-menu ul {list-style:none;margin:0;padding:0}
+.edit .sub-menu li {margin:0 20px;}
+.edit .sub-menu li a {padding:19px 0;border-bottom:1px #eee solid;display:block}
+.edit .sub-menu li a.active {color: #00acec;}
+.edit .sub-menu {background-color:#fff}
+
+.edit .add-new-task {position:absolute;top:10px; right:15px}
 .prof-hello {margin:0 10px;}	
 h1 {font-size:41px;line-height:55px;font-weight:400}
 h2 {font-size:35px;line-height:47px;font-weight:400}
 h3 {font-size:31px;line-height:55px;font-weight:500}
 h4 {font-size:23px;line-height:31px;font-weight:900}
-
+h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 
 .container {max-width: 1116px;padding:12px;margin:0 auto;}
 .clear {clear:both}
-/* основной шаблон */
+/* Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ ÑˆÐ°Ð±Ð»Ð¾Ð½ */
 .logo {font-size:25px;font-weight:700;vertical-align: middle;color:#000;}
 .logo span {font-weight:400;}
 .choose-ctrls {flex-grow: 0;    flex-shrink: 0;}
@@ -101,7 +108,7 @@ h4 {font-size:23px;line-height:31px;font-weight:900}
 .calendar-icon svg {stroke: #15b3ee;}
 
 
-/*гл. страница */
+/*Ð³Ð». ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° */
 .banner {height: 100%;}
 .mainpage-ban {background: url(mainbanner.jpg) center bottom no-repeat;}
 .sender-baner {background:#fcfbf8 url(world-map.png) center center no-repeat;    }
@@ -116,7 +123,7 @@ h4 {font-size:23px;line-height:31px;font-weight:900}
 .mainban h1 {text-align:center;color:#fff; }
 .sender-baner h1 {color:#15b3ee;}
 .sender-baner h1 span{color:#eb5834;}
-/*популярное*/
+/*Ð¿Ð¾Ð¿ÑƒÐ»ÑÑ€Ð½Ð¾Ðµ*/
 .popular h3{text-align:center;line-height:10px;}
 .one-way {background-color:#fcfbf8;padding:18px 5%;}
 .one-way:hover {cursor:pointer; background-color:#f9f6eb}
@@ -219,24 +226,35 @@ h4 {font-size:23px;line-height:31px;font-weight:900}
 /*user profile*/
 .user-info {background-color: #fff;}
 .approved-info {justify-content: space-between;border-bottom: 1px #e6e6e6 solid;border-top: 1px #e6e6e6 solid;padding:10px 0}
-.user-name .avatar {width:115px;height:115px; float:right; margin-top: 0px;}
+.user-name {position:relative}
+.user-name .av-profile {width:115px;height:115px; float:right; margin-top: 0px;}
+.user-name .update-av {width:125px;height:125px; float:none;margin:0 auto;}
 .user-name .rate-as-sender{margin-right:39px;}
 .ok-icon {width:22px;height:22px; border:2px  #47cf73 solid; border-radius:50%; padding:0px 3px;margin-right:5px}
 #arrow-down-mini {fill: #47cf73; }
 .approved-info  a {color:#00acec}
 .user-sendmail button,.user-editprofile button{ margin: 20px 0; width: 100%; max-width:300px;padding:9px 3px}
+.edit h2 {margin:13px 0; font-size: 25px;}
+.edit .user-editprofile button {max-width:100%;}
 .user-info button svg{vertical-align: middle;margin-right: 15px;}
 .user-info button:hover svg{stroke: #3d97df;}
 .ratings {margin-top:15px}
 .approved-info div:first-child {color:#818181}
-.user-profile {background-color:#fcfbf8;padding-top: 23px;}
+.user-profile {background-color:#fcfbf8;padding: 23px 0;}
 .user-profile h3{font-size: 27px;margin-bottom:10px}
 .user-profile .desc .stars {float:right;margin-left:15px;}
 .user-profile .desc:after {content: ''; display: block; height: 0; clear: both;  visibility: hidden;}
 .user-reviews {padding-bottom:15px;}
 .user-reviews-row {border-bottom: 1px #e6e6e6 solid;padding: 7px 0 0 0;position:relative;}
 .user-reviews-row:last-child {    border-bottom: 0px #e6e6e6 solid;}
+/* messages */
+.read,.read a {color:#818181}
+.user-post p.desc {margin:3px 0;font-size: 14px;}
+.user-post .user-reviews-row {padding:7px 3px}
+.user-post .user-reviews-row:hover {background-color: #fcfbf8;cursor:pointer}
+.user-post .user-reviews .avatar{width:55px;height:55px;margin-right:0px}
 
+/* end messages */
 /*end user profile*/
 .transport-type {margin:2px 5px 0 15px;}
 .transport-info .price {margin:5px 5px 0 0;}
@@ -245,7 +263,7 @@ h4 {font-size:23px;line-height:31px;font-weight:900}
 .car svg {color: #15b3ee;}
 .stars svg {stroke:none; color: #ff806f;}
 .stars strong {vertical-align:middle}
-.avatar {background-color:#f2f2f2; width:85px;height:85px; overflow:hidden;position:relative;text-align:center;border-radius:50%;margin-top:25px;}
+.avatar {background-color:#f2f2f2; width:75px;height:75px; overflow:hidden;position:relative;text-align:center;border-radius:50%;margin-top:25px;}
 .avatar img {max-width:100%;}
 .transporter p, .sender p {line-height:21px;}
 .transporter p span, .sender p span {font-size:15px}
@@ -302,7 +320,7 @@ footer .submenu {text-align:left}
 .login-form h4 a:hover {color:#3d97df}
 input.pass {text-align: center; letter-spacing: 0.3rem;}
 
-/*Список заявкок */
+/*Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
 .delievery-time {float:left}
 .list-controls {margin-bottom:10px;}
 .sort-by{float:right} .sort-by a{color:#eb5834}
@@ -318,6 +336,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .transporter-name {background-color:#fcfbf8;padding:20px 0 20px 11px;}
 .transporter-name .avatar,.transporter-name .av-desc {display:inline-block;vertical-align: middle;}
 .transporter-name .avatar {margin-right:7px;margin-top:0px;}
+.task-list-row .transporter-name .avatar {margin-top:7px;}
 .task-list-row .stars {margin:5px 0;}
 .task-list-row .stars strong {vertical-align: middle;}
 .resp-qty a{color:#eb5834; border-bottom:1px #eb5834 solid;font-size:13px;    vertical-align: text-top;}
@@ -334,7 +353,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .transporter-info .direction {font-weight:500;margin-top: 6px;}
 .transporter-info .direction span{color:#818181; font-size:18px;}
 .transporter-info .direction span.left-town {font-size:inherit;}
-.transporter-info .delivery-date {font-size:19px;margin: 7px 0 5px 0;}
+.transporter-info .delivery-date {font-size:17px;margin: 7px 0 5px 0;}
 .transport-info .transport-type {display:inline-block;text-align:right}
 .transport-info {text-align:right}
 .car img {-moz-transform: scaleX(-1);-webkit-transform: scaleX(-1); -o-transform: scaleX(-1); transform: scaleX(-1);  -ms-filter: fliph;  filter: fliph;}
@@ -343,10 +362,40 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .task-list-row:hover {background-color:#fcfbf8;}
 .task-list-row:hover .transport-info .btn-small {opacity:1}
 .transport-info .max-weight {color:#b9b9b9;font-size:13px;margin:0 5px 0 0;}
-/*Конец Список заявкок */
+/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
 
-/* Страница сделки */
-.deal {background-color:#fcfbf8;    font-size: 15px;}
+/*Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº Ð½Ð° Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÑƒ*/
+
+.whatsend img{max-width:100%;padding:5px;}
+.list-to-send .transporter-name {padding:5px; background-color: #fff;}
+.list-to-send .task-list-row:hover .transporter-name {background-color: #fcfbf8;}
+.list-to-send .transporter-name .avatar { width: 35px; height: 35px;margin-top:0px;}
+.list-to-send .transporter-name .av-name {display:inline-block}
+.list-to-send .transporter-name .av-name span {color: #818181;font-size:13px}
+.list-to-send .transporter-name .av-trtype {float:right; }
+.list-to-send .transporter-name .reg-date {float:right;padding: 3px;}
+.take-order-qty {position:absolute;bottom:10px;right:5px;}
+.take-order-qty a {color: #6a6a6a;}
+.add-newtask .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº Ð½Ð° Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÑƒ*/
+
+
+/*tabs */
+.tabs {display: flex;justify-content: space-between;	position: relative;	margin: 0;padding: 0;width: 100%;background-color: #fcfbf8;}
+.tabs li {display:inline-block;padding: 0;position: relative;}
+.tabs a {display: block;padding: 9px 7px;-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;}
+.tabs li.current a{border-bottom: 1px solid #15b3ee; color:#15b3ee}
+.tabs_item {display: none;}
+.tabs_item:first-child {display: block;}
+.tabs_item label {color:#bfbfbf; border-radius: 3px; display: inline-block; text-align: left; width: auto; height: 19px; cursor: pointer;  padding: 5px 7px 3px;  min-width: 41px;text-align: center; margin: 0 3px; border: 1px #dde0e5 solid;margin-bottom:15px;}
+.tabs_item label:hover {background-color:#ffeb9a;color:#000;}
+.tabs_item label.active { border: 1px #ffcd00 solid;background-color:#ffcd00;color:#000;}
+.tabs_item input[type=radio] {opacity:0;display:none}
+.tabs_item input[type=text]{border:0;border-bottom:1px solid #dde0e5;width:70%}
+/* end tabs */
+
+/* Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÑÐ´ÐµÐ»ÐºÐ¸ */
+.deal {background-color:#fcfbf8;    font-size: 15px;padding-top: 19px;}
 .deal h2 {margin:3px 0;font-size:21px;}
 .deal-name,.deal-offer {background-color:#fff}
 .deal-offer  {padding:20px 0}
@@ -386,9 +435,11 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 	margin:10px 0}
 .ask-form .btn-qsend {text-align:right;}	
 .ask-form .btn-qsend button {margin:0}
-/*Конец Страница сделки */
-
-/*send-alerting-btn */
+/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÑÐ´ÐµÐ»ÐºÐ¸ */
+/* Form controls */
+.what-transport img{vertical-align: middle;margin:0 5px 0 7px;padding:3px;}
+.what-transport img:hover {border:1px #15b3ee solid}
+/*End Form controls */
 .task-alerting {text-align: right; margin-bottom: 47px;margin-top: 37px;}
 .task-alerting span {float:left;}
 .cmn-toggle {visibility: hidden;    display: none;}
@@ -447,7 +498,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 
 
 /* End send-alerting-btn */
-/*End Список заявкок */
+/*End Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
 .columns .c1:first-child,.columns .c2:first-child,.columns .c3:first-child,.columns .c4:first-child,.columns .c5:first-child,.columns .c6:first-child,.columns .c7:first-child ,.columns .c8:first-child,.columns .c9:first-child,.columns .c10:first-child,.columns .c11:first-child    { margin-left: 0;}
 
 .c1{width: 6.38298%;margin: 0 0 0 2.12766%;}
@@ -696,7 +747,7 @@ h3 {font-size: 23px;    line-height: 33px;    font-weight: 500;}
 .info-point {display:none}
 .lk-menu .sub-menu {display:block;border-top:1px #000 solid;    position: relative;  padding: 0;    top: auto;}
 .lk-menu .sub-menu li {margin:0;}
- .lk-menu  .avatar {position: absolute; top: -42px;  right: 0;}
+.lk-menu  .avatar {position: absolute; top: -42px;  right: 0;}
 a.resp-more,.benefits .btn {margin-top: 19px; display: inline-block;}
 .inpt .calendar,.search-form .btn {margin-top: 9px;}
 .transporter p span, .sender p span {font-size: 13px;}
@@ -748,7 +799,7 @@ footer {text-align:left}
 
 
 .transporter-info {margin:0px}
-.transporter-info p {padding:0 5px;}
+.transporter-info p,.transporter-info h5 {padding:0 5px;}
 .transporter-info .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
 .transporter-info .place span {display:none}
 .transport-info .btn-small {opacity:1;}
@@ -762,6 +813,7 @@ footer {text-align:left}
 .transporter-name .av-trtype {display:none}
 .sort-by span,.delievery-time span {display:none}
 .take-order {float:none}
+.edit .add-new-task {top: -4px; right: 5px;}
 }
 
 @media (max-width: 425px)
@@ -769,9 +821,11 @@ footer {text-align:left}
 h1 {font-size: 19px;line-height: 26px;}
 h2 {font-size: 21px; line-height: 30px;  margin: 5px 0;}
 h3 {font-size: 19px;line-height: 23px;}
+h5 {font-size: 19px;line-height: 23px;}
 section {margin-bottom: 29px;}
 .container {background: rgba(0,0,0,0.3);}
 .container980 {padding: 0 5px;}
+.deal {padding-top:5px;}
 .sender-baner .container,.transporter-ban .container {background:none}
 .search-form .inpt,.search-form .inpt input,.search-form .btn {margin:0; width: -webkit-fill-available;margin-bottom:7px;}
 .btn,.transporter-txt .btn {width: 100%; padding:14px 0;margin: 4px 0}
@@ -783,21 +837,22 @@ section {margin-bottom: 29px;}
 .whatsent {margin: 0;}
 .response .resp-txt {    line-height: 19px;}
 .whatsent, .response {font-size:14px;}
-
 .auth-signin .social-login-ok, .social-login-vk, .social-login-fb {width: 45px; height: 45px;}
 .social-login-ok img {width:16px}
 .social-login-vk img { margin-top: 11px;} .social-login-fb img {margin-top: 10px;}
 .social-login-ya img,.social-login-gl img {width:45px}
 .offers-list-row .take-order button {max-width:100%}
 .take-order {float:none}
-.btn-small {padding: 9px 0;}
+.btn-small {padding: 9px 7px;}
 .user-reviews-row .desc .stars {position:absolute;top: 69px;left: 96px;float:none;margin-left:0}
+.list-to-send .take-order-qty {position:relative;margin:10px 0;bottom:auto;right:auto}
+.tabs a {font-size: 13px; padding: 9px 3px;}
+
 }
 
 @media (max-width: 320px)
 {
 .transporter-info, .transport-info {float:none}
-
 .transport-info .transport-type {bottom: 4px;}
 .burger .authorized {display:none!important}
 .popup-container input, .popup-container .btn {min-width: 261px;    max-width: 261px;}

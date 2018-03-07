@@ -1,13 +1,10 @@
-{% extends "globals/base.html" %}
-{% block popup %}
-<!-- Подтверждение по смс -->
-<div class="step-regconfirm">
+	<!-- Подтверждение по смс -->
+<div id="step-regconfirm" class="f-hidden step-regconfirm">
   <h4>Подтверждение данных</h4>
   <div class="sms-confirm">	
     <p>Введите код подтверждения, указаный в SMS</p>
-    <p><input class="pass" type="password" value="" placeholder="_ _ _ _" ></p>	
-    <p class="re-sendpass">Отправить SMS еще раз возможно через <span class="pass-counter" data-count="0">30</span> сек.</p>
+    <p><input class="pass" type="password" value="" placeholder="_ _ _ _"></p>
+    <p class="re-sendpass">Отправить SMS еще раз возможно через <span class="pass-counter" data-count="0">0</span> сек.</p>
     <p><button class="btn noactive blk">Подтвердить аккаунт</button></p>
   </div>
 </div>
-{% endblock %}

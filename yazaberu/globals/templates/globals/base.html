@@ -12,285 +12,28 @@
 </head>
 <body>
 
+<script>
+function loadPopup (url) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      var el = document.getElementById('popup-content');
+      el.innerHTML = this.responseText;
+    } else if (this.readyState < 4){
+      
+    } else if (this.readyState != 200) {
+      
+    }	
+  }
+  xhttp.open('GET', url, true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send();
+}
+</script>
+
 {% include "globals/header.html"%}
 
 {% block content %}
-<section class="banner">
-  <div class="mainban mainpage-ban">
-    <div class="container">
-    <h1>Передавайте посылки близким с попутчиками и экономьте до 75% на доставке</h1>
-    <div class="search-form">
-      <div class="inpt"><input type="text" value="Москва" placeholder="Откуда"/></div>
-      <div class="inpt"><input type="text" value=""  placeholder="Куда"/></div>
-      <div class="inpt"><input type="text" class="calendar" value=""  placeholder="Любая дата"/>
-      <a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
-      </a>
-      </div>
-      <button class="btn orng">Найти заказы</button>
-      <!--<button class="btn blu">Найти перевозчика</button>-->
-    </div>
-    </div>
-  </div>
-</section>
-
-<section class="popular container15">
-  <h3>Популярные направления</h3>
-  <div class="columns">
-    <div class="c3 xsc12">
-    <div class="one-way">
-    <div class="delivery-road">	
-      <div class="from">Москва<span class="country">, Россия</span></div>
-      <div class="way-line animate"><div></div></div>
-        
-      <div class="to">Санкт-Петербург<span class="country">, Россия</span></div>
-    </div>
-      <div class="delivery-res">		
-      <div class="price">от 250 руб.</div>
-      <div class="time"><span>время доставки</span> ~15 часов</div>
-    </div>
-    </div>
-    </div>
-    <div class="c3 xsc12">
-    <div class="one-way">
-    <div class="delivery-road">
-      <div class="from">Москва<span class="country">, Россия</span></div>
-      <div class="way-line animate"><div></div></div>
-      <div class="to">Нижний Новгород<span class="country">, Россия</span></div>
-    </div>
-      <div class="delivery-res">	
-      <div class="price">от 100 руб.</div>
-      <div class="time"><span>время доставки</span> ~9 часов</div>
-    </div>
-    </div>
-    </div>
-    
-    <div class="c3 xsc12">
-    <div class="one-way">
-    <div class="delivery-road">
-      <div class="from">Ростов-на-Дону<span class="country">, Россия</span></div>
-      <div class="way-line animate"><div></div></div>
-      <div class="to">Краснодар<span class="country">, Россия</span></div>
-    </div>
-      <div class="delivery-res">	
-      <div class="price">от 170 руб.</div>
-      <div class="time"><span>время доставки</span> ~12 часов</div>
-    </div>
-    </div>
-    </div>
-    
-    <div class="c3 xsc12">
-    <div class="one-way">
-      <div class="delivery-road">
-        <div class="from">Москва<span class="country">, Россия</span></div>
-        <div class="way-line animate"><div></div></div>
-        <div class="to">Минск<span class="country">, Россия</span></div>
-      </div>
-      <div class="delivery-res">
-        <div class="price">от 500 руб.</div>
-        <div class="time"><span>время доставки</span> ~12 часов</div>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
-<section id="transporter" class="container15">
-  <div class="columns">
-    <div class="c6 xsc12"><img src="files/transporter.jpg" />
-    </div>
-    <div class="c6 xsc12">
-    <div class="transporter-txt">
-    <h2>Едете в другой город?<br>Сэкономьте на проезде!</h2>
-    <p>Вы поможете людям доставить товары быстро и дешево. А попутчики-посылки не будут отвлекать вас от дороги!</p>
-    <p>Число мест ограничено только грузоподъемностью вашего автомобиля или местом в рюкзаке!</p>
-    <button class="btn orng">Предложить доставку</button>
-    </div>
-    </div>
-  </div>
-</section>
-
-<section class="benefits container15">
-  <h3>Нужно отправить документы или посылку близким?</h3>
-  <p>Сервис <strong>ЯЗабе.</strong>ру помогает экономить время и деньги на доставке</p>
-  <div class="columns">
-    <div class="c4 xsc12">
-    <div class="one-ben">
-      <img src="files/ben1.jpg" />
-      <div class="txt">
-              <div class="num">1</div>
-              <h4>Дешевле, чем<br>транспортыми компаниями</h4>
-            <p>Не нужно ехать до пункта приема и измерять габариты посылки.<Br>Цена доставки решается обоюдно добрыми людьми, а не установленными тарифами</p>
-      </div>
-      
-    </div>
-    </div>
-    <div class="c4 xsc12">
-    <div class="one-ben">
-      <img src="files/ben2.jpg" />
-      <div class="txt">
-              <div class="num">2</div>
-              <h4>Быстрее, чем<br>по почте</h4>
-            <p>Сервис не ограгичивает вас никакими правилами и бланками.<Br>Посылки могут быть доставлены день в день и точно не перепутаются в сортировочном центре.</p>
-      </div>
-    </div>
-    </div>
-    
-    <div class="c4 xsc12">
-    <div class="one-ben">
-      <img src="files/ben3.jpg" />
-          <div class="txt">
-              <div class="num">3</div>
-              <h4>Удобнее, чем<br>самому</h4>
-            <p>Отправить посылку в 2 клика.<Br>Первым вы размещаете посылку, вторым выбираете перевозчика.<br>Все просто и легко!</p>
-      </div>
-    </div>
-    </div>
-  </div>
-  <button class="btn blu">Отправить посылку</button>
-</section>
-
-<section class="benefits container15">
-  <h3>Доставленные посылки</h3>
-  <p>Путешественники передали эти посылки даже в самые удаленные части страны. Надежно, быстро и дешево.</p>
-  <div class="columns">
-    <div class="c4 xsc12">
-    <div class="one-ben">
-        <div class="way">
-            <strong>Москва – Нижний Новгород</strong>
-        <div class="deal-resp">
-        <div class="sender">
-        <div class="avatar"><img src="avatars/av1.jpg" /></div>
-        <p><a href="#">Ольга</a><span>отправитель</span></p>
-        </div>
-        <div class="date car">
-
-  <svg id="car" width="55.431px" height="41.431px" viewBox="0 0 412.431 471.431">
-      <path stroke-linejoin="round" stroke-miterlimit="10" d="M475.633,281.817c7.851-10.143,5.887-33.694,4.576-42.854c-1.311-9.161-8.832-4.905-8.504-11.123
-        c0.329-6.217,0.982-24.203-2.292-26.495s-6.216-3.597-6.216-3.597c-4.576-9.481-35.658-32.382-35.658-32.382v-3.597
-        c-50.044-5.556-161.992-13.163-193.887-5.556c-31.895,7.604-104.999,47.101-104.999,47.101
-        c-76.288,1.46-113.336,26.243-113.336,26.243s0.982,3.925-7.604,11.776c-8.59,7.854-7.686,23.147-7.686,23.147l5.238,24.205
-        c2.675,2.228,37.656,13.729,47.73,12.503c-1.02-3.848-1.611-7.858-1.611-12.022c0-25.964,21.133-47.102,47.103-47.102
-        s47.101,21.138,47.101,47.102c0,1.174-0.096,2.309-0.172,3.458c30.584,0.068,132.39,0.301,204.471,0.269
-        c-0.092-1.234-0.192-2.469-0.192-3.727c0-25.964,21.135-47.102,47.104-47.102c25.972,0,47.1,21.138,47.1,47.102
-        c0,0.484-0.053,0.938-0.068,1.41C462.721,287.443,475.633,281.817,475.633,281.817z"/>
-      <path stroke-linejoin="round" stroke-miterlimit="10" d="M98.488,249.914c-21.678,0-39.253,17.581-39.253,39.253c0,3.334,0.541,6.524,1.327,9.622
-        c4.308,17.003,19.588,29.631,37.926,29.631c20.496,0,37.139-15.77,38.906-35.811c0.104-1.158,0.344-2.261,0.344-3.442
-        C137.738,267.495,120.164,249.914,98.488,249.914z"/>
-      <path stroke-linejoin="round" stroke-miterlimit="10" d="M396.799,249.914c-21.672,0-39.253,17.581-39.253,39.253c0,1.274,0.261,2.477,0.377,3.719
-        c1.899,19.901,18.474,35.534,38.876,35.534c20.822,0,37.67-16.246,38.996-36.736c0.064-0.854,0.257-1.659,0.257-2.517
-        C436.052,267.495,418.479,249.914,396.799,249.914z"/>
-  </svg>
-      
-      <span>22 янв</span></div>
-      <div class="transporter">
-      <div class="avatar"><img src="avatars/av4.jpg" /></div>
-      <p><a href="#">Виталий</a><span>перевозчик</span></p>
-      </div>
-      </div>
-    </div>
-      <div class="whatsent">
-        <div class="c8"><p>Мягкая игрушка Щенок Буся</p></div>
-        <div class="c4"><img src="whatsent/w1.jpg" /></div>	
-      </div>
-      <div class="response">
-      Доставлено за 5 часов
-      <div class="stars">
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      </div>
-      <p>Вознаграждение за доставку <span>350 руб.</span></p>
-    </div>
-    </div>
-    </div>
-    <div class="c4 xsc12">
-    <div class="one-ben">		
-      <div class="way">
-         <strong>Москва – Симферополь</strong>
-        <div class="deal-resp">
-          <div class="sender">
-          <div class="avatar"><img src="avatars/av3.jpg" /></div>
-          <p><a href="#">Екатерина</a>
-          <span>отправитель</span></p>
-          </div>
-          <div class="date plan">
-          <img src="files/t-plan.svg">
-          <span>22 янв</span>			
-        </div>
-        <div class="transporter">
-        <div class="avatar"><img src="avatars/no-avatar.png" /></div>
-        <p><a href="#">Виталий</a><span>перевозчик</span></p>
-        </div>
-      </div>					
-      </div>
-    <div class="whatsent">
-      <div class="c8"><p>Документы (24 листа)</p></div>
-      <div class="c4"><img src="whatsent/w2.jpg" /></div>
-    </div>	
-    <div class="response">
-      Доставлено за 3 часа
-      <div class="stars">
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      </div>
-      <p>Вознаграждение за доставку <span>450 руб.</span></p>
-    </div>
-    </div>
-    </div>
-    
-    <div class="c4 xsc12">
-    <div class="one-ben">		
-      <div class="way">
-              <strong>Тверь – Санкт-Петербург</strong>
-      <div class="deal-resp">
-        <div class="sender">
-        <div class="avatar"><img src="avatars/av2.jpg" /></div>
-        <p><a href="#">Кирилл</a><span>отправитель</span></p>
-        </div>
-      <div class="date plan">
-      <img src="files/t-plan.svg">
-      <span>22 янв</span></div>
-      <div class="transporter">
-      <div class="avatar"><img src="avatars/av5.jpg" /></div>
-      <p><a href="#">Эдик</a><span>перевозчик</span></p>
-      </div>
-      </div>	
-      </div>
-      <div class="whatsent">
-      <div class="c8"><p>Значок бойскаута</p></div>
-      <div class="c4"><img src="whatsent/w3.jpg" /></div>			
-    </div>
-    <div class="response animated">
-      Доставлено за 4 часа
-      <div class="stars">
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>
-      <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z" /></svg>	
-      </div>
-      <div class="resp-txt">По приезду не созвонился с нами и не обсудил место встречи, а так все ок</div>
-      <p>Вознаграждение за доставку <span>200 руб.</span></p>
-    </div>
-    </div>
-    </div>
-  </div>
-  <a class="resp-more" href="#">Все отзывы пользователей</a>
-</section>
-
-<section>
-  <div class="registration">
-    <div class="container980">
-      <h3>Зарегистрируйтесь в ЯЗабе.ру, чтобы размещать и доставлять посылки по России и СНГ!</h3>
-      <button class="btn blu">Войти через социальные сети</button><button class="btn orng">Зарегистрироваться</button>
-    </div>
-  </div>
-</section>
 
 {% endblock %}
 
@@ -298,12 +41,10 @@
 
 <div class="popup" role="alert">
 	<div class="popup-container">
-	{% block popup %}
-	
-
-	{% endblock%}
+    <div id="popup-content">
+    </div>
 	<a href="#0" class="popup-close img-replace">Close</a>
-	</div> 
-</div> 
+	</div>
+</div>
 </body>
 </html>

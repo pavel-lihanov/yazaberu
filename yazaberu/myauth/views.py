@@ -20,8 +20,16 @@ def welcome(request):
         return HttpResponse('Not valid', status=422)
 
 def register(request):
-    return HttpResponse('Not valid', status=422)
+    if request.method == 'GET':
+        template = loader.get_template('myauth/register.html')
+        context = {}
+        return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse('Not valid', status=422)
 
+def confirm(request):
+    return HttpResponse('Not valid', status=422)
+        
 def forgot(request):
     return HttpResponse('Not valid', status=422)
 

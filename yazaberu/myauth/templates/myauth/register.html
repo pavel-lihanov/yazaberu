@@ -1,25 +1,26 @@
-{% extends "globals/base.html" %}
-{% block popup %}
-	 <!-- регистрация -->
-<div class="reg-form">
-	<h4>Ещё не с нами? Присоединяйтесь!</h4>
-  <div class="auth-signin">	
-    <p>Авторизуйтесь через социальные сети</p>
-    <div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
-    <div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
-    <div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
-    <div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
-    <div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
-  </div>
-  <div class="tradition-reg">
-    <p>или зарегистрируйтесь</p>
-    <p><input type="text" value="" placeholder="Ваше Имя"></p>
-    <p><input type="text" value="" placeholder="Телефон"></p>
-    <p><input type="text" value="" placeholder="или Электронная почта"></p>
-    <div class="agreement"><label class="checkbox">
-        <input type="checkbox" name="user_agreement" required="" checked="checked"><span class="checkbox__text">Я согласен с условиями обработки <a href="#">персональных данных</a>.</span></label></div>
-    <p><button class="btn noactive blk">Зарегистрироваться</button></p>
-  </div>
-	<p class="haveaccount">Уже зарегистрированы? <a href="#">Войти</a></p>
+ <!-- регистрация -->
+<div id="reg" class="reg-form">
+  <h4>Ещё не с нами? Присоединяйтесь!</h4>
+    <div class="auth-signin">	
+      <p>Авторизуйтесь через социальные сети</p>
+      <div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
+      <div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
+      <div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
+      <div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
+      <div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
+    </div>
+    <div class="tradition-reg">
+      <p>или зарегистрируйтесь</p>
+      <p><input type="text" value="" placeholder="Ваше Имя"></p>
+      <p><input type="text" value="" placeholder="Телефон"></p>
+      <p><input type="text" value="" placeholder="или Электронная почта"></p>
+      <div class="agreement">
+        <label class="checkbox">
+          <input type="checkbox" name="user_agreement" required="" checked="checked">
+          <span class="checkbox__text">Я согласен с условиями обработки <a href="#">персональных данных</a>.</span>
+        </label>
+      </div>
+      <p><button class="btn noactive blk">Зарегистрироваться</button></p>
+    </div>
+  <p class="haveaccount">Уже зарегистрированы? <a href="#">Войти</a></p>
 </div>
-{% endblock%}
