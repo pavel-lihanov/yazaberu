@@ -1,0 +1,26 @@
+{% extends "globals/base.html" %}
+
+{% block content%}
+
+{% include "transport/trip_search_form.html" with origin=origin destination=destination due_date=due_date only %}
+
+<section class="task-list container15">
+  <div class="columns">
+    <div class="c9 xsc12">
+      <div class="list-controls">
+        <div class="delievery-time"><span>Время доставки</span> <strong>~9 часов 25 минут</strong></div>
+        <div class="sort-by"><span>отсортировано </span><a href="#">по времени доставки ↓</a></div>
+        <div class="clear"></div>
+      </div>
+      {% for trip in trips %}
+        <div class="task-list-row columns">
+          {% include "transport/trip.html" with trip=trip only %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="c3 xsc12">
+      {% include "transport/new_trip.html"%}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 import myauth.views
 import globals.views
+from django.views.static import serve
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -25,4 +26,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('myauth.urls')),
     url(r'^$', globals.views.landing),
+    url(r'^transport/', include('transport.urls')),
+    #dev server only
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': './media'}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

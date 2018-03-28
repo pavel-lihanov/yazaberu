@@ -1,0 +1,28 @@
+<section class="banner">
+
+<div class="mainban sender-baner short">
+  <div class="container">
+    <div class="search-form">
+      <div class="inpt"><input id="parcel_orig" type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
+      <div class="inpt"><input id="parcel_dest" type="text" value="{{destination}}" placeholder="Куда"></div>
+      <div class="inpt"><input id="parcel_date" type="text" class="calendar" value="" placeholder="Любая дата">
+      <a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
+      </a>
+      </div>
+      
+      <button class="btn orng" onclick="find_parcel()">Найти, что доставить</button>
+    </div>
+    <p class="create-alerting"><a href="#"><img src="files/notification-empt.svg"> Создайте уведомление</a>, не пропускайте новые заказы</p>
+  </div>
+</div>
+</section>
+
+<script>
+  function find_parcel () {
+    var orig=document.getElementById('parcel_orig');
+    var dest=document.getElementById('parcel_dest');
+    var date=document.getElementById('parcel_date');
+    document.location = '/transport/parcel_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
+  }
+</script>

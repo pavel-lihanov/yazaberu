@@ -12,13 +12,6 @@ class City(models.Model):
     def __str__(self):
         return '{0}, {1}'.format(self.name, self.country)
     
-class Parcel(models.Model):
-    description=models.CharField(max_length=255)
-    owner=models.ForeignKey(Profile)
-    image=models.ImageField()
-    def __str__(self):
-        return self.description
-        
 class Location(models.Model):
     city=models.ForeignKey(City)
     lat=models.DecimalField(max_digits=10, decimal_places=4, blank=True, null=True)
@@ -27,6 +20,33 @@ class Location(models.Model):
 
     def __str__(self):
         return '{0} @ {1}'.format(self.address, self.city)
+
+class Parcel(models.Model):
+    #short description of what's in the parcel
+    description=models.CharField(max_length=255)
+    #owner
+    owner=models.ForeignKey(Profile)
+    #approx weight in kg
+    weight=models.IntegerField(default=1)
+    #declared value in RUB
+    value=models.IntegerField(default=0)
+    #max delivery price
+    max_price=models.IntegerField(default=0)
+    #photo
+    image=models.ImageField(null=True)
+    #location from where the parcel is sent, address is used as meeting place
+    origin=models.ForeignKey(Location, related_name='parcels_from', null=True)
+    #location to where the parcel should be delivered
+    destination=models.ForeignKey(Location, related_name='parcels_to', null=True)
+    #when the parcel was created
+    creation_date = models.DateTimeField(auto_now_add=True, null=True)
+    #date by which the parcel should be delivered
+    due_date = models.DateTimeField(null=True)
+    #additional comment by owner
+    comment=models.CharField(max_length=500, default='')
+
+    def __str__(self):
+        return self.description
         
 class Route(models.Model):
     start=models.ForeignKey(City, related_name='starts')
@@ -43,13 +63,17 @@ class Trip(models.Model):
     end_date = models.DateTimeField()
     #auto-updated when start and end date
     duration = models.IntegerField()
-    
+    price = models.IntegerField(default=0)
+    max_weight = models.IntegerField(default=5)
     def __str__(self):
         return 'Trip {0} by {1} @ {2}'.format(self.route, self.rider, self.start_date)
 
 class Delivery(models.Model):
+    #what is delivered
     parcel=models.ForeignKey(Parcel)
+    #the route where the parcel will go
     trip=models.ForeignKey(Trip, blank=True, null=True)
+    #agreed price
     price = models.IntegerField()
     #when rider got the parcel
     start_date = models.DateTimeField(blank=True, null=True)
@@ -63,6 +87,10 @@ class Delivery(models.Model):
     def __str__(self):
         return 'Delivery of {0} to {1} @ {2}'.format(self.parcel, self.trip.route.end, self.start_date)
 
+class Offer(models.Model):
+    parcel = models.ForeignKey(Parcel)
+    trip = models.ForeignKey(Trip)
+    price = models.IntegerField(default=0)
 
 #TODO: most popular routes
 def get_popular_routes(cnt=3):
