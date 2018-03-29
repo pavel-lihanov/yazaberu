@@ -7,29 +7,11 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=cyrillic" rel="stylesheet">
 <link href="/static/files/style.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" charset="utf-8"  src="/static/files/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" charset="utf-8"  src="/static/files/yazaberu.js"></script>
 <script type="text/javascript" charset="utf-8" async="" src="/static/files/common.js"></script>
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
-
-<script>
-function loadPopup (url) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function(){
-    if (this.readyState == 4 && this.status == 200) {
-      var el = document.getElementById('popup-content');
-      el.innerHTML = this.responseText;
-    } else if (this.readyState < 4){
-      
-    } else if (this.readyState != 200) {
-      
-    }	
-  }
-  xhttp.open('GET', url, true);
-  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send();
-}
-</script>
 
 {% include "globals/header.html"%}
 

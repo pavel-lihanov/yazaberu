@@ -1,0 +1,37 @@
+﻿{% extends "globals/base.html" %}
+
+{% block content %}
+<section class="edit user-profile">
+  <div class="container980 columns">
+    <div class="sub-menu c4 xsc12 s-hide">
+      <ul>
+          <li><a class="active" href="/profile/myprofile">Профиль</a></li>
+          <li><a href="/profile/messages">Сообщения (1)</a></li>
+          <li><a href="/profile/mytrips">Ваши поездки</a></li>
+          <li><a href="/profile/myparcels">Отправления</a></li>
+          <li><a href="/profile/myreviews">Отзывы</a></li>
+        </ul>
+    </div>
+    <div class="user-info c8 xsc12">
+      <div class="user-name c12 xsc12">
+        <div class="container15">
+          <h2>Профиль</h2>
+          <span class="reg-date">В сообществе с марта 2017 г.</span>	
+          <div class="avatar update-av"><a href="#"><img src="avatars/av1.jpg" /></a></div>	
+          <p class="user-editprofile"><button class="btn grey">обновить фото</button></p>
+          <div class="user-sendmail">
+            <p class="direction-lbl"><input id="usrname" class="usrname" value="{{profile.user.first_name}}" placeholder="Имя"></p>
+            <p class="direction-lbl"><input class="surname" id="surname" value="{{profile.user.last_name}}" placeholder="Фамилия"></p>
+            <p class="direction-lbl"><input class="mail" id="mail" value="{{profile.user.email}}" placeholder="Адрес электронной почты"></p>
+            <p class="direction-lbl"><input class="phone" id="phone" value="{{profile.phone}}" placeholder="+7"></p>
+            <div class="approved-info"><a href="#">Указать паспортные данные</a></div>
+          </div>
+          <div class="user-editprofile">
+            <button class="btn grey">Сохранить изменения</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

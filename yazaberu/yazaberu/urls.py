@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^auth/', include('myauth.urls')),
     url(r'^$', globals.views.landing),
     url(r'^transport/', include('transport.urls')),
+    url(r'^profile/', include('myprofile.urls')),
     #dev server only
     url(r'^media/(?P<path>.*)$', serve, {'document_root': './media'}),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

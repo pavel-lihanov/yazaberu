@@ -9,6 +9,22 @@ from globals.models import Profile
 
 # Create your views here.
 
+def add_trip(request):
+    if request.method == 'GET':
+        template = loader.get_template('transport/add_trip.html')
+        context = {}
+        return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse('Not valid', status=422)
+    
+def add_parcel(request):
+    if request.method == 'GET':
+        template = loader.get_template('transport/add_parcel.html')
+        context = {}
+        return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse('Not valid', status=422)
+
 def trip_search(request):
     if request.method == 'GET':
         user = request.user
