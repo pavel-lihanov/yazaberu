@@ -1,0 +1,19 @@
+<div class="c12 xsc12 columns">
+  <div class="c2 xsc4 xxsc12">
+    <div class="whatsend"><img src="{{parcel.image.url}}" /></div>
+  </div>
+  <div class="transporter-info c7 xsc8 xxsc12">
+    <h5 class="whatsend">{{parcel.description}}</h5>
+    <p class="delivery-date"><strong>{{parcel.due_date}}</strong></p>
+    <p class="direction">{{parcel.origin.city.name}} <span>&rarr;</span> {{parcel.destination.city.name}}</p>
+    <p class="place"><span>Место встречи: </span>{{parcel.origin.address}}</p>
+  </div>
+  <div class="transport-info c3 xsc12">
+    <p class="price"><strong>{% block price %} {% endblock %} р.</strong></p>
+    <p class="max-weight">вес до 1 кг</p>
+    {% block edit %}
+    {% endblock %}
+  </div>
+  {% block delivery_info %}
+  {% endblock %}
+</div>

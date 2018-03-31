@@ -1,0 +1,78 @@
+﻿{% extends "myprofile/index.html" %}
+
+{% block profile_content %}
+<div class="user-name">
+  <div class="container15">
+    <h2>Ваши поездки</h2>
+    <div class="add-new-task"><button class="btn btn-small blk">Добавить поездку</button></div>	
+    <div class="tab">
+      <ul class="tabs">
+          <li><a href="#">3 Размещенных</a></li>
+          <li><a href="#">1 Доставлено</a></li>
+          <li><a href="#">0 Черновик</a></li>		
+      </ul>
+      <div class="tab_content">
+        <div class="tabs_item">
+          <div  class="offers-list-row columns">
+            <div class="transporter-info c7 xsc12">
+              <p class="delivery-date"><strong>Завтра - 20:20</strong></p>
+              <p class="direction">Москва <span>&rarr;</span> Санкт-Петербург</p>
+              <p class="place"><span>Место встречи: </span>м. Славянский бульвар, Москва</p>			
+            </div>
+            <div class="transport-info c5 xsc12">
+                <div class="transport-type"><img src="files/train.svg" width="30px"/></div>
+                <p class="price"><strong>от 200 р.</strong></p>
+                <p class="max-weight">макс. 15 кг</p>
+                <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+            </div>
+          </div>
+          <div class="offers-list-row columns">
+            <div class="transporter-info c7 xsc12">
+                <p class="delivery-date"><strong>Завтра - 16:21</strong></p>
+                <p class="direction">Брянск <span>&rarr;</span> Москва <span>&rarr;</span> Тверь</p>
+                <p class="place"><span>Место встречи: </span>по договоренности</p>
+            </div>
+            <div class="transport-info c5 xsc12">
+                <div class="transport-type car"><img src="files/t-car.svg" width="37px"/></div>
+                <p class="price"><strong>от 200 р.</strong></p>
+                <p class="max-weight">макс. 15 кг</p>
+                <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+            </div>
+          </div>
+          <div class="offers-list-row columns">
+            <div class="transporter-info c7 xsc12">
+              <p class="delivery-date"><strong>Завтра - 17:05</strong></p>
+              <p class="direction">Москва <span>&rarr;</span> Тверь</p>
+              <p class="place"><span>Место встречи: </span>по договоренности</p>
+            </div>
+            <div class="transport-info c5 xsc12">
+              <div class="transport-type plan"><img src="files/t-plan.svg" width="30px"/></div>
+              <p class="price"><strong>от 250 р.</strong></p>
+              <p class="max-weight">макс. 5 кг</p>
+              <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="tabs_item">
+          <div class="offers-list-row columns">
+            <div class="transporter-info c7 xsc12">
+              <p class="delivery-date"><strong>15 февраля &ndash; 16:11</strong></p>
+              <p class="direction">Москва <span>&rarr;</span> Тверь</p>
+              <p class="place"><span>Место встречи: </span>Верхняя аллея 11с1, Москва</p>
+            </div>
+          <div class="transport-info c5 xsc12">
+            <div class="transport-type car"><img src="files/t-car.svg" width="37px"/></div>
+              <p class="price"><strong>от 170 р.</strong></p>
+            <div class="take-order-qty"><a href="#">2 запроса на доставку</a></div>
+          </div>
+          </div>
+        </div>  
+        <div class="tabs_item">
+          <p>Можно размещать планируемые поездки, которые будут видны только вам</p>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+{% endblock %}

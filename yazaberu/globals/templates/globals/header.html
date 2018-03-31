@@ -21,12 +21,31 @@
       </a>
     </div>
   </div>
+  
   <div class="profile-ctrls">
     <div class="invite-link"><a class="invite" href="#">Пригласить друзей</a></div>
+    {% if profile %}
+    <div class="auth-ctrls">
+      <div class="notifications"><img src="/static/files/icon-notifications.svg"><img src="/static/files/mail.svg"></div>
+      <div class="prof-hello s-hide">Здравствуйте, <a href="#">{{profile.first_name}}</a>!</div>
+      <div class="lk-menu s-hide"><div class="avatar"><img src="{{profile.avatar.image.url}}"></div>
+        <div class="info-point"></div>
+        <div class="sub-menu">
+        <ul>
+          <li><a href="/profile">Профиль</a></li>
+          <li><a href="/profile/deliveries">Доставки <svg width="13" height="14" viewBox="0 0 13 14" xmlns="http://www.w3.org/2000/svg"><path d="M2.133 0C.96 0 0 .952 0 2.113c0 1.16.96 2.114 2.133 2.114.988 0 1.822-.678 2.06-1.585h5.03c1.043 0 1.866.815 1.866 1.85 0 1.033-.824 1.848-1.868 1.848H3.09C1.472 6.34.155 7.645.155 9.246c0 1.6 1.317 2.906 2.933 2.906h6.42l-.688.682c-.208.207-.208.542 0 .75.21.206.547.206.756 0l1.6-1.586c.1-.1.157-.234.157-.374 0-.14-.057-.276-.157-.375l-1.6-1.586c-.1-.102-.24-.16-.384-.16-.217 0-.413.13-.495.33-.083.2-.034.43.122.58l.69.68H3.088c-1.044 0-1.868-.814-1.868-1.848 0-1.034.824-1.85 1.867-1.85H9.22c1.616 0 2.934-1.304 2.934-2.905 0-1.6-1.318-2.905-2.934-2.905H4.194C3.954.678 3.12 0 2.134 0zm0 1.057c.596 0 1.067.467 1.067 1.056 0 .59-.47 1.057-1.067 1.057-.595 0-1.066-.467-1.066-1.057 0-.59.47-1.056 1.066-1.056z" fill-rule="nonzero" fill="#000"></path></svg></a></li>
+          <li><a href="/profile/parcels">Отправления</a></li>
+          <li><a href="/auth/logout">Выйти</a></li>
+        </ul>	
+        </div>
+      </div>
+    </div>
+    {% else %}
     <div class="enter-links">
       <a class="popup-trigger enter" href="#enter" onclick="loadPopup('/auth/login')">Вход</a>
       <a class="popup-trigger reg" href="#reg" onclick="loadPopup('/auth/register')">Регистрация</a>
     </div>
+    {% endif %}
     <div class="trans-btn">
       <button href="#add-transport" onclick="loadPopup('/transport/add_trip')" class="popup-trigger btn add-transport orng">
         <span>Предложить доставку</span>

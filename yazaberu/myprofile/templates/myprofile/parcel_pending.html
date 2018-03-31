@@ -1,0 +1,23 @@
+{% extends "myprofile/parcel.html" %}
+
+{% block edit %}
+  <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+{% endblock %}
+
+{% block delivery_info %}
+  {% if parcel.delivery %}
+    <div class="transporter-name c12 xsc12">
+      <div class="avatar"><a href="#"><img src="{{parcel.delivery.trip.rider.avatar.url}}" /></a></div>
+      <div class="av-name"><a href="#"><strong>{{parcel.delivery.trip.rider.first_name}}</strong></a> <span class="reg-date">выбран(а) перевозчиком</span></div>
+      <span class="reg-date"><button class="btn btn-small orng">Заказ доставил(-а)</button></span>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block price %}
+  {% if parcel.delivery %}
+    {{parcel.delivery.price}}
+  {% else %}
+    до {{parcel.max_price}}
+  {% endif %}
+{% endblock %}

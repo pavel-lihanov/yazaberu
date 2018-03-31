@@ -13,9 +13,9 @@ def landing(request):
         delivered = transport.models.get_advert_delivered()
         context = {'routes':routes, 'delivered': delivered}
         if user.is_authenticated():
-            context['user']=globals.models.Profile.objects.get(user=user)
+            context['profile']=globals.models.Profile.objects.get(user=user)
         else:
-            context['user']=None
+            context['profile']=None
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)

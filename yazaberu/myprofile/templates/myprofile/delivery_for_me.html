@@ -1,0 +1,11 @@
+{% extends "myprofile/parcel.html" %}
+{% block delivery_info %}
+  <div class="transporter-name c12 xsc12">
+    <div class="avatar"><a href="#"><img src="{{parcel.delivery.trip.rider.avatar.image.url}}" /></a></div>
+    <div class="av-name"><a href="#"><strong>{{parcel.delivery.trip.rider.first_name}}</strong></a> <span>доставил(а) заказ 20 февраля в 11:00</span></div>
+  </div>
+{% endblock %}
+
+{% block price %}
+  {{parcel.delivery.price}}
+{% endblock %}

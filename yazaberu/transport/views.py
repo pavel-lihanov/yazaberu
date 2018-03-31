@@ -43,9 +43,9 @@ def trip_search(request):
         trips = Trip.objects.filter(orig & dest)
         context = {'trips': trips}
         if user.is_authenticated():
-            context['user']=Profile.objects.get(user=user)
+            context['profile']=Profile.objects.get(user=user)
         else:
-            context['user']=None
+            context['profile']=None
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)
@@ -68,9 +68,9 @@ def parcel_search(request):
         parcels = Parcel.objects.filter(orig & dest)
         context = {'parcels': parcels}
         if user.is_authenticated():
-            context['user']=Profile.objects.get(user=user)
+            context['profile']=Profile.objects.get(user=user)
         else:
-            context['user']=None
+            context['profile']=None
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)
@@ -83,10 +83,10 @@ def parcel(request, id):
             context = {'parcel': parcel}
             if user.is_authenticated():
                 profile=Profile.objects.get(user=user)
-                context['user']=profile
+                context['profile']=profile
                 context['mine']=parcel.owner==profile
             else:
-                context['user']=None
+                context['profile']=None
             return  HttpResponse(template.render(context, request))
         except Parcel.DoesNotExist:
             return HttpResponseNotFound()
