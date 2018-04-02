@@ -54,6 +54,12 @@ class Route(models.Model):
     
     def __str__(self):
         return 'Route from {0} to {1}'.format(self.start, self.end)
+        
+    def min_price(self):
+        return 55
+        
+    def avg_time(self):
+        return 2
     
 class Trip(models.Model):
     rider=models.ForeignKey(Profile)

@@ -1,4 +1,4 @@
-﻿html * {
+html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -78,8 +78,9 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 
 .container {max-width: 1116px;padding:12px;margin:0 auto;}
 .clear {clear:both}
-/* Ð¾ÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ ÑˆÐ°Ð±Ð»Ð¾Ð½ */
+/* основной шаблон */
 .logo {font-size:25px;font-weight:700;vertical-align: middle;color:#000;}
+.logo img {vertical-align: middle;margin-bottom:2px;}
 .logo span {font-weight:400;}
 .choose-ctrls {flex-grow: 0;    flex-shrink: 0;}
 
@@ -108,11 +109,11 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .calendar-icon svg {stroke: #15b3ee;}
 
 
-/*Ð³Ð». ÑÑ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° */
+/*гл. страница */
 .banner {height: 100%;}
-.mainpage-ban {background: url(mainbanner.jpg) center bottom no-repeat;}
-.sender-baner {background:#fcfbf8 url(world-map.png) center center no-repeat;    }
-.transporter-ban {background:#fcfbf8 url(mainbanner-transporter.jpg) center center no-repeat;}
+.mainpage-ban {background: url(/static/files/silder1.jpg) center bottom no-repeat;}
+.sender-baner {background:#fcfbf8 url(/static/files/world-map.png) center center no-repeat;    }
+.transporter-ban {background:#fcfbf8 url(/static/files/mainbanner-transporter.jpg) center center no-repeat;}
 .mainban {background-size:cover;padding-top: 4%; min-height:513px;      position: relative;display: block;}
 .sender-baner {background-size: contain;}
 .banner .short {background-size: inherit;    min-height: 147px;    padding-top: 1%;}
@@ -123,7 +124,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .mainban h1 {text-align:center;color:#fff; }
 .sender-baner h1 {color:#15b3ee;}
 .sender-baner h1 span{color:#eb5834;}
-/*Ð¿Ð¾Ð¿ÑƒÐ»ÑÑ€Ð½Ð¾Ðµ*/
+/*популярное*/
 .popular h3{text-align:center;line-height:10px;}
 .one-way {background-color:#fcfbf8;padding:18px 5%;}
 .one-way:hover {cursor:pointer; background-color:#f9f6eb}
@@ -193,10 +194,76 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
     opacity: .25;
 }
 
+/*sender - anim */
+	
+.ship-way-cover {
+    max-width: 820px;
+    margin: auto;	
+}
+.ship-way-cover svg {
+    display: block;
+}
+.ship-way-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+.ship-way-text li:first-child, .ship-way-text li:last-child {
+    position: relative;
+    top: -70px;
+}
+.ship-way-text li {
+    width: 33.33%;
+    text-align: center;
+}
+.ship-way-text li .like-h1 {
+    color: #f1713c;
+    font-size: 49px;
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+.ship-way-text li .like-h1 span {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 31px;
+    text-transform: none;
+    margin-left: 4px;
+}
+.ship-way-text li h3 {
+    color: #f1713c;
+}
+
+.ship {fill: #f1713c;}
+.ship--1 { -webkit-transform: translate(-192px, 50px) rotate(340deg);   transform: translate(-192px, 50px) rotate(340deg);}
+.ship--2 { -webkit-transform: translate(-190px, -50px) rotate(340deg);   transform: translate(-300px, -50px) rotate(90deg);}
+.way-line {fill: none; stroke: #15b3ee;  stroke-width: 2px;}
+.pin {fill: #fff; stroke: #f1713c;stroke-width: 2px;}
+.pin-dot {fill: #f1713c}
+.pin-cover {animation: shadow-anim 1s forwards;	animation-timing-function: ease;}
+.pin-cover--1 { -webkit-animation-delay: 0.4s;  animation-delay: 0.4s;}
+.pin-cover--2 { -webkit-animation-delay: 0s; animation-delay: 0s;}
+.pin-cover--3 {-webkit-animation-delay: 0.8s; animation-delay: 0.8s;}
+
+@keyframes shadow-anim {
+	0%
+		transform: translateY(-100%);
+		opacity: 0;
+	100%
+		transform: translateY(0);
+		opacity: 1;
+}
+
+/* end sender anim */
+
+
+
 /*transport*/
 .transport-facts {max-width: 1560px;text-align:center}
 .transport-facts h3 {margin:0;padding:0;}
-.transport-facts .columns {background:url(world-map.png) center center no-repeat; background-size: contain;
+.transport-facts .columns {background:url(/static/files/world-map.png) center center no-repeat; background-size: contain;
     padding: 30px 50px 0;
     margin-bottom: 75px;
     display: -webkit-box;
@@ -207,7 +274,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
     justify-content: space-between;
 }
 .fact-fill {max-width:262px;margin: 0 auto; background-color:rgba(58,193,212,0.2);}
-.one-fact-inner {padding:10px 0; margin: 0 auto;}
+.one-fact-inner {padding:10px 0; margin: 0 auto;text-align: center;}
 .fact-fill .one-fact-inner {max-width: 181px;}
 .one-fact h4 {font-size: 19px;}
 .one-fact {text-align:left;line-height:69px;}
@@ -238,7 +305,8 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .edit .user-editprofile button {max-width:100%;}
 .user-info button svg{vertical-align: middle;margin-right: 15px;}
 .user-info button:hover svg{stroke: #3d97df;}
-.ratings {margin-top:15px}
+.ratings {margin:15px 0}
+.rate-as-transporter span.rate-as-trans-name {padding-right: 7px;}
 .approved-info div:first-child {color:#818181}
 .user-profile {background-color:#fcfbf8;padding: 23px 0;}
 .user-profile h3{font-size: 27px;margin-bottom:10px}
@@ -253,7 +321,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .user-post .user-reviews-row {padding:7px 3px}
 .user-post .user-reviews-row:hover {background-color: #fcfbf8;cursor:pointer}
 .user-post .user-reviews .avatar{width:55px;height:55px;margin-right:0px}
-
+.user-info .direction-lbl input {padding-left: 15px;}
 /* end messages */
 /*end user profile*/
 .transport-type {margin:2px 5px 0 15px;}
@@ -281,8 +349,8 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 }
 a.resp-more {border-bottom:1px #000 solid}
 
-.registration {background: url(bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
-.registration-tr {background: url(bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration {background: url(/static/files/bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration-tr {background: url(/static/files/bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
 
 
 .columns, .cols{
@@ -320,7 +388,7 @@ footer .submenu {text-align:left}
 .login-form h4 a:hover {color:#3d97df}
 input.pass {text-align: center; letter-spacing: 0.3rem;}
 
-/*Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
+/*Список заявкок */
 .delievery-time {float:left}
 .list-controls {margin-bottom:10px;}
 .sort-by{float:right} .sort-by a{color:#eb5834}
@@ -362,9 +430,9 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .task-list-row:hover {background-color:#fcfbf8;}
 .task-list-row:hover .transport-info .btn-small {opacity:1}
 .transport-info .max-weight {color:#b9b9b9;font-size:13px;margin:0 5px 0 0;}
-/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
+/*Конец Список заявкок */
 
-/*Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº Ð½Ð° Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÑƒ*/
+/*Список заявкок на отправку*/
 
 .whatsend img{max-width:100%;padding:5px;}
 .list-to-send .transporter-name {padding:5px; background-color: #fff;}
@@ -376,8 +444,8 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .list-to-send .transporter-name .reg-date {float:right;padding: 3px;}
 .take-order-qty {position:absolute;bottom:10px;right:5px;}
 .take-order-qty a {color: #6a6a6a;}
-.add-newtask .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
-/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº Ð½Ð° Ð¾Ñ‚Ð¿Ñ€Ð°Ð²ÐºÑƒ*/
+.add-newtask .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+/*Конец Список заявкок на отправку*/
 
 
 /*tabs */
@@ -394,7 +462,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .tabs_item input[type=text]{border:0;border-bottom:1px solid #dde0e5;width:70%}
 /* end tabs */
 
-/* Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÑÐ´ÐµÐ»ÐºÐ¸ */
+/* Страница сделки */
 .deal {background-color:#fcfbf8;    font-size: 15px;padding-top: 19px;}
 .deal h2 {margin:3px 0;font-size:21px;}
 .deal-name,.deal-offer {background-color:#fff}
@@ -435,7 +503,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 	margin:10px 0}
 .ask-form .btn-qsend {text-align:right;}	
 .ask-form .btn-qsend button {margin:0}
-/*ÐšÐ¾Ð½ÐµÑ† Ð¡Ñ‚Ñ€Ð°Ð½Ð¸Ñ†Ð° ÑÐ´ÐµÐ»ÐºÐ¸ */
+/*Конец Страница сделки */
 /* Form controls */
 .what-transport img{vertical-align: middle;margin:0 5px 0 7px;padding:3px;}
 .what-transport img:hover {border:1px #15b3ee solid}
@@ -498,7 +566,7 @@ input.cmn-toggle-round-flat:checked + label:after {
 
 
 /* End send-alerting-btn */
-/*End Ð¡Ð¿Ð¸ÑÐ¾Ðº Ð·Ð°ÑÐ²ÐºÐ¾Ðº */
+/*End Список заявкок */
 .columns .c1:first-child,.columns .c2:first-child,.columns .c3:first-child,.columns .c4:first-child,.columns .c5:first-child,.columns .c6:first-child,.columns .c7:first-child ,.columns .c8:first-child,.columns .c9:first-child,.columns .c10:first-child,.columns .c11:first-child    { margin-left: 0;}
 
 .c1{width: 6.38298%;margin: 0 0 0 2.12766%;}
@@ -639,7 +707,7 @@ input.cmn-toggle-round-flat:checked + label:after {
     top: 4px;
     width: 14px;
     height: 11px;
-    background: url(check.svg) no-repeat;
+    background: url(/static/files/check.svg) no-repeat;
     background-size: 100%;
     opacity: 0;
     transition: .3s;
@@ -773,7 +841,7 @@ a.resp-more,.benefits .btn {margin-top: 19px; display: inline-block;}
 .benefits .one-ben {margin:5px 0;}
 .transporter-txt .btn {display: block; margin: 0 auto;margin-top: 19px;}
 .applications a{display:inline-block;margin:0 10px 0 0 }
-.search-form .chang-icon {text-align: right; position: absolute; top: 28px;	right: 24px;}
+.search-form .chang-icon {/*text-align: right; position: absolute; top: 28px;	right: 24px;*/ display:none}
 .create-alerting {text-align: center;}
 .transporter-info .delivery-date {font-size: 15px;font-weight:500}
 .take-order {margin-left:0}
@@ -800,7 +868,7 @@ footer {text-align:left}
 
 .transporter-info {margin:0px}
 .transporter-info p,.transporter-info h5 {padding:0 5px;}
-.transporter-info .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+.transporter-info .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
 .transporter-info .place span {display:none}
 .transport-info .btn-small {opacity:1;}
 .transport-info  {text-align:left;margin-left:5px;}
@@ -821,8 +889,9 @@ footer {text-align:left}
 h1 {font-size: 19px;line-height: 26px;}
 h2 {font-size: 21px; line-height: 30px;  margin: 5px 0;}
 h3 {font-size: 19px;line-height: 23px;}
-h5 {font-size: 19px;line-height: 23px;}
+h5 {font-size: 17px;line-height: 23px;}
 section {margin-bottom: 29px;}
+.header {padding:5px 12px;}
 .container {background: rgba(0,0,0,0.3);}
 .container980 {padding: 0 5px;}
 .deal {padding-top:5px;}
@@ -844,10 +913,32 @@ section {margin-bottom: 29px;}
 .offers-list-row .take-order button {max-width:100%}
 .take-order {float:none}
 .btn-small {padding: 9px 7px;}
-.user-reviews-row .desc .stars {position:absolute;top: 69px;left: 96px;float:none;margin-left:0}
+.user-reviews-row .desc .stars {position:absolute;top: 13px;right: 0px;float:none;margin-left:0}
+.user-reviews-row .desc .stars svg {width: 19px!important;  height: 19px!important;}
+.deal-questions .avatar, .user-reviews .avatar {margin-right: 7px;}
+.avatar   {width: 55px;  height: 55px;}
+.user-name .av-profile {width: 77px; height: 77px;}
+.user-profile h3 {font-size: 23px;}
 .list-to-send .take-order-qty {position:relative;margin:10px 0;bottom:auto;right:auto}
 .tabs a {font-size: 13px; padding: 9px 3px;}
+.edit .add-new-task {position: relative;    top: auto;  right: auto;}
+.user-sendmail button, .user-editprofile button {max-width:100%}
+.approved-info {line-height:30px; display:block}
+.list-to-send .transporter-name .reg-date {float:none}
 
+
+.xxsc1{width: 6.38298%;margin: 0 0 0 2.12766%;}
+.xxsc2{width:14.89362%;margin: 0 0 0 2.12766%;}
+.xxsc3{width: 23.40426%; margin: 0 0 0 2.12766%;}
+.xxsc4{width: 31.91489%; margin: 0 0 0 2.12766%;}
+.xxsc5{width: 40.42553%;margin: 0 0 0 2.12766%;}
+.xxsc6{width: 48.93617%;margin: 0 0 0 2.12766%;}
+.xxsc7{width: 57.44681%;margin: 0 0 0 2.12766%;}
+.xxsc8{width: 65.95745%;margin: 0 0 0 2.12766%;}
+.xxsc9{width: 74.46808%;margin: 0 0 0 2.12766%;}
+.xxsc10{width: 82.97872%;margin: 0 0 0 2.12766%;}
+.xxsc11{width: 91.48936%;margin: 0 0 0 2.12766%;}
+.xxsc12{width:100.0%;margin: 0 }
 }
 
 @media (max-width: 320px)

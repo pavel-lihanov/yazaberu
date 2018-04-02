@@ -11,16 +11,16 @@
     </div>
     <div class="tradition-reg">
       <p>или зарегистрируйтесь</p>
-      <p><input type="text" value="" placeholder="Ваше Имя"></p>
-      <p><input type="text" value="" placeholder="Телефон"></p>
-      <p><input type="text" value="" placeholder="или Электронная почта"></p>
+      <p><input type="text" id="first_name" value="" placeholder="Ваше Имя"></p>
+      <p><input type="text" id="phone" value="" placeholder="Телефон"></p>
+      <p><input type="text" id="email" value="" placeholder="или Электронная почта"></p>
       <div class="agreement">
         <label class="checkbox">
           <input type="checkbox" name="user_agreement" required="" checked="checked">
           <span class="checkbox__text">Я согласен с условиями обработки <a href="#">персональных данных</a>.</span>
         </label>
       </div>
-      <p><button class="btn noactive blk">Зарегистрироваться</button></p>
+      <p><button class="btn noactive blk onclick="register()">Зарегистрироваться</button></p>
     </div>
   <p class="haveaccount">Уже зарегистрированы? <a href="#">Войти</a></p>
 </div>

@@ -11,17 +11,23 @@ from globals.models import Profile
 
 def add_trip(request):
     if request.method == 'GET':
-        template = loader.get_template('transport/add_trip.html')
-        context = {}
-        return  HttpResponse(template.render(context, request))
+        if request.user.is_authenticated:
+            template = loader.get_template('transport/add_trip.html')
+            context = {}
+            return  HttpResponse(template.render(context, request))
+        else:
+            return HttpResponseRedirect('/auth/login')
     else:
         return HttpResponse('Not valid', status=422)
     
 def add_parcel(request):
     if request.method == 'GET':
-        template = loader.get_template('transport/add_parcel.html')
-        context = {}
-        return  HttpResponse(template.render(context, request))
+        if request.user.is_authenticated:
+            template = loader.get_template('transport/add_parcel.html')
+            context = {}
+            return  HttpResponse(template.render(context, request))
+        else:
+            return HttpResponseRedirect('/auth/login')
     else:
         return HttpResponse('Not valid', status=422)
 

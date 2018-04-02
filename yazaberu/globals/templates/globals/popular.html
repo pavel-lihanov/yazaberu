@@ -1,7 +1,8 @@
 <section class="popular container15">
 <h3>Популярные направления</h3>
 <div class="columns">
-  {% for route in popular %}
+  {{popular}}
+  {% for route in routes %}
 	<div class="c3 xsc12">
     {% include "transport/route.html" with start=route.start end=route.end min_price=route.min_price avg_time=route.avg_time only%}
 	</div>

@@ -50,7 +50,7 @@ def register(request):
         template = loader.get_template('myauth/register.html')
         context = {}
         return  HttpResponse(template.render(context, request))
-    else:
+    elif request.method == 'POST':
         return HttpResponse('Not valid', status=422)
 
 def confirm(request):

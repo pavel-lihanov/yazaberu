@@ -33,6 +33,34 @@ function loadPopup (url) {
   xhttp.send();
 }
 
+function find_parcel () {
+    var orig = document.getElementById('origin').value;
+    var dest = document.getElementById('destination').value;
+    document.location="/transport/trip_search?origin="+orig+"&destination="+dest;
+}
+
+function register () {
+  var firstName = document.getElementById('first_name').value;
+  var phone = document.getElementById('phone').value;
+  var email = document.getElementById('email').value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      document.body.innerHTML = this.responseText;
+      document.location = this.responseURL;
+    } else if (this.readyState < 4){
+      
+    } else if (this.readyState != 200) {
+      alert('Cannot register', this.readyState);
+    }
+  }
+  xhttp.open('POST', '/auth/register', true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send('first_name='+firstName+'&phone='+phone+'&email='+email);
+}
+
 function login_with_cr () {
   var id = document.getElementById('user_id').value;
   var passwd = document.getElementById('password').value;
