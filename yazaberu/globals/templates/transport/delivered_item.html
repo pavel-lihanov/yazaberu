@@ -1,10 +1,10 @@
 {% load rating %}
 <div class="one-ben">
 	<div class="way">
-		<strong>{{delivery.trip.route.start.city.name}} – {{delivery.trip.route.end.city.name}}</strong>
+		<strong>{{delivery.parcel.owner.avatar.image.url}}</strong>
 		<div class="deal-resp">
 			<div class="sender">
-        <div class="avatar"><img src="avatars/av1.jpg"></div>
+        <div class="avatar"><img src="{{delivery.parcel.owner.avatar.image.url}}"></div>
         <p><a href="#">{{delivery.parcel.owner.first_name}}</a><span>отправитель</span></p>
 			</div>
 			<div class="date car">
@@ -12,7 +12,7 @@
         <span>{{delivery.trip.end_date}}</span>
       </div>
       <div class="transporter">
-        <div class="avatar"><img src="avatars/av4.jpg"></div>
+        <div class="avatar"><img src="{{delivery.trip.rider.avatar.image.url}}"></div>
         <p><a href="#">{{delivery.trip.rider.first_name}}</a><span>перевозчик</span></p>
       </div>
 		</div>
