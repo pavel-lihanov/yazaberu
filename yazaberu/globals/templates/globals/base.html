@@ -19,6 +19,13 @@
 
 {% endblock %}
 
+{% if profile %}
+
+{% else %}
+  {% include "globals/banner_register.html" %}
+{% endif%}
+
+
 {% include "globals/footer.html"%} 
 
 <div class="popup" role="alert">

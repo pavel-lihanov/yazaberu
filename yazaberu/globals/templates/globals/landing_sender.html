@@ -1,0 +1,14 @@
+{% extends "globals/base.html" %}
+
+{% block content %}
+
+{% include "globals/banner_sender.html" %}
+
+{% include "globals/how_to_send.html" %}
+
+{% include "transport/delivered.html" with deliveries=advert_deliveries %}
+
+{% endblock %}
+
+{% block popup %}
+{% endblock %}

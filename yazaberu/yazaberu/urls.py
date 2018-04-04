@@ -25,9 +25,12 @@ from django.conf.urls.static import static
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('myauth.urls')),
-    url(r'^$', globals.views.landing),
     url(r'^transport/', include('transport.urls')),
     url(r'^profile/', include('myprofile.urls')),
     #dev server only
     url(r'^media/(?P<path>.*)$', serve, {'document_root': './media'}),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^send/$', globals.views.landing_sender),
+    url(r'^deliver/$', globals.views.landing_rider),
+    url(r'^$', globals.views.landing),
+
+    ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

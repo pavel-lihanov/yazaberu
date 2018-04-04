@@ -1,14 +1,14 @@
 {% load rating %}
 <div class="one-ben">
 	<div class="way">
-		<strong>{{delivery.parcel.owner.avatar.image.url}}</strong>
+    <strong>{{delivery.trip.route.start.name}} – {{delivery.trip.route.end.name}}</strong>
 		<div class="deal-resp">
 			<div class="sender">
         <div class="avatar"><img src="{{delivery.parcel.owner.avatar.image.url}}"></div>
         <p><a href="#">{{delivery.parcel.owner.first_name}}</a><span>отправитель</span></p>
 			</div>
 			<div class="date car">
-        <img src="files/t-car.svg">	
+        <img src="/static/files/t-car.svg">	
         <span>{{delivery.trip.end_date}}</span>
       </div>
       <div class="transporter">
@@ -27,3 +27,57 @@
 		<p>Вознаграждение за доставку <span>{{delivery.price}} руб.</span></p>
 	</div>
 </div>
+
+<!--
+<div class="one-ben">
+			<div class="way">
+			    <strong>Москва – Нижний Новгород</strong>
+			<div class="deal-resp">
+			<div class="sender">
+			<div class="avatar"><img src="avatars/av1.jpg"></div>
+			<p><a href="#">Ольга</a><span>отправитель</span></p>
+			</div>
+			<div class="date car">
+
+<svg id="car" width="55.431px" height="41.431px" viewBox="0 0 412.431 471.431">
+		<path stroke-linejoin="round" stroke-miterlimit="10" d="M475.633,281.817c7.851-10.143,5.887-33.694,4.576-42.854c-1.311-9.161-8.832-4.905-8.504-11.123
+			c0.329-6.217,0.982-24.203-2.292-26.495s-6.216-3.597-6.216-3.597c-4.576-9.481-35.658-32.382-35.658-32.382v-3.597
+			c-50.044-5.556-161.992-13.163-193.887-5.556c-31.895,7.604-104.999,47.101-104.999,47.101
+			c-76.288,1.46-113.336,26.243-113.336,26.243s0.982,3.925-7.604,11.776c-8.59,7.854-7.686,23.147-7.686,23.147l5.238,24.205
+			c2.675,2.228,37.656,13.729,47.73,12.503c-1.02-3.848-1.611-7.858-1.611-12.022c0-25.964,21.133-47.102,47.103-47.102
+			s47.101,21.138,47.101,47.102c0,1.174-0.096,2.309-0.172,3.458c30.584,0.068,132.39,0.301,204.471,0.269
+			c-0.092-1.234-0.192-2.469-0.192-3.727c0-25.964,21.135-47.102,47.104-47.102c25.972,0,47.1,21.138,47.1,47.102
+			c0,0.484-0.053,0.938-0.068,1.41C462.721,287.443,475.633,281.817,475.633,281.817z"></path>
+		<path stroke-linejoin="round" stroke-miterlimit="10" d="M98.488,249.914c-21.678,0-39.253,17.581-39.253,39.253c0,3.334,0.541,6.524,1.327,9.622
+			c4.308,17.003,19.588,29.631,37.926,29.631c20.496,0,37.139-15.77,38.906-35.811c0.104-1.158,0.344-2.261,0.344-3.442
+			C137.738,267.495,120.164,249.914,98.488,249.914z"></path>
+		<path stroke-linejoin="round" stroke-miterlimit="10" d="M396.799,249.914c-21.672,0-39.253,17.581-39.253,39.253c0,1.274,0.261,2.477,0.377,3.719
+			c1.899,19.901,18.474,35.534,38.876,35.534c20.822,0,37.67-16.246,38.996-36.736c0.064-0.854,0.257-1.659,0.257-2.517
+			C436.052,267.495,418.479,249.914,396.799,249.914z"></path>
+	
+</svg>
+		
+		<span>22 янв</span></div>
+		<div class="transporter">
+		<div class="avatar"><img src="avatars/av4.jpg"></div>
+		<p><a href="#">Виталий</a><span>перевозчик</span></p>
+		</div>
+		</div>
+	</div>
+		<div class="whatsent">
+			<div class="c8"><p>Мягкая игрушка Щенок Буся</p></div>
+			<div class="c4"><img src="whatsent/w1.jpg"></div>	
+		</div>
+		<div class="response">
+		Доставлено за 5 часов
+		<div class="stars">
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		</div>
+		<p>Вознаграждение за доставку <span>350 руб.</span></p>
+	</div>
+	</div>
+-->

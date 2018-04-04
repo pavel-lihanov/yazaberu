@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Min, Max, Sum, Count
 
 # Create your models here.
 
@@ -114,3 +115,17 @@ def min_price(start_city, end_city):
 def avg_time(start_city, end_city):
     routes=Delivery.objects.filter(trip__route__start__city=start_city, trip__route__end__city=end_city, delivered=True)
     return routes.aggregate(Min(price))
+    
+def waiting_parcels_count():
+    return Parcel.objects.filter(delivery=None).count()
+
+def riders_count():
+    #return Trip.objects.distinct('rider').count()
+    #TODO: implement (sqlite does not support distinct)
+    return 5
+
+def delivered_parcels_count():
+    return Delivery.objects.filter(delivered=True).count()
+    
+def total_income():
+    return Delivery.objects.filter(delivered=True).aggregate(Sum('price'))['price__sum']
