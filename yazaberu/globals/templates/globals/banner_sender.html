@@ -5,14 +5,14 @@
 	<h1>Отправляйте документы и посылки с ЯЗабе.ру<br>
 <span>перевозчики доставят их как можно скорее</span></h1>
 	<div class="search-form">
-		<div class="inpt"><input type="text" value="Москва" placeholder="Откуда"/></div>
-		<div class="inpt"><input type="text" value=""  placeholder="Куда"/></div>
-		<div class="inpt"><input type="text" class="calendar" value=""  placeholder="Любая дата"/>
+		<div class="inpt"><input type="text" id="trip_from" value="Москва" placeholder="Откуда"/></div>
+		<div class="inpt"><input type="text" id="trip_to" value=""  placeholder="Куда"/></div>
+		<div class="inpt"><input type="text" id="trip_date" class="calendar" value=""  placeholder="Любая дата"/>
 		<a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
 		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
 		</a>
 		</div>
-		<button class="btn blu" onclick="find_trip()">Найти перевозчика</button>
+		<button class="btn blu" onclick="find_trip(document.getElementById('trip_from').value, document.getElementById('trip_to').value, document.getElementById('trip_date').value))">Найти перевозчика</button>
 	</div>
 	</div>
 </div>

@@ -51,3 +51,14 @@ def landing_rider(request):
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)
+        
+def user_view(request, id):
+    if request.method == 'GET':
+        u = globals.models.Profile.objects.get(id=id)
+        template = loader.get_template('globals/user.html')
+        context={'user': u}
+        if request.user.is_authenticated():
+            context['profile']=globals.models.Profile.objects.get(user=request.user)
+        return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse('Not valid', status=422)

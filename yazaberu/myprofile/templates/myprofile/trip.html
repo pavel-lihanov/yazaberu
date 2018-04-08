@@ -1,0 +1,13 @@
+<div  class="offers-list-row columns">
+  <div class="transporter-info c7 xsc12">
+    <p class="delivery-date"><strong>{{trip.start_date}}</strong></p>
+    <p class="direction">{{trip.route.start.name}} <span>&rarr;</span> {{trip.route.end.name}}</p>
+    <p class="place"><span>Место встречи: </span> где-то в г. {{trip.route.start.name}}</p>
+  </div>
+  <div class="transport-info c5 xsc12">
+      <div class="transport-type"><img src="files/train.svg" width="30px"/></div>
+      <p class="price"><strong>от {{trip.price}} р.</strong></p>
+      <p class="max-weight">макс. {{trip.max_weight}} кг</p>
+      <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+  </div>
+</div>

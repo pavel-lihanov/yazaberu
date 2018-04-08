@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^register$', myauth.views.register , name='register'),
     url(r'^confirm$', myauth.views.confirm , name='confirm'),
     url(r'^welcome$', myauth.views.welcome , name='welcome'),
+    url(r'^logout$', myauth.views.logout , name='logout'),
 ]

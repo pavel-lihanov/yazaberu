@@ -6,8 +6,9 @@ from django.template import loader
 from django.db.models import Q
 
 from globals.models import Profile
+from django.utils import timezone
 
-from transport.models import Delivery, Parcel
+from transport.models import Delivery, Parcel, Trip
 
 def myprofile(request):
     if request.method == 'GET':
@@ -21,8 +22,9 @@ def mydeliveries(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/deliveries.html')
         me=Profile.objects.get(user=request.user)
-        delivs = Delivery.objects.get(trip__rider=me)
-        context = {'profile': me, 'deliveries': delivs}
+        all_trips = Trip.objects.filter(rider=me)
+        trips = {'future': all_trips.filter(start_date__gt=timezone.now()), 'completed': all_trips.filter(end_date__lt=timezone.now()),'draft': []}
+        context = {'profile': me, 'trips': trips}
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)

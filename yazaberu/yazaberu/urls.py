@@ -32,5 +32,5 @@ urlpatterns = [
     url(r'^send/$', globals.views.landing_sender),
     url(r'^deliver/$', globals.views.landing_rider),
     url(r'^$', globals.views.landing),
-
+    url(r'^user/(?P<id>[0-9]+)$', globals.views.user_view),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

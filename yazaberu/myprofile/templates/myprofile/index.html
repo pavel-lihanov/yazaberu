@@ -19,7 +19,7 @@
         <div class="container15">
           <h2>Профиль</h2>
           <span class="reg-date">В сообществе с {{profile.creation_date}}</span>	
-          <div class="avatar update-av"><a href="#"><img src="{{profile.avatar.image.url}}" /></a></div>	
+          <div class="avatar update-av"><a href="#"><img src="{{profile.get_avatar}}" /></a></div>	
           <p class="user-editprofile"><button class="btn grey">обновить фото</button></p>
           <div class="user-sendmail">
             <p class="direction-lbl"><input id="usrname" class="usrname" value="{{profile.first_name}}" placeholder="Имя"></p>

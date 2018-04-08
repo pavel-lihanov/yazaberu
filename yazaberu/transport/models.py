@@ -93,6 +93,16 @@ class Delivery(models.Model):
     
     def __str__(self):
         return 'Delivery of {0} to {1} @ {2}'.format(self.parcel, self.trip.route.end, self.start_date)
+        
+    def complete(self, rating=None, comment=None):
+        self.trip.rider.completed_delivery.count += 1
+        self.parcel.owner.sent_parcel_count += 1
+        if rating is not None:
+            self.self.trip.rider.update_rating(rating)
+        if comment is not None:
+            self.self.trip.rider.comment_set.add(comment)
+        self.trip.rider.save()
+        self.parcel.owner.save()
 
 class Offer(models.Model):
     parcel = models.ForeignKey(Parcel)

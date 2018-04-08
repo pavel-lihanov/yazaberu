@@ -18,8 +18,9 @@ function loadPopup (url) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
-      var el = document.getElementById('popup-content');
-      el.innerHTML = this.responseText;
+      var el = $('#popup-content');
+      el.html(this.responseText);
+      el.addClass('is-visible');
     } else if (this.readyState == 4 && this.status == 302) {
         document.location = this.responseText;
     } else if (this.readyState < 4){
@@ -33,11 +34,32 @@ function loadPopup (url) {
   xhttp.send();
 }
 
-function find_parcel () {
-    var orig = document.getElementById('origin').value;
-    var dest = document.getElementById('destination').value;
-    document.location="/transport/trip_search?origin="+orig+"&destination="+dest;
+function add_trip(_from, _to, _date){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+        alert('OK');
+    } else if (this.readyState < 4){
+      
+    } else if (this.readyState != 200) {
+      alert('Error!', this.readyState);
+    }
+  }
+  xhttp.open('POST', '/transport/add_trip', true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send('from='+encodeURIComponent(_from)+'&to='+encodeURIComponent(_to)+'&date='+encodeURIComponent(_date));
 }
+
+function find_parcel (origin, destination, due_date) {
+    document.location="/transport/parcel_search?origin="+encodeURIComponent(origin)+"&destination="+encodeURIComponent(destination)+"&due_date="+due_date?encodeURIComponent(destination):"any";
+}
+
+function find_trip (origin, destination,due_date) {
+    document.location="/transport/trip_search?origin="+encodeURIComponent(origin)+"&destination="+encodeURIComponent(destination)+"&due_date="+due_date?encodeURIComponent(destination):"any";
+}
+
 
 function register () {
   var firstName = document.getElementById('first_name').value;
@@ -46,8 +68,8 @@ function register () {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
-      document.body.innerHTML = this.responseText;
-      document.location = this.responseURL;
+      var el = document.getElementById('popup-content');
+      el.innerHTML = this.responseText;
     } else if (this.readyState < 4){
       
     } else if (this.readyState != 200) {
@@ -58,7 +80,7 @@ function register () {
   var csrftoken = getCookie('csrftoken');
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send('first_name='+firstName+'&phone='+phone+'&email='+email);
+  xhttp.send('first_name='+encodeURIComponent(firstName)+'&phone='+encodeURIComponent(phone)+'&email='+encodeURIComponent(email));
 }
 
 function login_with_cr () {
@@ -79,5 +101,5 @@ function login_with_cr () {
   var csrftoken = getCookie('csrftoken');
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send('id='+id+'&password='+passwd);
+  xhttp.send('id='+encodeURIComponent(id)+'&password='+encodeURIComponent(passwd));
 }

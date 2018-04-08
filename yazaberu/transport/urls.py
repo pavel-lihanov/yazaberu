@@ -8,5 +8,4 @@ urlpatterns = [
     url(r'^parcel/(?P<id>[0-9]+)$', transport.views.parcel, name='parcel'),
     url(r'^add_parcel$', transport.views.add_parcel, name='add_parcel'),
     url(r'^add_trip$', transport.views.add_trip, name='add_trip'),
-
 ]

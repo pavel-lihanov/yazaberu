@@ -28,7 +28,7 @@
     <div class="auth-ctrls">
       <div class="notifications"><img src="/static/files/icon-notifications.svg"><img src="/static/files/mail.svg"></div>
       <div class="prof-hello s-hide">Здравствуйте, <a href="#">{{profile.first_name}}</a>!</div>
-      <div class="lk-menu s-hide"><div class="avatar"><img src="{{profile.avatar.image.url}}"></div>
+      <div class="lk-menu s-hide"><div class="avatar"><img src="{{profile.get_avatar}}"></div>
         <div class="info-point"></div>
         <div class="sub-menu">
         <ul>

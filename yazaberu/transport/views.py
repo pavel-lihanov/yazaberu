@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.template import loader
 
 from django.db.models import Q
-from transport.models import Trip, Parcel
+from transport.models import Trip, Parcel, Route, City
 from globals.models import Profile
 
 # Create your views here.
@@ -12,13 +12,41 @@ from globals.models import Profile
 def add_trip(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            template = loader.get_template('transport/add_trip.html')
+            template = loader.get_template('transport/add_trip_form.html')
             context = {}
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseRedirect('/auth/login')
-    else:
-        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        print(request.POST)
+        _from = request.POST['from']
+        _to=request.POST['to']
+        _date=request.POST['date']
+        p = Profile.objects.get(user=request.user)
+        try:
+            route = Route.objects.get(start__name=_from, end__name=_to)
+        except Route.DoesNotExist:
+            #TODO: move to Route.create()
+            try:
+                start = City.objects.get(name = _start)
+            except City.DoesNotExist:
+                start = City(name=_start)
+                start.save()
+            try:
+                end = City.objects.get(name = _end)
+            except City.DoesNotExist:
+                end = City(name=_end)
+                end.save()
+            route = Route(start=start, end=end)
+            route.save()
+
+        trip = Trip(start_date=_date, end_date=_date)
+        trip.rider=p
+        trip.route=route
+        trip.transport=0
+        trip.duration = 0
+        trip.save()
+        return HttpResponse('OK')
     
 def add_parcel(request):
     if request.method == 'GET':
