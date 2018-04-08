@@ -1,3 +1,12 @@
+<script>
+function f_find_parcel() {
+  _from = document.getElementById('parcel_from').value;
+  _to = document.getElementById('parcel_to').value;
+  _date = document.getElementById('parcel_date').value;
+  find_parcel(_from, _to, _date);
+}
+</script>
+
 <section class="banner">
 
 <div class="mainban transporter-ban">
@@ -12,7 +21,7 @@
 		</a>
 		</div>
 		
-		<button class="btn orng" onclick="find_parcel(document.getElementById('parcel_from').value, document.getElementById('parcel_to').value, document.getElementById('parcel_date').value)">Найти, что доставить</button>
+		<button class="btn orng" onclick="f_find_parcel()">Найти, что доставить</button>
 	</div>
 	</div>
 </div>

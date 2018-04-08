@@ -1,3 +1,13 @@
+<script>
+function f_find_trip() {
+  _from = document.getElementById('trip_from').value;
+  _to = document.getElementById('trip_to').value;
+  _date = document.getElementById('trip_date').value;
+  find_trip(_from, _to, _date);
+}
+</script>
+
+
 <section class="banner">
 
 <div class="mainban sender-baner">
@@ -12,7 +22,7 @@
 		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
 		</a>
 		</div>
-		<button class="btn blu" onclick="find_trip(document.getElementById('trip_from').value, document.getElementById('trip_to').value, document.getElementById('trip_date').value))">Найти перевозчика</button>
+		<button class="btn blu" onclick="f_find_trip()">Найти перевозчика</button>
 	</div>
 	</div>
 </div>

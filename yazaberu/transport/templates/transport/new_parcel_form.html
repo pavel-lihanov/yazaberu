@@ -1,0 +1,49 @@
+<script>
+function f_add_parcel() {
+    var _from=document.getElementById('from');
+    var _to=document.getElementById('to');
+    var _date=document.getElementById('date');
+    var is_return = false;
+    add_parcel(_from.value, _to.value, _date.value);
+}
+</script>
+
+<div class="add-new-form">
+  <div class="add-tash-h">
+    <h4>Создать заказ</h4>
+  </div>
+  <p>Фото посылки (добавьте минимум одно изображение)</p>
+  <div class="">
+    <button class="btn nofill-btn">
+      <svg width="26" height="20" vector-effect="non-scaling-stroke" class="icon camera-icon" viewBox="0 0 27 21"><path stroke="#ff806f" d="M25.5 5v13c0 .8-.7 1.5-1.5 1.5H2c-.8 0-1.5-.7-1.5-1.5V5c0-.8.7-1.5 1.5-1.5h5c.3 0 .5-.1.6-.4l1.1-1.9C9 .7 9.5.5 10 .5h5.6c.5 0 1 .3 1.3.7L18 3.1c.1.2.4.4.6.4H24c.8 0 1.5.7 1.5 1.5z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path><circle cx="13" cy="10.9" r="5.5" stroke="#ff806f" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></circle></svg> 
+      Загрузить фото
+    </button>
+  </div>
+  <p class="direction-lbl">
+    <label for="name" class="input">Название посылки</label>
+    <input id="name" class="name" value="" placeholder=""></p>
+  <p class="direction-lbl">
+    <label for="descr" class="input">Описание</label>
+    <input id="descr" class="descr" value="" placeholder=""></p>
+  <p class="direction-lbl">
+    <label for="maxprice" class="input">Максимальная цена за доставку, руб</label>
+    <input class="maxprice" id="maxprice" value="" placeholder="">
+  </p>
+  <p class="direction-lbl">
+    <label for="from" class="input">из</label>
+    <input id="from" class="from" value="Москва" placeholder="Город">
+  </p>
+  <p class="direction-lbl">
+    <label for="to" class="input">в</label>
+    <input class="to" id="to" value="Тверь" placeholder="Город">
+  </p>
+  <p class="direction-lbl">
+    <input class="time" id="date" value="" placeholder="Дата поездки">
+    <a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
+		</a>
+  </p>
+  <p>
+    <button class="btn btn-small blk" onclick="f_add_parcel()">Добавить заказ</button>
+  </p>
+</div>

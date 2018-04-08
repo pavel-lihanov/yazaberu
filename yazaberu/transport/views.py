@@ -4,9 +4,9 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.template import loader
 
 from django.db.models import Q
-from transport.models import Trip, Parcel, Route, City
+from transport.models import Trip, Parcel, Route, City, Location
 from globals.models import Profile
-
+from django.utils import timezone
 # Create your views here.
 
 def add_trip(request):
@@ -18,7 +18,6 @@ def add_trip(request):
         else:
             return HttpResponseRedirect('/auth/login')
     elif request.method=='POST':
-        print(request.POST)
         _from = request.POST['from']
         _to=request.POST['to']
         _date=request.POST['date']
@@ -28,14 +27,14 @@ def add_trip(request):
         except Route.DoesNotExist:
             #TODO: move to Route.create()
             try:
-                start = City.objects.get(name = _start)
+                start = City.objects.get(name = _from)
             except City.DoesNotExist:
-                start = City(name=_start)
+                start = City(name=_from)
                 start.save()
             try:
-                end = City.objects.get(name = _end)
+                end = City.objects.get(name = _to)
             except City.DoesNotExist:
-                end = City(name=_end)
+                end = City(name=_to)
                 end.save()
             route = Route(start=start, end=end)
             route.save()
@@ -51,13 +50,45 @@ def add_trip(request):
 def add_parcel(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            template = loader.get_template('transport/add_parcel.html')
+            template = loader.get_template('transport/new_parcel_form.html')
             context = {}
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseRedirect('/auth/login')
     else:
-        return HttpResponse('Not valid', status=422)
+        _from = request.POST['from']
+        _to=request.POST['to']
+        _date=request.POST['date']
+        p = Profile.objects.get(user=request.user)
+        try:
+            start = City.objects.get(name = _from)
+        except City.DoesNotExist:
+            start = City(name=_from)
+            start.save()
+        try:
+            end = City.objects.get(name = _to)
+        except City.DoesNotExist:
+            end = City(name=_to)
+            end.save()
+        ls = Location(address="Somwhere")
+        ls.city = start
+        ls.save()
+        le = Location(address="Somewhere")
+        le.city=end
+        le.save()
+        
+        parcel = Parcel()
+        parcel.description = "Something"
+        parcel.owner = p
+        parcel.weight = 1
+        parcel.value = 123
+        parcel.max_price = 101
+        parcel.origin = ls
+        parcel.destination = le
+        parcel.due_date = _date
+        parcel.comment = "Comment"
+        parcel.save()
+        return HttpResponse('OK')
 
 def trip_search(request):
     if request.method == 'GET':
@@ -73,11 +104,21 @@ def trip_search(request):
         else:
             dest = Q()
             
-        #TODO: date
-        trips = Trip.objects.filter(orig & dest)
+        if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
+            date = Q(end_date__le=request.GET['date'])
+        else:
+            date = Q(end_date__gt=timezone.now())
+
+        if request.user.is_authenticated():
+            p = Profile.objects.get(user=user)
+            mine = Q(rider=p)
+            trips = Trip.objects.filter(orig & dest & date & ~mine)
+        else:
+            trips = Trip.objects.filter(orig & dest & date)
+
         context = {'trips': trips}
         if user.is_authenticated():
-            context['profile']=Profile.objects.get(user=user)
+            context['profile']=p
         else:
             context['profile']=None
         return  HttpResponse(template.render(context, request))
@@ -98,11 +139,23 @@ def parcel_search(request):
         else:
             dest = Q()
             
-        #TODO: date
-        parcels = Parcel.objects.filter(orig & dest)
+        if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='':
+            date = Q(due_date__le=request.GET['date'])
+        else:
+            date = Q(due_date__gt=timezone.now())
+            
+        actual = Q(completed=False, delivery=None, )
+        
+        if request.user.is_authenticated():
+            p = Profile.objects.get(user=user)
+            mine = Q(owner=p)
+            parcels = Parcel.objects.filter(orig & dest & date & actual & ~mine)
+        else:
+            parcels = Parcel.objects.filter(orig & dest & date & actual)
+            
         context = {'parcels': parcels}
         if user.is_authenticated():
-            context['profile']=Profile.objects.get(user=user)
+            context['profile'] = p
         else:
             context['profile']=None
         return  HttpResponse(template.render(context, request))

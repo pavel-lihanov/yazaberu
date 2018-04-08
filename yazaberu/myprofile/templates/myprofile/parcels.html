@@ -3,8 +3,8 @@
 {% block profile_content %}
 <div class="user-name">
   <div class="container15">
-    <h2>Ваши отправления</h2>
-    <div class="add-new-task"><button class="btn btn-small blk">Добавить заказ</button></div>
+    <h2>Ваши посылки</h2>
+    <div class="add-new-task popup-trigger" onclick="loadPopup('/transport/add_parcel')"><button class="btn btn-small blk">Добавить заказ</button></div>
     <div class="tab">
       <ul class="tabs">
         <li><a href="#">{{pending_parcels.count}} Размещенных</a></li>

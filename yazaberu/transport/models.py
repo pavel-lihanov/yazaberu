@@ -45,6 +45,12 @@ class Parcel(models.Model):
     due_date = models.DateTimeField(null=True)
     #additional comment by owner
     comment=models.CharField(max_length=500, default='')
+    
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+        else:
+            return "/static/files/noimage.png"
 
     def __str__(self):
         return self.description
