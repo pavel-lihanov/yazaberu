@@ -1,0 +1,27 @@
+{% load rating %}
+<div class="offers-list-row columns">
+  <div class="transporter-name c3 xsc12">
+      <div class="avatar"><a href="/user/{{offer.trip.rider.id}}"><img src="{{offer.trip.rider.get_avatar}}"></a></div>
+      <div class="av-desc">
+        <div class="av-name"><a href="#"><strong>{{offer.trip.rider.name_public}}</strong></a></div>
+        <div class="av-trtype"><span>едет на печи</span></div>
+        {% rating offer.trip.rider.rider_rating %}
+        <div class="resp-qty"><a href="/messages/comments/{{offer.trip.rider}}">{{offer.trip.rider.comment_set.count}} отзывов</a></div>
+      </div>
+  </div>
+  <div class="c9 xsc12 columns">
+    <div class="transporter-info c7 xsc12">
+        <p class="delivery-date"><strong>{{offer.trip.end_date}}</strong></p>
+        <p class="direction">{{offer.trip.route.start.name}} <span>→</span> {{offer.trip.route.end.name}}</p>
+        <p class="place"><span>Место встречи: </span>где-то в {{offer.trip.route.start.name}}</p>
+    </div>
+    <div class="transport-info c5 xsc12">
+        <div class="transport-type"><img src="files/train.svg" width="30px"></div>
+        <p class="price"><strong>{{offer.price}}</strong></p>
+        <p class="max-weight">макс. {{offer.parcel.max_weight}} кг</p>
+        {%if profile == offer.parcel.owner %}
+        <div class="take-order"><button class="btn btn-small blu" onclick="acceptOffer({{offer.id}})">Выбрать для доставки</button><button class="btn btn-small emptycolor">Посмотреть контакты</button></div>
+        {% endif %}
+    </div>
+  </div>
+</div>

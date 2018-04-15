@@ -1,5 +1,9 @@
 from django.db import models
 from django.db.models import Min, Max, Sum, Count
+from django.core.signals import request_finished
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from comments.models import Notification
 
 # Create your models here.
 
@@ -45,6 +49,7 @@ class Parcel(models.Model):
     due_date = models.DateTimeField(null=True)
     #additional comment by owner
     comment=models.CharField(max_length=500, default='')
+    published = models.BooleanField(default=True)
     
     def get_image_url(self):
         if self.image:
@@ -78,6 +83,8 @@ class Trip(models.Model):
     duration = models.IntegerField()
     price = models.IntegerField(default=0)
     max_weight = models.IntegerField(default=5)
+    published = models.BooleanField(default=True)
+
     def __str__(self):
         return 'Trip {0} by {1} @ {2}'.format(self.route, self.rider, self.start_date)
 
@@ -111,9 +118,12 @@ class Delivery(models.Model):
         self.parcel.owner.save()
 
 class Offer(models.Model):
+    receiver = models.ForeignKey(Profile)
     parcel = models.ForeignKey(Parcel)
     trip = models.ForeignKey(Trip)
     price = models.IntegerField(default=0)
+    meeting_1 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_from')
+    meeting_2 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_to')
 
 #TODO: most popular routes
 def get_popular_routes(cnt=3):
@@ -145,3 +155,10 @@ def delivered_parcels_count():
     
 def total_income():
     return Delivery.objects.filter(delivered=True).aggregate(Sum('price'))['price__sum']
+
+@receiver(post_save, sender=Offer)
+def offer_saved(sender, instance, created, raw, using, update_fields, **kwargs):
+    if instance.receiver == instance.parcel.owner:
+        instance.receiver.notify(topic='Delivery offer', text='{0} has offered to transport {1}'.format(instance.trip.rider.name_public, instance.parcel.description))
+    elif instance.receiver == instance.trip.rider:
+        instance.receiver.notify(topic='Delivery offer', text='{0} has offered you to transport {1} to {2}'.format(instance.parcel.owner.name_public, instance.parcel.description, instance.parcel.destination.city.name))

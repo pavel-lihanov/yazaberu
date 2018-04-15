@@ -1,7 +1,15 @@
 {% extends "myprofile/parcel.html" %}
 
 {% block edit %}
-  <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+  {% if parcel.offer_set.count %}
+    <div class="take-order-qty">
+      <a href="/transport/deal/{{parcel.id}}">{{parcel.offer_set.count}} предложений</a>
+    </div>
+  {% else %}
+    <div class="take-order">
+      <button class="btn btn-small emptycolor">Редактировать</button>
+    </div>
+  {% endif %}
 {% endblock %}
 
 {% block delivery_info %}

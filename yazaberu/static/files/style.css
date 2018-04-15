@@ -24,6 +24,7 @@ input, textarea, select, button {font-size:17px;outline:none;border:0;}
 .container15 {padding:0px 15px;max-width:1903px}
 .container980 {max-width:980px;margin: 0 auto; padding: 0 15px;}
 .container400 {margin:0 auto;max-width:400px}
+.devider {height:1px;background-color:#00acec; width:100%}
 .btn {color:#fff;padding:14px 33px;}
 .blu {background-color:#15b3ee;}
 .blu:hover {background-color:#00acec;}
@@ -111,9 +112,9 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 
 /*гл. страница */
 .banner {height: 100%;}
-.mainpage-ban {background: url(/static/files/silder1.jpg) center bottom no-repeat;}
-.sender-baner {background:#fcfbf8 url(/static/files/world-map.png) center center no-repeat;    }
-.transporter-ban {background:#fcfbf8 url(/static/files/mainbanner-transporter.jpg) center center no-repeat;}
+.mainpage-ban {background: url(silder1.jpg) center bottom no-repeat;}
+.sender-baner {background:#fcfbf8 url(world-map.png) center center no-repeat;    }
+.transporter-ban {background:#fcfbf8 url(mainbanner-transporter.jpg) center center no-repeat;}
 .mainban {background-size:cover;padding-top: 4%; min-height:513px;      position: relative;display: block;}
 .sender-baner {background-size: contain;}
 .banner .short {background-size: inherit;    min-height: 147px;    padding-top: 1%;}
@@ -263,7 +264,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 /*transport*/
 .transport-facts {max-width: 1560px;text-align:center}
 .transport-facts h3 {margin:0;padding:0;}
-.transport-facts .columns {background:url(/static/files/world-map.png) center center no-repeat; background-size: contain;
+.transport-facts .columns {background:url(world-map.png) center center no-repeat; background-size: contain;
     padding: 30px 50px 0;
     margin-bottom: 75px;
     display: -webkit-box;
@@ -327,6 +328,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .transport-type {margin:2px 5px 0 15px;}
 .transport-info .price {margin:5px 5px 0 0;}
 .take-order {margin:5px;}
+.add-new-form .take-order {margin:0px;}
 .plan img {color: #15b3ee;-moz-transform: rotate(90deg);    -ms-transform: rotate(90deg);    -webkit-transform: rotate(90deg);    -o-transform: rotate(90deg);    transform: rotate(90deg);}
 .car svg {color: #15b3ee;}
 .stars svg {stroke:none; color: #ff806f;}
@@ -349,8 +351,8 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 }
 a.resp-more {border-bottom:1px #000 solid}
 
-.registration {background: url(/static/files/bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
-.registration-tr {background: url(/static/files/bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration {background: url(bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration-tr {background: url(bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
 
 
 .columns, .cols{
@@ -393,13 +395,17 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .list-controls {margin-bottom:10px;}
 .sort-by{float:right} .sort-by a{color:#eb5834}
 .add-newtask {background-color:#fcfbf8;padding:40px 20px;}
+.add-new-form {max-width:340px; margin:0 auto; margin-bottom:19px;}
+.add-new-form input,.add-new-form .btn {margin:0}
+.add-new-form p.wayname {text-align: left;  color: #b9b9b9;}
+.add-new-form .transporter-info {text-align:left}
 .add-tash-h {text-align:center}
 .add-tash-h h4 {margin:9px 0 3px;font-weight:500;font-size:21px;}
 .add-tash-h p{color:#6a6a6a;font-size: 13px; line-height: 19px;}
-.direction-lbl {position:relative}
-.direction-lbl input {width:100%;padding-left: 46px;background-color:#f8f8f8;margin:0;}
+.direction-lbl,.form-input-lbl {position:relative}
+.direction-lbl input {width:100%;padding-left: 41px;background-color:#f8f8f8;margin:0;}
 .task-alerting {color:#6a6a6a; font-size:15px}
-.direction-lbl label {position:absolute; top:13px;left:17px;color:#b9b9b9}
+.direction-lbl label,.form-input-lbl label {position:absolute; top:13px;left:17px;color:#b9b9b9}
 .task-list-row, .offers-list-row {border-top:1px #ededed solid;border-bottom:1px #ededed solid;margin-bottom:19px;    align-items: center;position:relative}
 .transporter-name {background-color:#fcfbf8;padding:20px 0 20px 11px;}
 .transporter-name .avatar,.transporter-name .av-desc {display:inline-block;vertical-align: middle;}
@@ -410,7 +416,11 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .resp-qty a{color:#eb5834; border-bottom:1px #eb5834 solid;font-size:13px;    vertical-align: text-top;}
 .resp-qty a:hover {color:#15b3ee}
 .av-desc  span,.reg-date {color:#818181;font-size:13px;}
-
+.way-grafic {text-align:left;}
+.way-grafic .calendar-icon { top: 8px;}
+.way-grafic a{position:relative;padding:8px 11px;border-radius:3px; border:1px #eaeaea solid;font-size:13px;margin-right: 5px;}
+.way-grafic a:hover {background-color:#4296dc;color:#fff}
+.way-grafic .ctrl-vscal {padding-right:35px}
 /*.transporter-info {float:left}*/
 .transport-info {/*float:right*/    text-align: right; }
 .transport-info .transport-type {float: right;}
@@ -444,19 +454,22 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .list-to-send .transporter-name .reg-date {float:right;padding: 3px;}
 .take-order-qty {position:absolute;bottom:10px;right:5px;}
 .take-order-qty a {color: #6a6a6a;}
-.add-newtask .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+.add-newtask .place,.add-new-form .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px;text-align: left;margin-bottom:25px;}
+.add-newtask .place a,.add-new-form .place a {color:#4296dc; border-bottom:1px #4296dc dashed;}
 /*Конец Список заявкок на отправку*/
 
 
 /*tabs */
-.tabs {display: flex;justify-content: space-between;	position: relative;	margin: 0;padding: 0;width: 100%;background-color: #fcfbf8;}
-.tabs li {display:inline-block;padding: 0;position: relative;}
-.tabs a {display: block;padding: 9px 7px;-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;}
-.tabs li.current a{border-bottom: 1px solid #15b3ee; color:#15b3ee}
+.tabs {display: flex;justify-content: left;	position: relative;	margin: 0;padding: 0;width: 100%;border-bottom:1px #eaeaea solid}
+.add-new-form  .tabs  {justify-content: space-between;}
+.tabs li {display:inline-block;padding: 0;position: relative;margin-right:19px;}
+.add-new-form  .tabs li {margin-right:0px;}
+.tabs li:last-child{margin-right:0px;}
+.tabs a {display: block;padding: 5px 0px;-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;}
+.tabs li.current a{border-bottom: 2px solid #4296dc; color:#4296dc}
 .tabs_item {display: none;}
 .tabs_item:first-child {display: block;}
-.tabs_item label {color:#bfbfbf; border-radius: 3px; display: inline-block; text-align: left; width: auto; height: 19px; cursor: pointer;  padding: 5px 7px 3px;  min-width: 41px;text-align: center; margin: 0 3px; border: 1px #dde0e5 solid;margin-bottom:15px;}
-.tabs_item label:hover {background-color:#ffeb9a;color:#000;}
+
 .tabs_item label.active { border: 1px #ffcd00 solid;background-color:#ffcd00;color:#000;}
 .tabs_item input[type=radio] {opacity:0;display:none}
 .tabs_item input[type=text]{border:0;border-bottom:1px solid #dde0e5;width:70%}
@@ -501,11 +514,16 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
     min-height: 150px;
     line-height: 18px;
 	margin:10px 0}
+
 .ask-form .btn-qsend {text-align:right;}	
 .ask-form .btn-qsend button {margin:0}
+.ask-form h4 {font-weight: 500; margin: 9px 0 3px;font-size:21px}
+.popup-container .ask-form{max-width:340px;margin:0 auto}
+.popup-container .ask-form textarea {background-color: #fcfbf8;    padding: 15px;}
 /*Конец Страница сделки */
 /* Form controls */
-.what-transport img{vertical-align: middle;margin:0 5px 0 7px;padding:3px;}
+.what-transport {text-align: left;}
+.what-transport img{vertical-align: middle;margin:0 0 0 7px;padding:3px;}
 .what-transport img:hover {border:1px #15b3ee solid}
 /*End Form controls */
 .task-alerting {text-align: right; margin-bottom: 47px;margin-top: 37px;}
@@ -674,7 +692,8 @@ input.cmn-toggle-round-flat:checked + label:after {
 .haveaccount a{color:#eb5834; border-bottom:1px #eb5834 solid;    margin-bottom: 39px;}
 .haveaccount a:hover {color:#3d97df;}
 .popup-container input,.popup-container .btn {min-width: 340px;font-size: 15px;}
-.popup-container input {background-color: #fcfbf8;}
+.two-ways input {min-width: 100%;margin:0;    max-width: 100%; }
+.popup-container input {background-color: #fbfbfb;border:1px #eaeaea solid}
 .checkbox {
     cursor: pointer;
     font-size: 14px;
@@ -707,7 +726,7 @@ input.cmn-toggle-round-flat:checked + label:after {
     top: 4px;
     width: 14px;
     height: 11px;
-    background: url(/static/files/check.svg) no-repeat;
+    background: url(check.svg) no-repeat;
     background-size: 100%;
     opacity: 0;
     transition: .3s;
@@ -868,7 +887,7 @@ footer {text-align:left}
 
 .transporter-info {margin:0px}
 .transporter-info p,.transporter-info h5 {padding:0 5px;}
-.transporter-info .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+.transporter-info .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
 .transporter-info .place span {display:none}
 .transport-info .btn-small {opacity:1;}
 .transport-info  {text-align:left;margin-left:5px;}
@@ -897,9 +916,9 @@ section {margin-bottom: 29px;}
 .deal {padding-top:5px;}
 .sender-baner .container,.transporter-ban .container {background:none}
 .search-form .inpt,.search-form .inpt input,.search-form .btn {margin:0; width: -webkit-fill-available;margin-bottom:7px;}
-.btn,.transporter-txt .btn {width: 100%; padding:14px 0;margin: 4px 0}
+.btn,.transporter-txt .btn {padding:14px 0;margin: 4px 0}
 .delivery-road span,.time span {display:none}
-.popup-container input, .popup-container .btn {min-width:300px;max-width:300px}
+
 .agreement {max-width:300px}
 .transporter-txt p {font-size: 14px; line-height: 19px;}
 .benefits .txt p {font-size: 14px; line-height: 22px;  margin: 0;}
@@ -941,12 +960,12 @@ section {margin-bottom: 29px;}
 .xxsc12{width:100.0%;margin: 0 }
 }
 
-@media (max-width: 320px)
+@media (max-width: 375px)
 {
 .transporter-info, .transport-info {float:none}
 .transport-info .transport-type {bottom: 4px;}
 .burger .authorized {display:none!important}
-.popup-container input, .popup-container .btn {min-width: 261px;    max-width: 261px;}
+.popup-container input, .popup-container .btn {min-width: 95%;    max-width: 95%;}
 .agreement {max-width: 261px;}
 .popup-container h4 {margin:0}
 .transport-info .transport-type {float:right}

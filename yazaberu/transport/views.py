@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.template import loader
 
 from django.db.models import Q
-from transport.models import Trip, Parcel, Route, City, Location
+from transport.models import Trip, Parcel, Route, City, Location, Offer, Delivery
 from globals.models import Profile
 from django.utils import timezone
 # Create your views here.
@@ -12,7 +12,7 @@ from django.utils import timezone
 def add_trip(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            template = loader.get_template('transport/add_trip_form.html')
+            template = loader.get_template('transport/new_trip_form.html')
             context = {}
             return  HttpResponse(template.render(context, request))
         else:
@@ -55,7 +55,8 @@ def add_parcel(request):
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseRedirect('/auth/login')
-    else:
+    elif request.method == 'POST':
+        print(request.POST)
         _from = request.POST['from']
         _to=request.POST['to']
         _date=request.POST['date']
@@ -78,22 +79,24 @@ def add_parcel(request):
         le.save()
         
         parcel = Parcel()
-        parcel.description = "Something"
+        parcel.description = request.POST['name']
         parcel.owner = p
-        parcel.weight = 1
-        parcel.value = 123
-        parcel.max_price = 101
+        parcel.weight = int(1)
+        parcel.value = 100
+        parcel.max_price = int(request.POST['max_price'])
         parcel.origin = ls
         parcel.destination = le
         parcel.due_date = _date
-        parcel.comment = "Comment"
+        parcel.comment = request.POST['descr']
         parcel.save()
-        return HttpResponse('OK')
+        return HttpResponseRedirect('/profile/parcels')
 
 def trip_search(request):
     if request.method == 'GET':
         user = request.user
         template = loader.get_template('transport/trip_search.html')
+        actual = Q(published=True, start_date__gt=timezone.now())
+
         if 'origin' in request.GET and request.GET['origin']!='':
             orig = Q(route__start__name=request.GET['origin'])
         else:
@@ -112,9 +115,9 @@ def trip_search(request):
         if request.user.is_authenticated():
             p = Profile.objects.get(user=user)
             mine = Q(rider=p)
-            trips = Trip.objects.filter(orig & dest & date & ~mine)
+            trips = Trip.objects.filter(actual & orig & dest & date & ~mine)
         else:
-            trips = Trip.objects.filter(orig & dest & date)
+            trips = Trip.objects.filter(actual & orig & dest & date)
 
         context = {'trips': trips}
         if user.is_authenticated():
@@ -139,12 +142,12 @@ def parcel_search(request):
         else:
             dest = Q()
             
-        if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='':
-            date = Q(due_date__le=request.GET['date'])
+        if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
+            date = Q(due_date__lt=request.GET['date'])
         else:
             date = Q(due_date__gt=timezone.now())
             
-        actual = Q(completed=False, delivery=None, )
+        actual = Q(delivery=None, published=True)
         
         if request.user.is_authenticated():
             p = Profile.objects.get(user=user)
@@ -177,3 +180,104 @@ def parcel(request, id):
             return  HttpResponse(template.render(context, request))
         except Parcel.DoesNotExist:
             return HttpResponseNotFound()
+
+def offer_trip(request, parcel):
+    if request.method=='GET':
+        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        p = Profile.objects.get(user=request.user)
+        parcel = parcel.objects.get(id=parcel)
+        trip=request.POST['trip']
+        #TODO: move to Offer.create(parcel, price) or parcel.make_offer(trip, price)
+        offer = Offer()
+        assert(trip.rider == p)
+        offer.delivery=delivery
+        offer.trip = trip
+        offer.receiver = parcel.owner
+        offer.save()
+        return HttpResponse('OK')
+
+def offer_parcel(request, trip):
+    if request.method=='GET':
+        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        p = Profile.objects.get(user=request.user)
+        trip = parcel.objects.get(id=trip)
+        parcel=request.POST['parcel']
+        #TODO: move to Offer.create(trip, price) or trip.make_offer(parcel, price)
+        offer = Offer()
+        assert(parcel.owner == p)
+        offer.delivery=delivery
+        offer.trip = trip
+        offer.receiver = trip.rider
+        offer.save()
+        return HttpResponse('OK')
+        
+def accept_offer(request, id):
+    if request.method=='GET':
+        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        p=Profile.objects.get(user=request.user)
+        offer=Offer.objects.get(id=id)
+        d = Delivery()
+        d.parcel = offer.parcel
+        d.trip = offer.trip
+        d.price = offer.price
+        d.delivered = False
+        delta = (d.trip.end_date - d.trip.start_date)
+        d.duration = (delta.days * 86400 + delta.seconds) // 3600
+        d.save()
+        return HttpResponse('OK')
+        
+def deal(request, id):
+    if request.method=='GET':
+        p = Profile.objects.get(user=request.user)
+        parcel = Parcel.objects.get(id=id)
+        if parcel.published or parcel.owner==p:
+            context = {}
+            offers = parcel.offer_set.all()
+            template = loader.get_template('transport/deal.html')
+            context['profile']=p
+            context['parcel']=parcel
+            context['offers']=list(offers)
+            return  HttpResponse(template.render(context, request))
+        else:
+            return HttpResponseForbidden()
+    else:
+        return HttpResponse('Not valid', status=422)
+        
+def offer_trip(request, id):
+    parcel = Parcel.objects.get(id=id)
+    p = Profile.objects.get(user=request.user)
+    if request.method == 'GET':
+        template = loader.get_template('transport/offer_trip_form.html')
+        trips = Trip.objects.filter(rider=p, route__end=parcel.destination.city, start_date__gt=timezone.now(), end_date__lt=parcel.due_date)
+        context = {'profile':p, 'parcel':parcel, 'trips':trips}
+        return  HttpResponse(template.render(context, request))
+    elif request.method == 'POST':
+        trip = Trip.objects.get(id=int(request.POST['trip']))
+        if trip.rider == p:
+            offer = Offer()
+            offer.receiver = parcel.owner
+            offer.parcel = parcel
+            offer.trip = trip
+            offer.price = int(request.POST['price'])
+            offer.save()
+            parcel.owner.notify(topic='Trip offer', text='{0} offered to transport {1} for {2}'.format(p.name_public, parcel.description, offer.price))
+        else:
+            return HttpResponseForbidden()
+        return HttpResponseRedirect('/transport/deal/{0}'.format(parcel.id))
+
+def offer_parcel(request, id):
+    trip = Trip.objects.get(id=id)
+    p = Profile.objects.get(user=request.user)
+    if request.method == 'GET':
+        template = loader.get_template('transport/offer_parcel_form.html')
+        parcels = Parcel.objects.filter(
+            owner=p,
+            destination__city=trip.destination,
+            due_date__le=trip.end_date)
+        context = {'profile':p, 'parcels':parcels}
+        return  HttpResponse(template.render(context, request))
+    elif request.method == 'POST':
+        return HttpResponse('Not implemented', status=422)

@@ -18,6 +18,10 @@ class Profile(models.Model):
     def __str__(self):
         return '{0} {1}'.format(self.first_name, self.last_name)
         
+    def notify(self, topic, text):
+        #TODO: notify method can be phone, email or both
+        print('{0} should be notified of {1} ({2})'.format(self.name_public, topic, text) )
+        
     @property
     def name_public(self):
         return '{0} {1}.'.format(self.first_name, self.last_name[0])

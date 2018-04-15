@@ -1,41 +1,5 @@
 ﻿{% extends "myprofile/index.html" %}
 
 {% block profile_content %}
-<div class="user-name">
-  <div class="container15">
-    <h2>Ваши поездки</h2>
-    <div class="add-new-task"><button class="btn btn-small blk popup-trigger" onclick="loadPopup('/transport/add_trip')">Добавить поездку</button></div>	
-    <div class="tab">
-      <ul class="tabs">
-          <li><a href="#">{{trips.future.count}} Размещенных</a></li>
-          <li><a href="#">{{trips.completed.count}} Доставлено</a></li>
-          <li><a href="#">0 Черновик</a></li>
-      </ul>
-      <div class="tab_content">
-        <div class="tabs_item">
-          {% if trips.future %}
-            {% for t in trips.future %}
-              {% include "myprofile/trip.html" with trip=t only %}
-            {% endfor %}
-          {% else %}
-            <p>Нет будущих поездок</p>
-          {% endif %}
-        </div>
-        <div class="tabs_item">
-          {% if trips.completed %}
-            {% for t in trips.completed %}
-              {% include "myprofile/trip.html" with trip=t only %}
-            {% endfor %}
-          {% else %}
-            <p>Еще не было поездок</p>
-          {% endif %}
-        </div>
-        <div class="tabs_item">
-          <p>Можно размещать планируемые поездки, которые будут видны только вам</p>
-        </div>
-      </div>
-</div>
-</div>
-</div>
-
+  {% include "myprofile/delivery_list.html" with trips=trips %}
 {% endblock %}

@@ -1,0 +1,406 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>Сервис ЯЗаберу - Список заказов на отправку</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--<link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&amp;subset=cyrillic" rel="stylesheet">-->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;subset=cyrillic" rel="stylesheet">
+<link href='files/style.css' rel='stylesheet' type='text/css'>
+<script type="text/javascript" charset="utf-8"  src="files/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" charset="utf-8" async="" src="files/common.js"></script>
+<meta name="viewport" content="width=device-width">
+</head>
+<body>
+
+	<div class="popup-container">
+	 <h1>F2</h1>
+	 <!-- авторизация -->
+	<div class="login-form">
+	<h4>Войти <a href="#">Еще нет аккаунта?</a></h4>
+		<div class="auth-signin">	
+		<p>Авторизуйтесь через социальные сети</p>			
+		<div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
+		<div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
+		<div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
+		<div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
+		<div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
+		</div>
+		<div class="tradition-reg">
+		<p>или войдите по логину/паролю</p>
+		<p><input type="text" value="" placeholder="Телефон или E-mail"></p>
+		<p><input type="text" value="" placeholder="Пароль"></p>
+		
+		
+        
+		<p><button class="btn noactive blk">Войти в ЯЗабе.ру</button></p>
+		</div>		
+		<p class="haveaccount">Забыли пароль? <a href="#">Восстановить доступ</a></p>
+	
+	</div>
+	<div class="devider"></div>
+	 <h1>F2.2</h1>
+	<div class="forgotpass-reg">
+	<h4>Восстановить доступ</h4>
+		<p><input type="text" value="" placeholder="Электронная почта"></p>
+		<p><button class="btn noactive blk">Восстановить</button></p>
+	</div>
+	
+	<div class="devider"></div>
+	 <h1>F2.3</h1>
+	<div class="forgotpass-reg">
+	<h4>Сменить пароль</h4>
+		<p><input type="text" value="" placeholder="Новый пароль"></p>
+		<p><input type="text" value="" placeholder="Подтвердите пароль"></p>
+		<p><button class="btn noactive blk">Сменить пароль</button></p>
+	</div>	
+	
+	<div class="devider"></div>
+	<h1>F3</h1>
+	 <!-- регистрация -->
+	<div class="reg-form">
+	<h4>Ещё не с нами? Присоединяйтесь!</h4>
+		<div class="auth-signin">	
+		<p>Авторизуйтесь через социальные сети</p>			
+		<div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
+		<div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
+		<div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
+		<div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
+		<div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
+		</div>
+		<div class="tradition-reg">
+		<p>или зарегистрируйтесь</p>
+		<p><input type="text" value="" placeholder="Ваше Имя"></p>
+		<p><input type="text" value="" placeholder="Телефон"></p>
+		<p><input type="text" value="" placeholder="Электронная почта"></p>
+		<div class="agreement"><label class="checkbox">
+        <input type="checkbox" name="user_agreement" required="" checked="checked"><span class="checkbox__text">Я согласен с условиями обработки <a href="#">персональных данных</a>.</span></label></div>
+		<p><button class="btn noactive blk">Зарегистрироваться</button></p>
+		</div>
+	<p class="haveaccount">Уже зарегистрированы? <a href="#">Войти</a></p>
+	</div>
+	<div class="devider"></div>
+	 <h1>F3.1</h1>
+	<div class="forgotpass-reg">
+	<h4>Придумайте пароль</h4>
+		<p><input type="text" value="" placeholder="Пароль"></p>
+		<p><input type="text" value="" placeholder="Повторите пароль"></p>
+		<p><button class="btn noactive blk">Завершить регистрацию</button></p>
+	</div>	
+	<div class="devider"></div>
+	 <!-- Подтверждение по смс -->
+	 <h1>F3.2</h1>
+	 <div class="step-regconfirm">
+	<h4>Подтверждение данных</h4>
+		<div class="sms-confirm">	
+		<p>Введите код подтверждения, указаный в SMS</p>			
+		<p><input class="pass" type="password" value="" placeholder="_ _ _ _" ></p>	
+		<p class="re-sendpass">Отправить SMS еще раз возможно через <span class="pass-counter" data-count="0">30</span> сек.</p>        
+		<p><button class="btn noactive blk">Подтвердить аккаунт</button></p>
+		</div>			
+	</div>
+	<div class="devider"></div>
+	<h1>F3.3</h1>
+	 <!-- Приветствие после регистрации -->
+	<div class="congratulate">
+	<h4><span class="usr-name">Лена</span>, теперь вы с нами!</h4>
+		
+		<p>Спасибо за регистрацию на ЯЗабе.ру</p>			
+		<p><button class="btn nofill-btn">Указать больше информации о себе</button></p>		
+		<p><button class="btn blu">Найти перевозчика</button>
+		<button class="btn orng">Предложить доставку</button>		
+		</p>
+	</div>
+	
+	 <div class="devider"></div>
+
+<h1>F4</h1>	
+<div class="add-new-form">
+<div class="add-tash-h">
+<img src="files/add-new-task.png">
+<h4>Добавить поездку</h4>
+<p>сообщите о поездке остальным, чтобы зарабатывать в каждом путешествии</p>
+</div>
+
+<div class="tab">
+
+<ul class="tabs">
+		<li class="current"><a href="#">1 поездка</a></li>
+		<li><a href="#">Туда-обратно</a></li>
+		<li><a href="#">Регулярные</a></li>
+	
+</ul>
+
+<div class="tab_content">
+<div class="tabs_item">		
+
+
+<p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
+<p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
+<p class="form-input-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
+
+<p class="form-input-lbl"><label for="weight" class="input"></label><input class="weight" id="weight" value="" placeholder="Ограничить вес, кг"></p>
+<div class="what-transport">
+<p>На чем поедете?
+<a href="#"><img src="files/train.svg" width="36px"/></a>
+<a class="plan" href="#"><img src="files/t-plan.svg" width="36px"></a>
+<a class="car" href="#"><img src="files/t-car.svg" width="40px"></a>
+<a class="bus" href="#"><img src="files/t-bus.svg" width="33px"></a>
+
+</p>
+</div>
+<p class="place"><a href="#">Уточнить место встречи</a></p>
+	
+<p><button class="btn btn-small blk">Добавить поездку</button></p>
+<div class="task-alerting switch"><span>Уведомлять о новых заявках</span>
+  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked="checked">
+  <label for="cmn-toggle-1"></label>
+</div>	
+
+
+
+</div>
+<div class="tabs_item">		
+	<p class="wayname">Маршрут поездки</p>
+	<div class="columns two-ways">
+		<div class="c6"><input id="from" class="from" value="Москва" placeholder="Город"></div>
+		<div class="c6"><input class="to" id="to" value="Тверь" placeholder="Город"></div>
+	</div>
+	<p class="place"><a href="#">Уточнить места встречи</a></p>
+	<p class="form-input-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
+	<div class="what-transport">
+		<p>На чем едете туда?
+		<a href="#"><img src="files/train.svg" width="36px"/></a>
+		<a class="plan" href="#"><img src="files/t-plan.svg" width="36px"></a>
+		<a class="car" href="#"><img src="files/t-car.svg" width="40px"></a>
+		<a class="bus" href="#"><img src="files/t-bus.svg" width="33px"></a>
+		</p>
+	</div>
+	<p class="form-input-lbl"><input class="time" value="" placeholder="Дата обратной поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
+	<div class="what-transport">
+		<p>На чем обратно?
+		<a href="#"><img src="files/train.svg" width="36px"/></a>
+		<a class="plan" href="#"><img src="files/t-plan.svg" width="36px"></a>
+		<a class="car" href="#"><img src="files/t-car.svg" width="40px"></a>
+		<a class="bus" href="#"><img src="files/t-bus.svg" width="33px"></a>
+	</p>
+	</div>
+	<p class="form-input-lbl"><label for="weight" class="input"></label><input class="weight" id="weight" value="" placeholder="Ограничить вес, кг"></p>
+	<p><button class="btn btn-small blk">Добавить поездку</button></p>
+	<div class="task-alerting switch"><span>Уведомлять о новых заявках</span>
+		<input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked="checked">
+		<label for="cmn-toggle-2"></label>
+	</div>	
+</div>
+<div class="tabs_item">		
+	<p class="wayname">Маршрут поездки</p>
+	<div class="columns two-ways">
+		<div class="c6"><input id="from" class="from" value="Москва" placeholder="Город"></div>
+		<div class="c6"><input class="to" id="to" value="Тверь" placeholder="Город"></div>
+	</div>
+	<p class="place"><a href="#">Уточнить места встречи</a></p>
+		<div class="what-transport">
+		<p>На чем ездите?
+		<a href="#"><img src="files/train.svg" width="36px"/></a>
+		<a class="plan" href="#"><img src="files/t-plan.svg" width="36px"></a>
+		<a class="car" href="#"><img src="files/t-car.svg" width="40px"></a>
+		<a class="bus" href="#"><img src="files/t-bus.svg" width="33px"></a>
+		</p>
+	</div>
+	<p class="form-input-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
+
+	<p class="form-input-lbl"><input class="time" value="" placeholder="Дата обратной поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
+
+<div class="way-grafic">
+<p>Как часто ездите?</p>
+<a href="#">Ежедневно</a><a href="#">Раз/неделю</a><a href="#" class="ctrl-vscal">Выбрать дни <svg width="19" height="17" stroke="#000000" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a>
+</div>
+
+	<p class="form-input-lbl"><label for="weight" class="input"></label><input class="weight" id="weight" value="" placeholder="Ограничить вес, кг"></p>
+	<p><button class="btn btn-small blk">Добавить поездку</button></p>
+	<div class="task-alerting switch"><span>Уведомлять о новых заявках</span>
+		<input id="cmn-toggle-3" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked="checked">
+		<label for="cmn-toggle-3"></label>
+	</div>	
+</div>
+		</div>
+	</div>
+
+
+
+</div>
+<div class="devider"></div>
+<h1>F5</h1>	
+<div class="add-new-form">
+<div class="add-tash-h">
+
+<h4>Найти перевозчика</h4>
+</div>
+<p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
+<p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
+<p class="direction-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
+		</a></p>
+
+	
+<p><button class="btn btn-small blk">Найти поездки</button></p>
+</div>
+<div class="devider"></div>
+<h1>F6</h1>	
+<div class="add-new-form">
+<div class="add-tash-h">
+
+<h4>Найти заказы на перевозку</h4>
+</div>
+<p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
+<p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
+<p class="direction-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
+		</a></p>
+
+	
+<p><button class="btn btn-small blk">Найти, что отвезти</button></p>
+</div>
+
+<div class="devider"></div>
+<h1>F7</h1>	
+<div class="add-new-form">
+<div class="add-tash-h">
+
+<h4>Создать заказ</h4>
+</div>
+<p>Фото посылки (добавьте минимум одно изображение)</p>
+<div class="">
+<button class="btn nofill-btn"><svg width="26" height="20"  vector-effect="non-scaling-stroke" class="icon camera-icon" viewBox="0 0 27 21"><path stroke="#ff806f"  d="M25.5 5v13c0 .8-.7 1.5-1.5 1.5H2c-.8 0-1.5-.7-1.5-1.5V5c0-.8.7-1.5 1.5-1.5h5c.3 0 .5-.1.6-.4l1.1-1.9C9 .7 9.5.5 10 .5h5.6c.5 0 1 .3 1.3.7L18 3.1c.1.2.4.4.6.4H24c.8 0 1.5.7 1.5 1.5z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path><circle cx="13" cy="10.9" r="5.5" stroke="#ff806f"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></circle></svg> Загрузить фото</button>
+
+
+</div>
+<p class="direction-lbl"><label for="name" class="input">Название посылки</label><input id="name" class="name" value="" placeholder=""></p>
+<p class="direction-lbl"><label for="descr" class="input">Описание</label><input id="descr" class="descr" value="" placeholder=""></p>
+<p class="direction-lbl"><label for="maxprice" class="input">Максимальная цена за доставку, руб</label><input class="maxprice" id="maxprice" value="" placeholder=""></p>
+
+<p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
+<p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
+<p class="direction-lbl"><input class="time" value="" placeholder="Дата поездки"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+		<path fill="none" stroke-linecap="round"  stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
+		</a></p>
+
+	
+<p><button class="btn btn-small blk">Добавить заказ</button></p>
+</div>
+<div class="devider"></div>
+<h1>F8</h1>	
+<div class="ask-form">
+<h4>Написать Имя Пользователя</h4>
+	<form id="ask-privatmsg">
+		<textarea name="ask-field" placeholder="Ваше сообщение"></textarea>
+		<div class="btn-qsend"><button class="btn blk">Отправить</button></div>
+	</form>
+</div>
+
+
+
+
+
+
+<div class="devider"></div>
+<h1>F10</h1>	
+<div class="add-new-form">
+<div class="add-tash-h">
+
+<h4>Подтвердить паспортные данные</h4>
+</div>
+<p class="direction-lbl"><label for="pasport" class="input">Серия и номер</label><input id="pasport" class="pasport" value="" placeholder=""></p>
+<p>Фото паспорта (первая страница с вашим фото)</p>
+<div class="">
+<button class="btn nofill-btn"><svg width="26" height="20"  vector-effect="non-scaling-stroke" class="icon camera-icon" viewBox="0 0 27 21"><path stroke="#ff806f"  d="M25.5 5v13c0 .8-.7 1.5-1.5 1.5H2c-.8 0-1.5-.7-1.5-1.5V5c0-.8.7-1.5 1.5-1.5h5c.3 0 .5-.1.6-.4l1.1-1.9C9 .7 9.5.5 10 .5h5.6c.5 0 1 .3 1.3.7L18 3.1c.1.2.4.4.6.4H24c.8 0 1.5.7 1.5 1.5z" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></path><circle cx="13" cy="10.9" r="5.5" stroke="#ff806f"  fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"></circle></svg> Загрузить фото</button>
+
+
+</div>
+
+
+	
+<p><button class="btn btn-small blk">Отправить на подтверждение</button></p>
+</div>
+
+<div class="devider"></div>
+<h1>F11</h1>	
+<div class="ask-form">
+<h4>Ответить Имя Пользователя на сообщение:</h4>
+<p>Елена, здравствуйте, если хотите, могу забрать ваш заказ сегодня в районе м. Сходненская около 18.00</p>
+	<form id="ask-privatmsg">
+		<textarea name="ask-field" placeholder="Ваше сообщение"></textarea>
+		<div class="btn-qsend"><button class="btn blk">Отправить</button></div>
+	</form>
+</div>
+<div class="devider"></div>
+<h1>F12</h1>	
+<div class="ask-form">
+<h4>Ответить Имя Пользователя</h4>
+	<form id="ask-privatmsg">
+		<textarea name="ask-field" placeholder="Ваше сообщение"></textarea>
+		<div class="btn-qsend"><button class="btn blk">Отправить</button></div>
+	</form>
+</div>
+
+<div class="devider"></div> 
+	<h1>F13</h1>
+		<div id="deal-offer">	
+		<p><strong>Укажите желаемую стоимость доставки</strong></p>
+		<input class="deal-price" id="deal-price" value="" placeholder="100 р.">		
+		<p><button class="btn blk">Далее</button></p>
+		</div>
+<div class="devider"></div> 
+		<h1>F13.1</h1>
+		<div class="add-new-form">	
+		<h4>Уточните маршрут</h4>		
+		<p class="wayname">Ваши текущие поездки</p>
+		<div class="offers-list-row columns">
+			<div class="transporter-info c8">
+				<p class="delivery-date"><strong>Завтра - 16:21</strong></p>
+				<p class="direction">Брянск <span>→</span> Москва <span>→</span> Тверь</p>				
+			</div>
+			
+			<div class="transporter-info c4">				
+				<div class="take-order"><button class="btn-small emptycolor">Выбрать</button></div>
+			</div>
+		</div>
+		<div class="offers-list-row columns">
+		<div class="transporter-info c8">
+				<p class="delivery-date"><strong>10 апреля - 16:21</strong></p>
+				<p class="direction">Москва <span>→</span> Тверь</p>				
+		</div>
+		<div class="transporter-info c4">				
+				<div class="take-order"><button class="btn-small emptycolor">Выбрать</button></div>
+		</div>	
+		</div>
+		
+		<p><button class="btn btn-small blu">или Добавьте новую поездку</button></p>
+		<p><button class="btn blk">Отправить предложение Имя Ф.</button></p>
+		</div>		
+<div class="devider"></div>	
+	<h1>F13.2</h1>
+		<div id="deal-offer">	
+		<h4>Отлично!</h4>
+		<p>Ваше предложение отправлено. Вы получите уведомление, если заказчик выберет вас для доставки!</p>
+		
+		</div>
+<div class="devider"></div> 
+		
+<h1>Как появится необходимость закрывать заявку в системе (не 1 этап)</h1>
+<div class="ask-form">
+<h4>Оставить отзыв</h4>
+	<form id="send-review">
+	<p class="review">Ваша оценка<span class="stars">
+			<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+			<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+			<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+			<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+			<svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="#ff806f" d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"></path></svg>
+		</span></p>
+		<textarea name="ask-field" placeholder="Впечатление от доставки"></textarea>
+		<div class="btn-qsend"><button class="btn blk">Оставить отзыв</button></div>
+	</form>
+</div>		
+</div>
+</body>
+</html>

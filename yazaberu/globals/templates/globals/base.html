@@ -26,7 +26,13 @@
 {% endif%}
 
 
-{% include "globals/footer.html"%} 
+{% include "globals/footer.html"%}
+
+{% if profile %} 
+
+{% else %}
+  {% include "globals/popup_container.html"%}
+{% endif %}
 
 <div class="popup" role="alert">
 	<div class="popup-container">
@@ -35,5 +41,6 @@
 	<a href="#0" class="popup-close img-replace">Close</a>
 	</div>
 </div>
+
 </body>
 </html>

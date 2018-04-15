@@ -1,0 +1,35 @@
+<div class="user-name">
+  <div class="container15">
+    <h2>Ваши посылки</h2>
+    <div class="add-new-task popup-trigger">
+      <button class="btn btn-small blk">Добавить заказ</button>
+    </div>
+    <div class="tab">
+      <ul class="tabs">
+        <li><a href="#">{{pending_parcels.count}} Размещенных</a></li>
+        <li><a href="#">{{deliveries_for_me.count}} Доставили</a></li>
+        <li><a href="#">0 Черновик</a></li>
+      </ul>
+      <div class="list-to-send  tab_content">
+        <div class="tabs_item">
+          {% for parcel in pending_parcels %}
+            <div class="task-list-row">
+              {% include "myprofile/parcel_pending.html" with parcel=parcel only%}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="tabs_item">
+          {% for delivery in deliveries_for_me %}
+            <div class="task-list-row">
+              {% include "myprofile/delivery_for_me.html" with delivery=delivery parcel=delivery.parcel only%}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="tabs_item">
+          <p>Можно размещать планируемые поездки, которые будут видны только вам</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include "transport/new_parcel_form.html" %}

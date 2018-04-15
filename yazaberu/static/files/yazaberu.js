@@ -52,7 +52,7 @@ function add_trip(_from, _to, _date){
   xhttp.send('from='+encodeURIComponent(_from)+'&to='+encodeURIComponent(_to)+'&date='+encodeURIComponent(_date));
 }
 
-function add_parcel(_from, _to, _date){
+function add_parcel(_from, _to, _date, _name, _description, _max_price, _image){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
@@ -66,8 +66,15 @@ function add_parcel(_from, _to, _date){
   xhttp.open('POST', '/transport/add_parcel', true);
   var csrftoken = getCookie('csrftoken');
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
-  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send('from='+encodeURIComponent(_from)+'&to='+encodeURIComponent(_to)+'&date='+encodeURIComponent(_date));
+  xhttp.setRequestHeader('Content-type', 'multipart/form-data');
+  xhttp.send(
+    'from='+encodeURIComponent(_from)
+    +'&to='+encodeURIComponent(_to)
+    +'&date='+encodeURIComponent(_date)
+    +'&name='+encodeURIComponent(_name)
+    +'&description='+encodeURIComponent(_description)
+    +'&max_price='+encodeURIComponent(_max_price)
+    );
 }
 
 
@@ -123,4 +130,33 @@ function login_with_cr () {
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send('id='+encodeURIComponent(id)+'&password='+encodeURIComponent(passwd));
+}
+
+function offerTrip(parcel_id){
+    loadPopup('/transport/parcel/'+parcel_id+'/offer_trip');
+}
+
+function offerParcel(trip_id){
+    loadPopup('/transport/trip/'+parcel_id+'/offer_parcel');
+}
+
+
+function acceptOffer(offer_id) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      //document.body.innerHTML = this.responseText;
+      //document.location = this.responseURL;
+      alert('OK');
+    } else if (this.readyState < 4){
+      
+    } else if (this.readyState != 200) {
+      alert('Error', this.readyState);
+    }
+  }
+  xhttp.open('POST', '/transport/offer/'+offer_id+'/accept', true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send();    
 }
