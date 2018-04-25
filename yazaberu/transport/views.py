@@ -229,7 +229,7 @@ def accept_offer(request, id):
         d.save()
         return HttpResponse('OK')
         
-def deal(request, id):
+def parcel_deal(request, id):
     if request.method=='GET':
         p = Profile.objects.get(user=request.user)
         parcel = Parcel.objects.get(id=id)
@@ -240,11 +240,31 @@ def deal(request, id):
             context['profile']=p
             context['parcel']=parcel
             context['offers']=list(offers)
+            context['questions']=list(Question.objects.get(parcel=parcel))
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseForbidden()
     else:
         return HttpResponse('Not valid', status=422)
+
+def trip_deal(request, id):
+    if request.method=='GET':
+        p = Profile.objects.get(user=request.user)
+        trip = Trip.objects.get(id=id)
+        if trip.published or trip.owner==p:
+            context = {}
+            offers = trip.offer_set.all()
+            template = loader.get_template('transport/deal.html')
+            context['profile']=p
+            context['trip']=trip
+            context['offers']=list(offers)
+            context['questions']=list(Question.objects.get(trip=trip))
+            return  HttpResponse(template.render(context, request))
+        else:
+            return HttpResponseForbidden()
+    else:
+        return HttpResponse('Not valid', status=422)
+
         
 def offer_trip(request, id):
     parcel = Parcel.objects.get(id=id)

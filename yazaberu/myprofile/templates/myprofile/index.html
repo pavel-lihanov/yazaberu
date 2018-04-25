@@ -9,7 +9,7 @@
           <li><a href="/profile/messages">Сообщения {{new_messages.count}}</a></li>
           <li><a href="/profile/deliveries">Ваши поездки</a></li>
           <li><a href="/profile/parcels">Отправления</a></li>
-          <li><a href="/profile/myreviews">Отзывы</a></li>
+          <li><a href="/profile/reviews">Отзывы</a></li>
         </ul>
     </div>
     
@@ -18,8 +18,8 @@
       <div class="user-name c12 xsc12">
         <div class="container15">
           <h2>Профиль</h2>
-          <span class="reg-date">В сообществе с {{profile.creation_date}}</span>	
-          <div class="avatar update-av"><a href="#"><img src="{{profile.get_avatar}}" /></a></div>	
+          <span class="reg-date">В сообществе с {{profile.user.date_joined}}</span>
+          <div class="avatar update-av"><a href="#"><img src="{{profile.get_avatar}}" /></a></div>
           <p class="user-editprofile"><button class="btn grey">обновить фото</button></p>
           <div class="user-sendmail">
             <p class="direction-lbl"><input id="usrname" class="usrname" value="{{profile.first_name}}" placeholder="Имя"></p>

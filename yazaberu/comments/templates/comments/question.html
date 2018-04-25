@@ -1,0 +1,13 @@
+{% load avatar %}
+<div class="deal-questions-row {% if answer %}offset-one{% endif %}">
+  {% avatar question.author %}
+  <div class="av-desc">
+    <div class="av-name"><a href="{{question.author.get_url}}"><strong>{{question.author.name_public}}</strong></a></div>
+    <div class="av-trtype"><span>{{question.from_now}}</span></div>
+  </div>
+  <p class="desc">{{question.text}}</p>
+  <div class="if-auth to-answer"><a href="#">Ответить</a></div>
+  {% for ans in question.answers %}
+    {% include "/comments/question.html" with question=ans answer=True only %}
+  {% endfor %}
+</div>

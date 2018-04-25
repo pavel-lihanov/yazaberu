@@ -18,6 +18,8 @@ section {margin-bottom:50px;}
 a {color:#000; text-decoration:none;outline:none;transition: all 0.5s ease;}
 a:hover {color:#00acec}
 .burger,.f-hidden {display:none}
+
+.overhidden {overflow: hidden;}
 .clear {clear:both;}
 .header {height:49px;  display: flex; align-items: center;    justify-content: space-between;    flex-grow: 1;padding:5px 15px; }
 input, textarea, select, button {font-size:17px;outline:none;border:0;}
@@ -30,16 +32,14 @@ input, textarea, select, button {font-size:17px;outline:none;border:0;}
 .blu:hover {background-color:#00acec;}
 .noactive {background-color:#dddddd;}
 .blk {background-color:#000;}
-
 .blk:hover {background-color:#3d3bff;}
 button.nofill-btn {background:none; border:1px #eb5834 solid; color:#000}
 button.nofill-btn:hover {background-color:#eb5834;color:#fff}
-
 .orng {background-color:#eb5834;}
 .orng:hover {background-color:#f2471d;}
 .grey {background-color: #edeae0;color:#818181}
 .grey:hover {background-color: #f2471d;color:#fff}
-input,.btn {padding:14px 12px;vertical-align: middle; border-radius:3px;margin:0 4px;}
+input,.btn {padding:14px 12px;vertical-align: middle; border-radius:3px;/*margin:0 4px;*/}
 
 .emptycolor  {background:none;color:#000;border:1px #818181 solid}
 .emptycolor:hover {color:#00acec;border:1px #00acec solid}
@@ -112,9 +112,9 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 
 /*гл. страница */
 .banner {height: 100%;}
-.mainpage-ban {background: url(silder1.jpg) center bottom no-repeat;}
-.sender-baner {background:#fcfbf8 url(world-map.png) center center no-repeat;    }
-.transporter-ban {background:#fcfbf8 url(mainbanner-transporter.jpg) center center no-repeat;}
+.mainpage-ban {background: url(/static/files/silder1.jpg) center bottom no-repeat;}
+.sender-baner {background:#fcfbf8 url(/static/files/world-map.png) center center no-repeat;    }
+.transporter-ban {background:#fcfbf8 url(/static/files/mainbanner-transporter.jpg) center center no-repeat;}
 .mainban {background-size:cover;padding-top: 4%; min-height:513px;      position: relative;display: block;}
 .sender-baner {background-size: contain;}
 .banner .short {background-size: inherit;    min-height: 147px;    padding-top: 1%;}
@@ -144,6 +144,90 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .country {color:#6a6a6a}
 .from:before {content:"";display:inline-block;width:6px; height:6px;border:1px #1ab5ee solid;border-radius:50%;margin-left:-3px;margin-right:7px;}
 .to:before {content:"";display:inline-block;width:6px; height:6px;border:1px #eb5834 solid;border-radius:50%;margin-left:-3px;margin-right:7px;}
+
+/* календарь */
+.responsive-calendar {background-color:#fff;position:absolute;border-radius:3px;display:none;}
+
+.bbtn {
+    display: block;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color:#eb5834;
+    font-size: 25px;
+    line-height: 15px;
+	font-weight:700;
+}
+.pull-left {float:left}
+.pull-right {float:right}
+.responsive-calendar .controls {
+  text-align: center; padding:5px;
+}
+.responsive-calendar .controls a {
+  cursor: pointer;
+vertical-align:middle;
+	display: inline-block;    font-size: 19x;
+}
+.responsive-calendar .controls h4 {
+  display: inline;
+}
+.responsive-calendar .day-headers,
+.responsive-calendar .days {
+  font-size: 0;
+}
+.responsive-calendar .day {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  width: 13.285714285714286%;
+  text-align: center;
+}
+.responsive-calendar .day a {
+  color: #000000;
+  display: block;
+  cursor: pointer;
+  padding: 20% 0 20% 0;
+}
+.responsive-calendar .day a:hover {
+  background-color: #eee;
+  text-decoration: none;
+}
+.responsive-calendar .day.header {
+  border-bottom: 1px gray solid;
+}
+.responsive-calendar .day.active a {
+  background-color: #1d86c8;
+  color: #ffffff;  
+}
+.responsive-calendar .day.active a:hover {
+  background-color: #36a0e2;
+}
+.responsive-calendar .day.active .not-current {
+  background-color: #8fcaef;
+  color: #ffffff;
+}
+.responsive-calendar .day.active .not-current:hover {
+  background-color: #bcdff5;
+}
+.responsive-calendar .day.not-current a {
+  color: #ddd;
+}
+.responsive-calendar .day .badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+}
+.responsive-calendar .today a{font-weight:bold;}
+/* end календарь */
 
 /*transporter */
 #transporter .columns{align-items: center;}
@@ -264,7 +348,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 /*transport*/
 .transport-facts {max-width: 1560px;text-align:center}
 .transport-facts h3 {margin:0;padding:0;}
-.transport-facts .columns {background:url(world-map.png) center center no-repeat; background-size: contain;
+.transport-facts .columns {background:url(/static/files/world-map.png) center center no-repeat; background-size: contain;
     padding: 30px 50px 0;
     margin-bottom: 75px;
     display: -webkit-box;
@@ -351,8 +435,8 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 }
 a.resp-more {border-bottom:1px #000 solid}
 
-.registration {background: url(bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
-.registration-tr {background: url(bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration {background: url(/static/files/bg-reg.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
+.registration-tr {background: url(/static/files/bg-reg-transport.jpg) center bottom no-repeat;background-size:cover; padding: 90px 0;min-height:285px;color:#fff;text-align:center}
 
 
 .columns, .cols{
@@ -399,6 +483,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .add-new-form input,.add-new-form .btn {margin:0}
 .add-new-form p.wayname {text-align: left;  color: #b9b9b9;}
 .add-new-form .transporter-info {text-align:left}
+.add-new-form .transporter-info img {max-width:100%}
 .add-tash-h {text-align:center}
 .add-tash-h h4 {margin:9px 0 3px;font-weight:500;font-size:21px;}
 .add-tash-h p{color:#6a6a6a;font-size: 13px; line-height: 19px;}
@@ -425,7 +510,11 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .transport-info {/*float:right*/    text-align: right; }
 .transport-info .transport-type {float: right;}
 .take-order {float: right;}
+.take-order .decline {text-align:center}
+.take-order .decline a {color: #b9b9b9; font-size: 13px; display:inline-block; }
+.take-order .decline a:hover { border-bottom: 1px #eb5834 solid;}
 .offers-list-row .columns {align-items:center}
+
 .add-newtask  .take-order {float: none;}
 .add-newtask button {width:100%}
 .transporter-info .direction {font-weight:500;margin-top: 6px;}
@@ -454,7 +543,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .list-to-send .transporter-name .reg-date {float:right;padding: 3px;}
 .take-order-qty {position:absolute;bottom:10px;right:5px;}
 .take-order-qty a {color: #6a6a6a;}
-.add-newtask .place,.add-new-form .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px;text-align: left;margin-bottom:25px;}
+.add-newtask .place,.add-new-form .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px;text-align: left;margin-bottom:25px;}
 .add-newtask .place a,.add-new-form .place a {color:#4296dc; border-bottom:1px #4296dc dashed;}
 /*Конец Список заявкок на отправку*/
 
@@ -493,7 +582,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 
 .deal-info p {color:#818181;line-height:23px;}
 .deal-offer .price,.usr-tel {font-weight:400; color:#000;font-size: 35px;margin:0}
-.offers-list-row .take-order button {display:block;opacity:1;margin:11px 0;width:170px;    max-width: 170px;    width: 100%;}
+.offers-list-row .take-order button,.task-list-row .take-order button{display:block;opacity:1;margin:11px 0;width:170px;    max-width: 170px;    width: 100%;}
 .usr-tel span {color:#dddcdc}
 .deal-offer .offer-qty a {color:#eb5834;border-bottom:1px #eb5834 solid}
 .deal-questions-row {border-bottom:1px #e6e6e6 solid;padding:7px 0 0 0}
@@ -660,6 +749,7 @@ input.cmn-toggle-round-flat:checked + label:after {
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
   -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
   transition: opacity 0.3s 0s, visibility 0s 0s;
+  overflow: auto;
 }
 
 .popup-container {
@@ -726,7 +816,7 @@ input.cmn-toggle-round-flat:checked + label:after {
     top: 4px;
     width: 14px;
     height: 11px;
-    background: url(check.svg) no-repeat;
+    background: url(/static/files/check.svg) no-repeat;
     background-size: 100%;
     opacity: 0;
     transition: .3s;
@@ -887,7 +977,7 @@ footer {text-align:left}
 
 .transporter-info {margin:0px}
 .transporter-info p,.transporter-info h5 {padding:0 5px;}
-.transporter-info .place {background:url(placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
+.transporter-info .place {background:url(/static/files/placeholder.svg) no-repeat; background-size:25px;padding:7px 0 0 27px}
 .transporter-info .place span {display:none}
 .transport-info .btn-small {opacity:1;}
 .transport-info  {text-align:left;margin-left:5px;}

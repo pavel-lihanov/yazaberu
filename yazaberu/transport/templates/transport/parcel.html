@@ -1,6 +1,7 @@
+{% load avatar %}
 <div class="transporter-name c12 xsc12">
-    <div class="avatar"><a href="#"><img src="{{parcel.owner.avatar.image.url}}"></a></div>
-    <div class="av-name"><a href="#"><strong>{{parcel.owner.first_name}}</strong></a> <span class="reg-date">разместил(а)</span></div>
+    {% avatar parcel.owner %}
+    <div class="av-name"><a href="{{/user/{parcel.owner.id}}|"><strong>{{parcel.owner.first_name}}</strong></a> <span class="reg-date">разместил(а)</span></div>
     <span class="reg-date">{{parcel.creation_date}}</span>
 </div>
 <div class="c12 xsc12 columns">
@@ -16,7 +17,7 @@
   <div class="transport-info c5 xsc12">
     <p class="price"><strong>до {{parcel.max_price}} р.</strong></p>
     <p class="max-weight">вес до {{parcel.weight}} кг</p>
-    <div class="take-order-qty"><a href="#">{{parcel.offer_set_count}}</a></div>
-    <div class="take-order"><button onclick="document.location='/transport/deal/{{parcel.id}}'" class="popup-trigger btn btn-small orng">Предложить доставить</button></div>
+    <div class="take-order-qty"><a href="/transport/parcel/{{parcel.id}}/deal">{{parcel.offer_set_count}}</a></div>
+    <div class="take-order"><button onclick="loadPopup('/trasport/parcel/{{parcel.id}}/offer_trip')" class="popup-trigger btn btn-small orng">Предложить доставить</button></div>
   </div>
 </div>

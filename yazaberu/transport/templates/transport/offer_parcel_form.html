@@ -1,0 +1,22 @@
+<div class="add-new-form">
+  <form>
+    {% csrf_token %}
+    <input id="parcel_id" type="text" style="display:none" value="">
+    <h4>Какую посылку вы хотите отправить?</h4>
+    <p class="wayname">Ваши текущие отправления</p>
+    {% for p in parcels %}
+      <div class="offers-list-row columns">
+        <div class="transporter-info c9">
+          <h5 class="whatsend">{{p.description}}</h5>
+          <p class="delivery-date"><strong>{{p.due_date}}</strong></p>
+          <p class="direction">{{p.origin.city.name}}<span>→</span>{{p.destination.city.name}}</p>
+        </div>
+        <div class="transporter-info c3"><img src="{{p.image.url}}">
+          <div class="take-order"><button type="submit" onclick="document.getElementById('parcel_id').value='{{p.id}}';" class="btn-small emptycolor">Выбрать</button></div>
+        </div>
+      </div>
+    {% endfor %}
+  </form>
+  <p><button class="btn btn-small blu">или Добавьте новый заказ</button></p>
+  <p><button class="btn blk">Отправить предложение Имя Ф.</button></p>
+</div>

@@ -9,6 +9,7 @@ from globals.models import Profile
 from django.utils import timezone
 
 from transport.models import Delivery, Parcel, Trip
+from comments.models import Message, Review
 
 def myprofile(request):
     if request.method == 'GET':
@@ -68,7 +69,18 @@ def mymessages(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/messages.html')
         me=Profile.objects.get(user=request.user)
-        context = {'profile': me}
+        messages=Message.objects.filter(receiver=me)
+        context = {'profile': me, 'messages':messages}
+        return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponse('Not valid', status=422)
+        
+def myreviews(request):
+    if request.method == 'GET':
+        template = loader.get_template('myprofile/reviews.html')
+        me=Profile.objects.get(user=request.user)
+        reviews=Review.objects.filter(receiver=me)
+        context = {'profile': me, 'messages':messages}
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)

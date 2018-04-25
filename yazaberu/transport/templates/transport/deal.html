@@ -123,12 +123,7 @@
           </div>
         </div>
         -->
-        {% if parcel.owner != profile%}
-        <p>Телефон отправителя будет открыт после выбора вас исполнителем</p>
-        <div class="usr-tel">+7 (915) 2<span>xx-xx-xx</span></div>
-        {% else %}
-        <div class="usr-tel">+7 (915) 2<span>xx-xx-xx</span></div>
-        {%endif%}
+        <div class="usr-tel">{{parcel.owner.phone}}</div>
         <p class="offer-qty"><a href="#offersmans">{{parcel.offer_set_count}} предложения от перевозчиков</a></p>
       </div>
     </div>
@@ -137,13 +132,13 @@
   <div class="ask-form">
     <form id="ask-aboutdeal">
       <textarea name="ask-field" placeholder="Задайте вопрос"></textarea>
-      <div class="btn-qsend"><button class="btn blk">Отправить</button></div>
+      <div class="btn-qsend"><button onclick="loadPopup('/comments/parcel/{{parcel.id}}/ask_question')" class="btn blk">Отправить</button></div>
     </form>
   </div>
 
   <h4>Вопросы по условиям доставки</h4>
-  {% for c in comments %}
-    {% include "messages/deal_comment.html" with comment=c%}
+  {% for c in questions %}
+    {% include "comments/question.html" with comment=c%}
 	{% endfor %}
 
   <h4 id="offersmans">Предложения по доставке</h4>

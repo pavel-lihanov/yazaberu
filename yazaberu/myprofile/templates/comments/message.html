@@ -1,0 +1,13 @@
+{% load avatar %}
+<div class="user-reviews-row columns">
+  {% avatar message.author %}
+  <div class="av-desc c10">
+    <div class="av-name">
+      <a href="/user/{{message.author.id}}">
+        <strong>{{message.author.name_public}}</strong>
+      </a>
+      <span>{{message.date}}</span>
+    </div>
+    <p class="desc">{{message.text}}</p>
+  </div>
+</div>

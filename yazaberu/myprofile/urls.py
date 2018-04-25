@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^deliveries$', myprofile.views.mydeliveries, name='mydeliveries'),
     url(r'^parcels$', myprofile.views.myparcels, name='myparcels'),
     url(r'^messages$', myprofile.views.mymessages, name='mymessages'),
+    url(r'^reviews$', myprofile.views.myreviews, name='myreviews'),
     #lists (returned from POST)
     url(r'^delivery_list$', myprofile.views.my_delivery_list, name='delivery_list'),
     url(r'^parcel_list$', myprofile.views.my_parcel_list, name='parcel_list'),

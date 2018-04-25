@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 from globals.models import Profile 
@@ -27,4 +27,22 @@ class Message(models.Model):
     author = models.ForeignKey(Profile, related_name='authored_messages')
     receiver = models.ForeignKey(Profile, related_name='received_messages')
     text = models.CharField(max_length=500)
-    reply_to = models.ForeignKey('Message', blank=True, null=True)
+    reply_to = models.ForeignKey('Message', blank=True, null=True, related_name='answers')
+    date = models.DateTimeField(auto_now_add=True)
+    
+    def get_time(self):
+        #TODO: humanize
+        return self.date
+        
+    def from_now(self):
+        return timezone.now() - self.date
+        
+class Question(models.Model):
+    message =models.ForeignKey(Message)
+    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True)
+    trip = models.ForeignKey('transport.Trip', blank=True, null=True)
+    
+class Review(models.Model):
+    message =models.ForeignKey(Message)
+    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True)
+    trip = models.ForeignKey('transport.Trip', blank=True, null=True)

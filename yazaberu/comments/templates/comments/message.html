@@ -1,0 +1,12 @@
+<div class="user-reviews-row columns">
+  <div class="avatar c2">
+    <div class="avatar"><a href="/users/{{message.author.id}}"><img src="{{message.author.get_avatar}}"></a></div>
+  </div>
+    <div class="av-desc c10">
+    <div class="av-name">
+      <a href="/users/{{message.author.id}}"><strong>{{message.author.name_public}}</strong></a>
+      <span>{{message.get_time}}</span>
+    </div>
+    <p class="desc">{{message.text}}</p>
+    </div>
+</div>

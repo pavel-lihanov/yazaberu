@@ -1,0 +1,9 @@
+<div class="ask-form">
+  <h4>Ответить {{message.author.name_public}} на сообщение:</h4>
+  <p>{{message.text}}</p>
+	<form id="ask-privatmsg">
+    {% csrf_token %}
+		<textarea name="ask-field" placeholder="Ваше сообщение"></textarea>
+		<div class="btn-qsend"><button class="btn blk">Отправить</button></div>
+	</form>
+</div>
