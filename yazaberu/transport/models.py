@@ -3,8 +3,8 @@ from django.db.models import Min, Max, Sum, Count
 from django.core.signals import request_finished
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from comments.models import Notification
-
+from comments.models import Notification, Message
+from django.utils import timezone
 # Create your models here.
 
 from globals.models import Profile
@@ -124,6 +124,48 @@ class Offer(models.Model):
     price = models.IntegerField(default=0)
     meeting_1 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_from')
     meeting_2 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_to')
+    
+    def accept(self):
+        d = Delivery()
+        d.parcel = self.parcel
+        d.trip = self.trip
+        d.price = self.price
+        d.delivered = False
+        delta = (d.trip.end_date - d.trip.start_date)
+        d.duration = (delta.days * 86400 + delta.seconds) // 3600
+        d.save()
+        if self.trip.rider == self.receiver:
+            author = self.parcel.owner
+            text = '{0} согласен доставить {1}'.format(self.receiver, self.parcel.description)
+            for offer in self.parcel.offer_set:
+                if offer!=self:
+                    offer.decline(reason="выбрал другого перевозчика")
+        else:
+            author = self.trip.rider
+            text = '{0} согласен доставить {1}'.format(self.receiver, self.parcel.description)
+
+        msg = Message()
+        msg.receiver = receiver
+        msg.author = author
+        msg.date = timezone.now()
+        msg.text = text
+        msg.save()
+        self.delete()
+        return d
+
+    def decline(self, reason=""):
+        if self.trip.rider == self.receiver:
+            author = self.parcel.owner
+            text = 'Не согласен доставить {1} {2}'.format(self.receiver, self.parcel.description, reason)
+        else:
+            author = self.trip.rider
+            text = 'Не согласен отправить {1} {2}'.format(self.receiver, self.parcel.description, reason)
+        msg.receiver = receiver
+        msg.author = author
+        msg.date = timezone.now()
+        msg.text = text
+        msg.save()
+        self.delete()
 
 #TODO: most popular routes
 def get_popular_routes(cnt=3):

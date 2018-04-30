@@ -4,13 +4,15 @@
 <section class="edit user-profile">
   <div class="container980 columns">
     <div class="sub-menu c4 xsc12 s-hide">
+      {% block profile_menu %}
       <ul>
-          <li><a class="active" href="/profile/myprofile">Профиль</a></li>
+          <li><a class="active" href="/profile/">Профиль</a></li>
           <li><a href="/profile/messages">Сообщения {{new_messages.count}}</a></li>
           <li><a href="/profile/deliveries">Ваши поездки</a></li>
           <li><a href="/profile/parcels">Отправления</a></li>
           <li><a href="/profile/reviews">Отзывы</a></li>
         </ul>
+      {% endblock %}
     </div>
     
     <div class="user-info c8 xsc12">
@@ -20,17 +22,27 @@
           <h2>Профиль</h2>
           <span class="reg-date">В сообществе с {{profile.user.date_joined}}</span>
           <div class="avatar update-av"><a href="#"><img src="{{profile.get_avatar}}" /></a></div>
-          <p class="user-editprofile"><button class="btn grey">обновить фото</button></p>
-          <div class="user-sendmail">
-            <p class="direction-lbl"><input id="usrname" class="usrname" value="{{profile.first_name}}" placeholder="Имя"></p>
-            <p class="direction-lbl"><input class="surname" id="surname" value="{{profile.last_name}}" placeholder="Фамилия"></p>
-            <p class="direction-lbl"><input class="mail" id="mail" value="{{profile.email}}" placeholder="Адрес электронной почты"></p>
-            <p class="direction-lbl"><input class="phone" id="phone" value="{{profile.phone}}" placeholder="+7"></p>
-            <div class="approved-info"><a href="#">Указать паспортные данные</a></div>
-          </div>
-          <div class="user-editprofile">
-            <button class="btn grey">Сохранить изменения</button>
-          </div>
+          <p class="user-editprofile">
+            <form method="post" action="/avatar/{{profile.avatar.id}}/upload" id="upload_avatar_form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <input style="display:none" type="text" name="id" value="{{profile.avatar.id}}">
+              <input style="display:none" type="file" accept="image/*" id="image" name="image" onchange="document.getElementById('upload_avatar_form').submit()">
+              <button style="width:100%" type="button" class="btn grey" onclick="document.getElementById('image').click()">обновить фото</button>
+            </form>
+          </p>
+          <form method="post">
+            {% csrf_token %}
+            <div class="user-sendmail">
+              <p class="direction-lbl"><input name="usrname" id="usrname" class="usrname" value="{{profile.first_name}}" placeholder="Имя"></p>
+              <p class="direction-lbl"><input name="surname" class="surname" id="surname" value="{{profile.last_name}}" placeholder="Фамилия"></p>
+              <p class="direction-lbl"><input name="mail" class="mail" id="mail" value="{{profile.user.email}}" placeholder="Адрес электронной почты"></p>
+              <p class="direction-lbl"><input name="phone" class="phone" id="phone" value="{{profile.phone}}" placeholder="+7"></p>
+              <!--<div class="approved-info"><a href="#">Указать паспортные данные</a></div>-->
+            </div>
+            <div class="user-editprofile">
+              <button type="submit" class="btn grey">Сохранить изменения</button>
+            </div>
+          </form>
         </div>
       </div>
       {% endblock %}

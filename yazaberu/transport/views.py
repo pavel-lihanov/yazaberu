@@ -219,16 +219,19 @@ def accept_offer(request, id):
     elif request.method=='POST':
         p=Profile.objects.get(user=request.user)
         offer=Offer.objects.get(id=id)
-        d = Delivery()
-        d.parcel = offer.parcel
-        d.trip = offer.trip
-        d.price = offer.price
-        d.delivered = False
-        delta = (d.trip.end_date - d.trip.start_date)
-        d.duration = (delta.days * 86400 + delta.seconds) // 3600
-        d.save()
-        return HttpResponse('OK')
-        
+        deliv = offer.accept()
+        return HttpResponseRedirect('/transport/parcel/{0}'.fromat(deliv.parcel.id))
+
+def decline_offer(request, id):
+    if request.method=='GET':
+        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        p=Profile.objects.get(user=request.user)
+        p_id = offer.parcel_id
+        offer=Offer.objects.get(id=id)
+        offer.decline()
+        return HttpResponseRedirect('/transport/parcel/{0}'.fromat(p_id))
+
 def parcel_deal(request, id):
     if request.method=='GET':
         p = Profile.objects.get(user=request.user)

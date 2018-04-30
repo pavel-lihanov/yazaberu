@@ -20,7 +20,11 @@
         <p class="price"><strong>{{offer.price}}</strong></p>
         <p class="max-weight">макс. {{offer.parcel.max_weight}} кг</p>
         {%if profile == offer.parcel.owner %}
-        <div class="take-order"><button class="btn btn-small blu" onclick="acceptOffer({{offer.id}})">Выбрать для доставки</button><button class="btn btn-small emptycolor">Посмотреть контакты</button></div>
+        <div class="take-order">
+          <button class="btn btn-small blu" onclick="acceptOffer({{offer.id}})">Выбрать для доставки</button>
+          <button class="btn btn-small emptycolor">Посмотреть контакты</button>
+          <div class="decline"><a href="#" onclick="declineOffer({{offer.id}})">Отклонить предложение</a></div>
+        </div>
         {% endif %}
     </div>
   </div>

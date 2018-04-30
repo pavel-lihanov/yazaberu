@@ -1,5 +1,15 @@
 ﻿{% extends "myprofile/index.html" %}
 
+{% block profile_menu %}
+  <ul>
+      <li><a href="/profile/">Профиль</a></li>
+      <li><a href="/profile/messages">Сообщения {{new_messages.count}}</a></li>
+      <li><a class="active" href="/profile/deliveries">Ваши поездки</a></li>
+      <li><a href="/profile/parcels">Отправления</a></li>
+      <li><a href="/profile/reviews">Отзывы</a></li>
+    </ul>
+{% endblock %}
+
 {% block profile_content %}
   {% include "myprofile/delivery_list.html" with trips=trips %}
 {% endblock %}

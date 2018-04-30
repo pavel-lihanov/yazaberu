@@ -1,0 +1,21 @@
+{% load avatar %}
+{% load rating %}
+<div class="user-reviews-row">
+  {% avatar review.message.author %}
+  <div class="av-desc">
+    <div class="av-name"><a href="#"><strong>{{review.message.author.name_public}}</strong></a></div>
+    <div class="av-trtype"><span>{{review.message.date}}</span></div>
+  </div>
+  <p class="desc">
+    {{review.message.text}}
+    {% rating review.rating %}
+  </p>
+  <div class="if-auth to-answer">
+    <a onclick="loadPopup('/comments/review/{review.id}/answer')" href="#">Ответить</a>
+  </div>
+</div>
+{% if review.message.answers %}
+  {% for r in review.message.answers.all %}
+    {% include "comments/review_reply.html" with message=r %}
+  {% endfor %}
+{% endif %}

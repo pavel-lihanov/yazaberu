@@ -62,3 +62,29 @@ def user_view(request, id):
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)
+
+from django.forms import ModelForm
+
+class AvatarForm(ModelForm):
+    class Meta:
+        model = globals.models.Avatar
+        fields = ['id', 'image']
+
+def upload_avatar(request, id):
+    if request.method == 'GET':
+        return HttpResponse('Not valid', status=422)
+    elif request.method=='POST':
+        profile = globals.models.Profile.objects.get(user=request.user)
+        avatar = globals.models.Avatar.objects.get(id=id)
+        assert(profile.avatar==avatar)
+        f=request.FILES
+        form = AvatarForm(request.POST, request.FILES, instance=avatar)
+        if form.is_valid():
+            #if avatar.image:
+            #    avatar.image.delete()
+            #    avatar.save()
+            avatar = form.save()
+            print(avatar.image)
+        else:
+            return HttpResponseServerError('Not valid')
+        return HttpResponseRedirect('/profile')

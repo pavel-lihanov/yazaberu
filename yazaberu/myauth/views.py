@@ -57,6 +57,7 @@ def register(request):
         a = Avatar()
         a.save()
         p=Profile()
+        p.email = email
         p.first_name = first_name
         p.user = u
         p.avatar = a

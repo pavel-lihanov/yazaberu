@@ -16,6 +16,26 @@ def myprofile(request):
         template = loader.get_template('myprofile/index.html')
         context = {'profile': Profile.objects.get(user=request.user)}
         return  HttpResponse(template.render(context, request))
+    elif request.method == 'POST':
+        first_name = request.POST['usrname']
+        last_name = request.POST['surname']
+        email = request.POST['mail'].strip()
+        phone = request.POST['phone'].strip()
+        profile = Profile.objects.get(user=request.user)
+        if first_name:
+            profile.first_name = first_name
+            profile.user.first_name = first_name
+        if last_name:
+            profile.last_name = last_name
+            profile.user.last_name = last_name
+            
+        old_email = profile.user.email
+        profile.user.email = email
+        #TODO: send emails
+        profile.phone = phone
+        profile.user.save()
+        profile.save()
+        return HttpResponseRedirect('/profile/')
     else:
         return HttpResponse('Not valid', status=422)
 
@@ -79,8 +99,8 @@ def myreviews(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/reviews.html')
         me=Profile.objects.get(user=request.user)
-        reviews=Review.objects.filter(receiver=me)
-        context = {'profile': me, 'messages':messages}
+        reviews=Review.objects.filter(message__receiver=me)
+        context = {'profile': me, 'reviews':reviews}
         return  HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)

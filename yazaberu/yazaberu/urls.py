@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^deliver/$', globals.views.landing_rider),
     url(r'^$', globals.views.landing),
     url(r'^user/(?P<id>[0-9]+)$', globals.views.user_view),
+    url(r'^avatar/(?P<id>[0-9]+)/upload$', globals.views.upload_avatar),
     ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -30,6 +30,9 @@ class Message(models.Model):
     reply_to = models.ForeignKey('Message', blank=True, null=True, related_name='answers')
     date = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return '{0}@{1}:{2}'.format(self.author, self.receiver, self.text)
+    
     def get_time(self):
         #TODO: humanize
         return self.date
@@ -46,3 +49,4 @@ class Review(models.Model):
     message =models.ForeignKey(Message)
     parcel = models.ForeignKey('transport.Parcel', blank=True, null=True)
     trip = models.ForeignKey('transport.Trip', blank=True, null=True)
+    rating = models.IntegerField()

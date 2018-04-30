@@ -160,3 +160,22 @@ function acceptOffer(offer_id) {
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send();    
 }
+
+function declineOffer(offer_id) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      document.location = this.responseURL;
+      alert('OK');
+    } else if (this.readyState < 4){
+      
+    } else if (this.readyState != 200) {
+      alert('Error', this.readyState);
+    }
+  }
+  xhttp.open('POST', '/transport/offer/'+offer_id+'/decline', true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send();    
+}
