@@ -2,7 +2,7 @@
   <div class="container15">
     <h2>Ваши посылки</h2>
     <div class="add-new-task popup-trigger">
-      <button class="btn btn-small blk">Добавить заказ</button>
+      <button onclick="loadPopup('/transport/add_parcel')" class="btn btn-small blk popup-trigger">Добавить заказ</button>
     </div>
     <div class="tab">
       <ul class="tabs">
@@ -32,4 +32,3 @@
     </div>
   </div>
 </div>
-{% include "transport/new_parcel_form.html" %}

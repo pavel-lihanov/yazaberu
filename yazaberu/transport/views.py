@@ -45,7 +45,7 @@ def add_trip(request):
         trip.transport=0
         trip.duration = 0
         trip.save()
-        return HttpResponse('OK')
+        return HttpResponseRedirect('/profile/deliveries')
     
 def add_parcel(request):
     if request.method == 'GET':
