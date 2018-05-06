@@ -13,8 +13,16 @@ from django.contrib.auth.views import PasswordChangeView, PasswordResetView, Pas
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 
 from django.contrib.auth import authenticate, update_session_auth_hash
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+from django.views.decorators.debug import sensitive_post_parameters
+
+from globals.social_network import providers
+
+auth_sessions = {}
 
 #TODO!!! login decorators
+@ensure_csrf_cookie
+@sensitive_post_parameters('password')
 def login(request):
     if request.method == 'GET':
         template = loader.get_template('myauth/login_form.html')
@@ -39,6 +47,31 @@ def login(request):
             print('User not found', id)
             return HttpResponseNotFound('User not found')
         return HttpResponse('Not valid', status=422)
+        
+@ensure_csrf_cookie
+def login_sn(request, provider):
+    if request.method == 'GET':
+        return  HttpResponse('Not valid', status=422)
+    elif request.method == 'POST':
+        if provider in providers:
+            p = providers[provider]
+        h = hash(request)
+        auth_sessions[h] = p()
+        request.session['hash'] = h
+        redirect_url = auth_sessions[h].request_auth(request)
+        return HttpResponse(redirect_url)
+    else:
+        return  HttpResponse('Not valid', status=422)
+        
+def done(request):
+    session = auth_sessions[request.session['hash']]
+    session.accept_auth(request)
+    try:
+        p, sn = Profile.find(session)
+    except Profile.DoesNotExist:
+        p, sn = session.socialnetwork_model.register_user(session)
+    auth_login(request, p.user)
+    return HttpResponseRedirect('/profile')
 
 def register(request):
     if request.method == 'GET':
@@ -46,26 +79,16 @@ def register(request):
         context = {}
         return  HttpResponse(template.render(context, request))
     else:
-        first_name=request.POST['first_name'].strip()
-        phone=request.POST['phone'].strip()
-        email=request.POST['email'].strip()
-        u = User()
-        u.username = str(uuid.uuid4())
-        u.first_name = first_name
-        u.email = email
-        u.save()
-        a = Avatar()
-        a.save()
-        p=Profile()
-        p.email = email
-        p.first_name = first_name
-        p.user = u
-        p.avatar = a
-        p.phone = phone
-        p.save()
+        p = Profile.create(
+            first_name=request.POST['first_name'].strip(),
+            last_name = '',
+            email=request.POST['email'].strip(),
+            phone = request.POST['phone'].strip())
         auth_login(request, u)
         return HttpResponseRedirect('/auth/change_password')
-        
+
+@sensitive_post_parameters('password')
+@sensitive_post_parameters('password2')
 def change_password(request):
     if request.method == 'GET':
         profile=Profile.objects.get(user=request.user)

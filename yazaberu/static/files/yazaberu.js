@@ -25,7 +25,7 @@ function loadPopup (url) {
         document.location = this.responseText;
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       
     }
   }
@@ -41,7 +41,7 @@ function add_trip(_from, _to, _date){
         alert('OK');
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Error!', this.readyState);
     }
   }
@@ -59,7 +59,7 @@ function add_parcel(_from, _to, _date, _name, _description, _max_price, _image){
         alert('OK');
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Error!', this.readyState);
     }
   }
@@ -100,7 +100,7 @@ function register () {
       el.innerHTML = this.responseText;
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Cannot register', this.readyState);
     }
   }
@@ -110,6 +110,26 @@ function register () {
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send('first_name='+encodeURIComponent(firstName)+'&phone='+encodeURIComponent(phone)+'&email='+encodeURIComponent(email));
 }
+
+function login_using (provider) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && ((this.status == 200) || (this.status == 302))) {
+      //document.body.innerHTML = this.responseText;
+      document.location = this.responseText;
+    } else if (this.readyState < 4){
+      
+    } else if (this.status != 200) {
+      alert('Cannot login' + this.status);
+    }
+  }
+  xhttp.open('POST', '/auth/login/'+provider, true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send();
+}
+
 
 function login_with_cr () {
   var id = document.getElementById('user_id').value;
@@ -121,7 +141,7 @@ function login_with_cr () {
       document.location = this.responseURL;
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Cannot login', this.readyState);
     }
   }
@@ -150,7 +170,7 @@ function acceptOffer(offer_id) {
       alert('OK');
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Error', this.readyState);
     }
   }
@@ -169,7 +189,7 @@ function declineOffer(offer_id) {
       alert('OK');
     } else if (this.readyState < 4){
       
-    } else if (this.readyState != 200) {
+    } else if (this.status != 200) {
       alert('Error', this.readyState);
     }
   }
