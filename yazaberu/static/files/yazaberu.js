@@ -6,6 +6,44 @@ function zero(num) {
     }
 }
 
+function initCalendar() {
+    var $cal = $('.responsive-calendar');
+
+    $cal.responsiveCalendar({
+        events: {},
+        onDayClick: function(events){
+            var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+            $('.calendar').val($i)
+            $('.responsive-calendar').hide()
+        },
+        onActiveDayHover: function(events) {
+            var $today, $dayEvents, $i, $isHoveredOver, $placeholder, $output;
+            $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+            $isHoveredOver = $(this).is(":hover");
+            $placeholder = $(".responsive-calendar-placeholder");
+            $today = events[$i];
+            $dayEvents = $today.dayEvents;
+            $output = '<div class="responsive-calendar-modal">';
+            $.each($dayEvents, function() {
+                $.each($(this), function(key) {
+                    $output += '<h1>Title: ' + $(this)[key].title + '</h1>' + '<p>Status: ' + $(this)[key].status + '<br />' + $(this)[key].time + '</p>';
+                });
+            });
+            $output + '</div>';
+
+            if ($isHoveredOver) {
+                $placeholder.html($output);
+            } else {
+                fadeOutModalBox(500);
+            }
+        },
+    });
+    $('svg.calendar-icon').click(function(){
+        $(".responsive-calendar").slideToggle();
+    });
+}
+
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -29,6 +67,7 @@ function loadPopup (url) {
       var el = $('#popup-content');
       el.html(this.responseText);
       el.addClass('is-visible');
+      initPopup();
     } else if (this.readyState == 4 && this.status == 302) {
         document.location = this.responseText;
     } else if (this.readyState < 4){

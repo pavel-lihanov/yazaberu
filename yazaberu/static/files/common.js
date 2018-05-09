@@ -16,10 +16,9 @@ $('.prof-hello a').click(function(){
 $('.header .sub-menu').slideToggle();
 });
 
-	$('svg.calendar-icon').click(function(){
-	
-		$(".responsive-calendar").slideToggle();
-		});
+$('svg.calendar-icon').click(function(){
+    $(".responsive-calendar").slideToggle();
+});
 
 //open popup
 	$('.popup-trigger').on('click', function(event){
