@@ -1,3 +1,5 @@
+{% load calendar %}
+
 <script>
 function f_find_parcel() {
   _from = document.getElementById('parcel_from').value;
@@ -13,13 +15,11 @@ function f_find_parcel() {
 	<div class="container">
 	<h1>Зарабатывайте в каждой поездке с ЯЗабе.ру</h1>
 	<div class="search-form">
-		<div class="inpt"><input type="text" value="Москва" id="parcel_from" placeholder="Откуда"/></div>
-		<div class="inpt"><input type="text" value="" id="parcel_to" placeholder="Куда"/></div>
+		<div class="inpt"><input type="text" value="{{origin}}" id="parcel_from" placeholder="Откуда"/></div>
+		<div class="inpt"><input type="text" value="{{destination}}" id="parcel_to" placeholder="Куда"/></div>
 		<div class="inpt"><input type="text" class="calendar" value="" id="parcel_date" placeholder="Любая дата"/>
-		<a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-		<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
-		</a>
-		</div>
+		{% calendar %}
+    </div>
 		
 		<button class="btn orng" onclick="f_find_parcel()">Найти, что доставить</button>
 	</div>

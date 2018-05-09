@@ -1,7 +1,7 @@
 {% load avatar %}
 <div class="transporter-name c12 xsc12">
     {% avatar parcel.owner %}
-    <div class="av-name"><a href="{{/user/{parcel.owner.id}}|"><strong>{{parcel.owner.first_name}}</strong></a> <span class="reg-date">разместил(а)</span></div>
+    <div class="av-name"><a href="/user/{{parcel.owner.id}}"><strong>{{parcel.owner.first_name}}</strong></a> <span class="reg-date">разместил(а)</span></div>
     <span class="reg-date">{{parcel.creation_date}}</span>
 </div>
 <div class="c12 xsc12 columns">

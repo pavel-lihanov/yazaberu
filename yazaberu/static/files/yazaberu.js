@@ -1,3 +1,11 @@
+function zero(num) {
+    if (num < 10) {
+        return "0" + num;
+    } else {
+        return "" + num;
+    }
+}
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {

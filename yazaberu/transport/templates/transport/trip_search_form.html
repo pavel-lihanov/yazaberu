@@ -1,18 +1,16 @@
+{% load calendar %}
 <section class="banner">
   <div class="mainban sender-baner short">
     <div class="container">	
     <div class="search-form">
-      <div class="inpt"><input type="text" value="Москва" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
-      <div class="inpt"><input type="text" value="Тверь" placeholder="Куда"></div>
-      <div class="inpt"><input type="text" class="calendar" value="" placeholder="Любая дата">
-      <a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-      <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
-      </a>
+      <div class="inpt"><input type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
+      <div class="inpt"><input type="text" value="{{destination}}" placeholder="Куда"></div>
+      <div class="inpt"><input type="text" value="{{due_date}}" class="calendar" value="" placeholder="Любая дата">
+      {% calendar %}
       </div>
-      
-      <button class="btn blu">Найти перевозчика</button>
+      <button class="btn blu" onclick="" >Найти перевозчика</button>
     </div>
-    <p class="create-alerting"><a href="#"><img src="files/notification-empt.svg"> Создайте уведомление</a>, не пропускайте новые поездки</p>
+    <p class="create-alerting"><a href="#"><img src="/static/files/notification-empt.svg"> Создайте уведомление</a>, не пропускайте новые поездки</p>
     </div>
   </div>
 </section>

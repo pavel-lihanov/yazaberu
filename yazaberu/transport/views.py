@@ -99,18 +99,24 @@ def trip_search(request):
 
         if 'origin' in request.GET and request.GET['origin']!='':
             orig = Q(route__start__name=request.GET['origin'])
+            origin = request.GET['origin']
         else:
             orig = Q()
+            origin = ''
             
         if 'destination' in request.GET and request.GET['destination']!='':
             dest = Q(route__end__name=request.GET['destination'])
+            destination = request.GET['destination']
         else:
             dest = Q()
+            destination = ''
             
         if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
-            date = Q(end_date__le=request.GET['date'])
+            date = Q(end_date__lt=request.GET['date'])
+            due_date = request.GET['date']
         else:
             date = Q(end_date__gt=timezone.now())
+            due_date = ''
 
         if request.user.is_authenticated():
             p = Profile.objects.get(user=user)
@@ -119,7 +125,7 @@ def trip_search(request):
         else:
             trips = Trip.objects.filter(actual & orig & dest & date)
 
-        context = {'trips': trips}
+        context = {'trips': trips, 'origin':origin, 'destination':destination, 'due_date':due_date}
         if user.is_authenticated():
             context['profile']=p
         else:
@@ -134,18 +140,24 @@ def parcel_search(request):
         template = loader.get_template('transport/parcel_search.html')
         if 'origin' in request.GET  and request.GET['origin']!='':
             orig = Q(origin__city__name=request.GET['origin'])
+            origin = request.GET['origin']
         else:
             orig = Q()
+            origin = ''
             
         if 'destination' in request.GET and request.GET['destination']!='':
             dest = Q(destination__city__name=request.GET['destination'])
+            destination = request.GET['destination']
         else:
             dest = Q()
-            
+            destination = ''
+
         if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
-            date = Q(due_date__lt=request.GET['date'])
+            date = Q(due_date__gt=request.GET['date'])
+            due_date = request.GET['date']
         else:
             date = Q(due_date__gt=timezone.now())
+            due_date = ''
             
         actual = Q(delivery=None, published=True)
         
@@ -156,7 +168,7 @@ def parcel_search(request):
         else:
             parcels = Parcel.objects.filter(orig & dest & date & actual)
             
-        context = {'parcels': parcels}
+        context = {'parcels': parcels, 'origin':origin, 'destination':destination, 'due_date':due_date}
         if user.is_authenticated():
             context['profile'] = p
         else:

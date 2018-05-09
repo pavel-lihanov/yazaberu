@@ -8,15 +8,19 @@
 <div class="columns">
   <div class="c9 xsc12">
   <div class="list-controls">
-    <div class="delievery-time"><span>Время доставки</span> <strong>~9 часов 25 минут</strong></div>
-    <div class="sort-by"><span>отсортировано </span><a href="#">по времени доставки ↓</a></div>
+    <div class="delievery-time"><span>Время доставки</span> <strong>{{avg_time}}</strong></div>
+    <!-- <div class="sort-by"><span>отсортировано </span><a href="#">по времени доставки ↓</a></div> -->
     <div class="clear"></div>
   </div>
+  {% if parcels %}
   {% for parcel in parcels %}
     <div class="task-list-row">
       {% include "transport/parcel.html" with parcel=parcel only %}
     </div>
   {% endfor %}
+  {% else %}
+    <p>Ничего не найдено</p>
+  {% endif%}
   <div class="c3 xsc12">
     {% include "transport/new_parcel.html" %}
   </div>

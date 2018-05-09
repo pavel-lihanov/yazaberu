@@ -1,3 +1,4 @@
+{% load calendar %}
 <script>
 function f_add_parcel() {
 /*
@@ -28,28 +29,26 @@ function f_add_parcel() {
     </button>
   </div>
   <p class="direction-lbl">
-    <label for="name" class="input">Название посылки</label>
-    <input name="name" class="name" value="" placeholder=""></p>
+    <!--<label for="name" class="input">Название посылки</label>-->
+    <input id="name" name="name" class="name" value="" placeholder="Название посылки"></p>
   <p class="direction-lbl">
-    <label for="descr" class="input">Описание</label>
-    <input name="descr" class="descr" value="" placeholder=""></p>
+<!--     <label for="descr" class="input">Описание</label> -->
+    <input id="descr" name="descr" class="descr" value="" placeholder="Описание"></p>
   <p class="direction-lbl">
-    <label for="max_price" class="input">Максимальная цена за доставку, руб</label>
-    <input class="maxprice" name="max_price" value="" placeholder="">
+<!--     <label for="max_price" class="input">Максимальная цена за доставку, руб</label> -->
+    <input class="maxprice" name="max_price" value="" placeholder="Максимальная цена за доставку, руб">
   </p>
   <p class="direction-lbl">
     <label for="from" class="input">из</label>
-    <input name="from" class="from" value="" placeholder="Город">
+    <input id="from" name="from" class="from" value="" placeholder="Город">
   </p>
   <p class="direction-lbl">
     <label for="to" class="input">в</label>
-    <input class="to" name="to" value="" placeholder="Город">
+    <input id="to" class="to" name="to" value="" placeholder="Город">
   </p>
   <p class="direction-lbl">
-    <input class="time" name="date" value="" placeholder="Дата поездки">
-    <a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-    <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
-    </a>
+    <input class="time calendar" name="date" value="" placeholder="Дата поездки">
+    {% calendar %}
   </p>
   <p>
     <button class="btn btn-small blk" onclick="f_add_parcel()">Добавить заказ</button>

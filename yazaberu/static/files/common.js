@@ -108,25 +108,12 @@ $('.count').each(function () {
         var $cal = $('.responsive-calendar');
 	
         $cal.responsiveCalendar({
-            events: {
-                "2017-02-14": {
-                    "number": 2,
-                    "badgeClass": "badge-success",
-                    "url": "",
-                    "dayEvents": [{
-                            "title": "",
-                            "status": "Urgent",
-                            "time": "10:30PM"
-                        },
-                        {
-                            "title": "Shake it salt shaker!",
-                            "status": "Chill",
-                            "time": "10:45PM"
-                        }
-                    ]
-                },
+            events: {},
+            onDayClick: function(events){
+                var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+                $('.calendar').val($i)
+                $('.responsive-calendar').hide()
             },
-            /* end events */
             onActiveDayHover: function(events) {
                 var $today, $dayEvents, $i, $isHoveredOver, $placeholder, $output;
                 $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
@@ -147,7 +134,6 @@ $('.count').each(function () {
                 } else {
                     fadeOutModalBox(500);
                 }
-
             },
         }); /* end $cal */
 });
