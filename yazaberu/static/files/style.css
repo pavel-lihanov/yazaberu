@@ -146,7 +146,7 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .to:before {content:"";display:inline-block;width:6px; height:6px;border:1px #eb5834 solid;border-radius:50%;margin-left:-3px;margin-right:7px;}
 
 /* календарь */
-.responsive-calendar {background-color:#fff;position:absolute;border-radius:3px;display:none;}
+.responsive-calendar {background-color:#fff;position:absolute;border-radius:3px;display:none;max-width: 300px;    right: 0;}
 
 .bbtn {
     display: block;
@@ -556,7 +556,7 @@ input.pass {text-align: center; letter-spacing: 0.3rem;}
 .tabs li:last-child{margin-right:0px;}
 .tabs a {display: block;padding: 5px 0px;-webkit-transition: all 0.2s ease-in-out;-moz-transition: all 0.2s ease-in-out;transition: all 0.2s ease-in-out;}
 .tabs li.current a{border-bottom: 2px solid #4296dc; color:#4296dc}
-.tabs_item {display: none;}
+.tabs_item {display: none;    position: relative;}
 .tabs_item:first-child {display: block;}
 
 .tabs_item label.active { border: 1px #ffcd00 solid;background-color:#ffcd00;color:#000;}

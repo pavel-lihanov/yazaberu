@@ -24,7 +24,7 @@ from requests_oauthlib import OAuth2Session
 import json
 import codecs
 
-from globals.models import GooglePlus, Facebook, Vkontakte
+from globals.models import GooglePlus, Facebook, Vkontakte, Yandex, Odnoklassniki
 
 class AuthProvider:
     def __init__(self):
@@ -75,6 +75,10 @@ class GoogleAuth(AuthProvider):
     def avatar(self):
         return {'url': self.info['picture'].strip()}
         
+    @property
+    def id(self):
+        return self.info['email']
+        
 class VKAuth(AuthProvider):
     class Permissions:
         notify = 1
@@ -103,11 +107,55 @@ class VKAuth(AuthProvider):
     redirect_uri = settings.OAUTH_REDIRECT_URI
     socialnetwork_model = Vkontakte
     authorization_base_url='https://oauth.vk.com/authorize'
-    client_id = 'gGqr9ilxU9UKttGvkUsz'
-    client_secret = ''
+    #client_id = '6467222'
+    client_id = '6476484'
+    #client_secret = 'gGqr9ilxU9UKttGvkUsz'
+    client_secret = 'S9xEwDT71l8gCFNYoCy5'
     scope = str(Permissions.notify + Permissions.offline)
     response_type = 'code'
     version='5.74'
+    
+    def request_auth(self, request):
+        self.session = OAuth2Session(self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
+        authorization_url, state = self.session.authorization_url(self.authorization_base_url)
+        print(authorization_url)
+        return authorization_url
+
+    def accept_auth(self, request):
+        redirect_response = request.build_absolute_uri()
+        code = request.GET['code']
+        r = self.session.get('https://oauth.vk.com/access_token?client_id={0}&client_secret={1}&code={2}&redirect_uri={3}'.format(self.client_id, self.client_secret, code, self.redirect_uri))
+        self.info = json.loads(codecs.decode(r.content,'utf8'))
+        print(self.info)
+        self.access_token = self.info['access_token']
+        print(self.access_token)
+        r = self.session.get('https://api.vk.com/method/users.get?access_token={0}&version={1}&client_secret={2}&client_id={3}&fields=photo_200'.format(self.access_token, self.version, self.client_secret, self.client_id))
+        self.info = json.loads(codecs.decode(r.content,'utf8'))['response'][0]
+        print("auth accepted, info:", self.info)
+
+    @property
+    def id(self):
+        return self.info['uid']
+        
+    @property
+    def email(self):
+        raise KeyError('No email')
+
+class YandexAuth(AuthProvider):
+    icon = '/static/files/yandex-oauth.svg'
+    redirect_uri = settings.OAUTH_REDIRECT_URI
+    socialnetwork_model = Yandex
+    authorization_base_url='https://oauth.yandex.ru/authorize'
+    client_id = '2218cb2b98d446f6b7d4f3b3f5b8f885'
+    client_secret = 'c649134f0e79487bbeb33419ced54781'
+    token_url = "https://oauth.yandex.ru/token"
+    scope = [
+        #"login:birthday",
+        #"login:email",
+        "login:info",
+        #"login.avatar",
+        ]
+    response_type = 'token'
     
     def request_auth(self, request):
         self.session = OAuth2Session(self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
@@ -116,20 +164,51 @@ class VKAuth(AuthProvider):
 
     def accept_auth(self, request):
         redirect_response = request.build_absolute_uri()
-        '''https://oauth.vk.com/access_token?  
-        client_id=APP_ID&  
-        client_secret=APP_SECRET&  
-        code=7a6fa4dff77a228eeda56603b8f53806c883f011c40b72630bb50df056f6479e52a&  
-        redirect_uri=REDIRECT_URI'''
-        code = request['code']
-        r = self.session.get('https://oauth.vk.com/access_token?client_id={0}&client_secret={1}&code={2}&redirect_uri={3}'.format(self.client_id, self.client_secret, code, self.redirect_uri))
+        self.session.fetch_token(self.token_url, client_id=self.client_id, client_secret=self.client_secret,
+                authorization_response=redirect_response, code=request.GET['code'])
+        #TODO: move token to http header
+        r = self.session.get('https://login.yandex.ru/info?format=json')
         self.info = json.loads(codecs.decode(r.content,'utf8'))
-        self.access_token = self.info['access_token']
-        selif.user_id = self.info['user_id']
-        #self.session.fetch_token(self.token_url, client_secret=self.client_secret, authorization_response=redirect_response)
-        #r = self.session.get('https://graph.facebook.com/me?fields=first_name,last_name,email,picture,link')
-        #self.info = json.loads(codecs.decode(r.content,'utf8'))
 
+    @property
+    def id(self):
+        return self.info['id']
+        
+    @property
+    def email(self):
+        raise KeyError('No email')
+
+class OKAuth(AuthProvider):
+    icon = '/static/files/ok-oauth.svg'
+    redirect_uri = settings.OAUTH_REDIRECT_URI
+    socialnetwork_model = Odnoklassniki
+    authorization_base_url='https://connect.ok.ru/authorize'
+    client_id = '2218cb2b98d446f6b7d4f3b3f5b8f885'
+    client_secret = 'c649134f0e79487bbeb33419ced54781'
+    token_url = "https://api.ok.ru/token.do"
+    scope = ['VALUABLE_ACCESS']
+    response_type = 'token'
+    
+    def request_auth(self, request):
+        self.session = OAuth2Session(self.client_id, redirect_uri=self.redirect_uri, scope=self.scope)
+        authorization_url, state = self.session.authorization_url(self.authorization_base_url)
+        print(authorization_url)
+        return authorization_url
+
+    def accept_auth(self, request):
+        redirect_response = request.build_absolute_uri()
+        self.session.fetch_token(self.token_url, client_id=self.client_id, client_secret=self.client_secret,
+                authorization_response=redirect_response, code=request.GET['code'])
+        r = self.session.get('https://api.ok.ru/fb.do?method=users.getInfo&fields=first_name,last_name,pic128x128&uids=')
+        self.info = json.loads(codecs.decode(r.content,'utf8'))
+
+    @property
+    def id(self):
+        return self.info['id']
+        
+    @property
+    def email(self):
+        raise KeyError('No email')
 
 class FacebookAuth(AuthProvider):
     icon = '/static/files/fb-oauth.svg'
@@ -171,8 +250,13 @@ class FacebookAuth(AuthProvider):
     def avatar(self):
         return {'url': self.info['picture']['data']['url'].strip()}
 
+    @property
+    def id(self):
+        return self.info['email']
+
 providers = {
     'google': GoogleAuth, 
     'facebook': FacebookAuth,
-    'vkontakte': VKAuth
+    'vkontakte': VKAuth,
+    'yandex': YandexAuth
     }

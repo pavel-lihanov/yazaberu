@@ -36,8 +36,35 @@ class Facebook(SocialNetwork):
             photo={'url':provider.info['picture']['data']['url'], })
     
 class Vkontakte(SocialNetwork):
-    pass
-    
+    @classmethod
+    def register_user(cls, provider):
+        p = Profile.create( user_id=provider.info['uid'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        #print(provider.info)
+        sn = Vkontakte(sn_id=provider.info['uid'])
+        sn.profile = p
+        sn.save()
+        return p, sn
+        
+class Yandex(SocialNetwork):
+    @classmethod
+    def register_user(cls, provider):
+        p = Profile.create( user_id=provider.info['id'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        print(provider.info)
+        sn = Yandex(sn_id=provider.info['id'])
+        sn.profile = p
+        sn.save()
+        return p, sn
+        
+class Odnoklassniki(SocialNetwork):
+    @classmethod
+    def register_user(cls, provider):
+        p = Profile.create( user_id=provider.info['id'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        print(provider.info)
+        sn = Odnoklassniki(sn_id=provider.info['id'])
+        sn.profile = p
+        sn.save()
+        return p, sn
+
 class GooglePlus(SocialNetwork):
     @classmethod
     def register_user(cls, provider):
@@ -118,22 +145,32 @@ class Profile(models.Model):
         
     @staticmethod
     def find(session):
-        id = session.email
         try:
-            u=User.objects.get(email=id)
-            p=Profile.objects.get(user=u)
-        except User.DoesNotExist:
-            try:
-                p = Profile.objects.get(phone=id)
-            except Profile.DoesNotExist:
-                raise
-        try:
-            sn = session.socialnetwork_model.objects.get(profile=p)
+            #find socialnetwork by id
+            print('find', session.id, session.socialnetwork_model)
+            sn = session.socialnetwork_model.objects.get(sn_id=session.id)
+            p = sn.profile
             return p, sn
         except session.socialnetwork_model.DoesNotExist:
-            print('no SN found for user {0}'.format(p))
-            return p, None
-
+            #try email and phone
+            try:
+                id = session.email
+                try:
+                    u=User.objects.get(email=id)
+                    p=Profile.objects.get(user=u)
+                except User.DoesNotExist:
+                    try:
+                        p = Profile.objects.get(phone=id)
+                    except Profile.DoesNotExist:
+                        raise
+                try:
+                    sn = session.socialnetwork_model.objects.get(profile=p)
+                    return p, sn
+                except session.socialnetwork_model.DoesNotExist:
+                    print('no SN found for user {0}'.format(p))
+                    return p, None
+            except KeyError:
+                raise Profile.DoesNotExist()
 
 class Avatar(models.Model):
     image=models.ImageField(blank=True, null=True)
