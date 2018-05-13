@@ -210,8 +210,10 @@ class OKAuth(AuthProvider):
 
 class FacebookAuth(AuthProvider):
     icon = '/static/files/fb-oauth.svg'
-    client_id = '146652102687184'
-    client_secret = '0fa9ef9fbbccb2bd1fed14c215272989'
+    #client_id = '146652102687184'
+    client_id = '2089549227726157'
+    client_secret = 'b6dc0cf7f4d896b4713944497df2c4f9'
+    #client_secret = '0fa9ef9fbbccb2bd1fed14c215272989'
     scope = ["public_profile", "email"]
     authorization_base_url = 'https://www.facebook.com/dialog/oauth'
     token_url = 'https://graph.facebook.com/oauth/access_token'
