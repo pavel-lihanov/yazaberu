@@ -29,7 +29,6 @@ class Facebook(SocialNetwork):
     @classmethod
     def update_user(cls, profile, provider):
         profile.update(
-            user_id=provider.info['email'],
             first_name=provider.info['first_name'],
             last_name = provider.info['last_name'],
             email=provider.info['email'],
@@ -38,7 +37,7 @@ class Facebook(SocialNetwork):
 class Vkontakte(SocialNetwork):
     @classmethod
     def register_user(cls, provider):
-        p = Profile.create( user_id=provider.info['uid'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        p = Profile.create(first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
         #print(provider.info)
         sn = Vkontakte(sn_id=provider.info['uid'])
         sn.profile = p
@@ -48,7 +47,7 @@ class Vkontakte(SocialNetwork):
 class Yandex(SocialNetwork):
     @classmethod
     def register_user(cls, provider):
-        p = Profile.create( user_id=provider.info['id'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        p = Profile.create(first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
         print(provider.info)
         sn = Yandex(sn_id=provider.info['id'])
         sn.profile = p
@@ -58,7 +57,7 @@ class Yandex(SocialNetwork):
 class Odnoklassniki(SocialNetwork):
     @classmethod
     def register_user(cls, provider):
-        p = Profile.create( user_id=provider.info['id'], first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
+        p = Profile.create(first_name=provider.info['first_name'], last_name=provider.info['last_name'], email='')
         print(provider.info)
         sn = Odnoklassniki(sn_id=provider.info['id'])
         sn.profile = p
@@ -68,7 +67,7 @@ class Odnoklassniki(SocialNetwork):
 class GooglePlus(SocialNetwork):
     @classmethod
     def register_user(cls, provider):
-        p = Profile.create( user_id=provider.info['email'], first_name=provider.info['given_name'], last_name=provider.info['family_name'], email=provider.info['email'])
+        p = Profile.create(first_name=provider.info['given_name'], last_name=provider.info['family_name'], email=provider.info['email'])
         print(provider.info)
         sn = GooglePlus(sn_id=provider.info['link'])
         sn.profile = p
@@ -98,7 +97,7 @@ class Profile(models.Model):
     completed_delivery_count = models.IntegerField(default=0)
     
     @staticmethod
-    def create(user_id, first_name, last_name, email, password=None, company=None, photo=None):
+    def create(first_name, last_name, email, phone='', password=None, company=None, photo=None):
         u = User(
             username = str(uuid.uuid4()),
             first_name = first_name,
@@ -108,11 +107,13 @@ class Profile(models.Model):
         u.profile = p
         p.first_name = first_name
         p.last_name = last_name
+        p.phone = phone
         
         if password is not None:
             u.set_password(password)
         u.save()
-        p.user_id = u.id
+        p.user = u
+        #p.user_id = u.id
         p.save()
         if photo:
             p.avatar = photo

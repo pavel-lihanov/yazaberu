@@ -79,12 +79,14 @@ def register(request):
         context = {}
         return  HttpResponse(template.render(context, request))
     else:
+        email = request.POST['email'].strip() if 'email' in request.POST else ''
+        phone = request.POST['phone'].strip() if 'phone' in request.POST else ''
         p = Profile.create(
             first_name=request.POST['first_name'].strip(),
             last_name = '',
-            email=request.POST['email'].strip(),
-            phone = request.POST['phone'].strip())
-        auth_login(request, u)
+            email = email,
+            phone = phone)
+        auth_login(request, p.user)
         return HttpResponseRedirect('/auth/change_password')
 
 @sensitive_post_parameters('password')

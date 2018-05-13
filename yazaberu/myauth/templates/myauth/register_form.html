@@ -3,11 +3,19 @@
   <h4>Ещё не с нами? Присоединяйтесь!</h4>
     <div class="auth-signin">	
       <p>Авторизуйтесь через социальные сети</p>
-      <div data-social="fb" title="Facebook" class="social-login-fb"><img src="files/fb-oauth.svg"></div> 
-      <div data-social="vk" title="Vkontakte" class="social-login-vk"><img src="files/vk-oauth.svg"></div> 
-      <div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div> 
-      <div data-social="ya" title="Yandex" class="social-login-ya"><img src="files/yandex-oauth.svg"></div> 
-      <div data-social="gl" title="Google+" class="social-login-gl"><img src="files/google-oauth.svg"></div>
+      <div data-social="fb" title="Facebook" class="social-login-fb" onclick="login_using('facebook')">
+        <img src="/static/files/fb-oauth.svg">
+      </div> 
+      <div data-social="vk" title="Vkontakte" class="social-login-vk" onclick="login_using('vkontakte')">
+        <img src="/static/files/vk-oauth.svg">
+      </div> 
+      <!--<div data-social="ok" title="Odnoklassniki" class="social-login-ok"><img src="files/ok-oauth.svg"></div>-->
+      <div data-social="ya" title="Yandex" class="social-login-ya" onclick="login_using('yandex')">
+        <img src="/static/files/yandex-oauth.svg">
+      </div> 
+      <div data-social="gl" title="Google+" class="social-login-gl" onclick="login_using('google')">
+        <img src="/static/files/google-oauth.svg">
+      </div>
     </div>
     <div class="tradition-reg">
       <p>или зарегистрируйтесь</p>
