@@ -34,8 +34,10 @@ class AuthProvider:
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     
 class GoogleAuth(AuthProvider):
-    client_id = '106930731650-sh2hbnmqb2i7fhe5nfndqlqaemoce2sj.apps.googleusercontent.com'
-    client_secret = 'fvershdSUSCI2V8WlgiqfJ6a'
+    #client_id = '106930731650-sh2hbnmqb2i7fhe5nfndqlqaemoce2sj.apps.googleusercontent.com'
+    client_id = '837181319545-gh2tt1592lr4dj2pmdo8t9bokk4k1nll.apps.googleusercontent.com'
+    client_secret = 'EFXtL44g0TJ8NQT7nM6rhlgm'
+    #client_secret = 'fvershdSUSCI2V8WlgiqfJ6a'
     scope = [
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile"
@@ -144,8 +146,10 @@ class YandexAuth(AuthProvider):
     redirect_uri = settings.OAUTH_REDIRECT_URI
     socialnetwork_model = Yandex
     authorization_base_url='https://oauth.yandex.ru/authorize'
-    client_id = '2218cb2b98d446f6b7d4f3b3f5b8f885'
-    client_secret = 'c649134f0e79487bbeb33419ced54781'
+    #client_id = '2218cb2b98d446f6b7d4f3b3f5b8f885'
+    #client_secret = 'c649134f0e79487bbeb33419ced54781'
+    client_id = '29e604ecbaac421f8b69d8e704ffee37'
+    client_secret = '19b2f9d6659e4de19c31851aaa10555f'
     token_url = "https://oauth.yandex.ru/token"
     scope = [
         #"login:birthday",
