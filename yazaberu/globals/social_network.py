@@ -107,10 +107,8 @@ class VKAuth(AuthProvider):
     redirect_uri = settings.OAUTH_REDIRECT_URI
     socialnetwork_model = Vkontakte
     authorization_base_url='https://oauth.vk.com/authorize'
-    #client_id = '6467222'
-    client_id = '6476484'
-    #client_secret = 'gGqr9ilxU9UKttGvkUsz'
-    client_secret = 'S9xEwDT71l8gCFNYoCy5'
+    client_id = '6477761'
+    client_secret = 'DsY9YOZFsVJQSBjpHLpa'
     scope = str(Permissions.notify + Permissions.offline)
     response_type = 'code'
     version='5.74'
