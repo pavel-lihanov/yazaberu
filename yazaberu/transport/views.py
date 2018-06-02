@@ -60,6 +60,7 @@ def add_parcel(request):
         _from = request.POST['from']
         _to=request.POST['to']
         _date=request.POST['date']
+        _time=request.POST['time']
         p = Profile.objects.get(user=request.user)
         try:
             start = City.objects.get(name = _from)

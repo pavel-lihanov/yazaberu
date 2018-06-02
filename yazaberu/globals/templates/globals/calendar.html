@@ -1,15 +1,17 @@
-<a class="calendar-icon" href="#"><svg width="19" height="17" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-<path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a>
+<a class="calendar-icon" href="#{{id}}_icon">
+  <svg width="19" height="17" id="{{id}}_icon" vector-effect="non-scaling-strok  e" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
+    <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path>
+   </svg>
+</a>
 
 <!--календарь дат-->
-
-<div class="responsive-calendar">
+<div class="responsive-calendar" id="{{id}}">
   <div class="controls">
       <a class="pull-left" data-go="prev"><div class="bbtn"><</div></a>
       <span data-head-month> </span> <span data-head-year></span>
       <a class="pull-right" data-go="next"><div class="bbtn">></div></a>
   </div>
-<div class="clear"></div>
+  <div class="clear"></div>
   <div class="day-headers">
     <div class="day ">Пн</div>
     <div class="day ">Вт</div>
@@ -23,3 +25,20 @@
 
   </div>
 </div>
+
+<script>
+var $cal_{{id}} = $('#{{id}}');
+$cal_{{id}}.responsiveCalendar({
+    events: {},
+    onDayClick: function(events){
+        var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+        $('#{{id}}_input').val($i)
+        $('#{{id}}').hide()
+    },
+}); /* end $cal */
+
+$('svg#{{id}}_icon').click(function(){
+    $("#{{id}}").slideToggle();
+});
+
+</script>

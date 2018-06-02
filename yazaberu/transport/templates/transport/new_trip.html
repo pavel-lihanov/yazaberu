@@ -1,3 +1,4 @@
+{% load calendar %}
 <div class="add-newtask">
   <div class="add-tash-h">
 	<img src="files/add-new-task.png">
@@ -6,10 +7,8 @@
   </div>
   <p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
   <p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
-  <p class="direction-lbl"><input class="time" value="" placeholder="Дата поездки">
-	<a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18">
-	  <path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg>
-	</a>
+  <p class="direction-lbl"><input class="time" id="trip_date_input" value="" placeholder="Дата поездки">
+  {% calendar "trip_date" %}
   </p>
   <!--<div class="what-transport">
   <p>На чем поедете?

@@ -6,10 +6,10 @@
     <div class="search-form">
       <div class="inpt"><input id="parcel_orig" type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
       <div class="inpt"><input id="parcel_dest" type="text" value="{{destination}}" placeholder="Куда"></div>
-      <div class="inpt"><input id="parcel_date" type="text" class="calendar" value="{{due_date}}" placeholder="Любая дата">
-      {% calendar %}
+      <div class="inpt"><input id="parcel_date_input" type="text" class="calendar" value="{{due_date}}" placeholder="Любая дата">
+      {% calendar "parcel_date" %}
       </div>
-      <button class="btn orng" onclick="find_parcel()">Найти, что доставить</button>
+      <button class="btn orng" onclick="_find_parcel()">Найти, что доставить</button>
     </div>
     <p class="create-alerting"><a href="#"><img src="/static/files/notification-empt.svg"> Создайте уведомление</a>, не пропускайте новые заказы</p>
   </div>
@@ -17,10 +17,10 @@
 </section>
 
 <script>
-  function find_parcel () {
+  function _find_parcel () {
     var orig=document.getElementById('parcel_orig');
     var dest=document.getElementById('parcel_dest');
-    var date=document.getElementById('parcel_date');
+    var date=document.getElementById('parcel_date_input');
     document.location = '/transport/parcel_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
   }
 </script>

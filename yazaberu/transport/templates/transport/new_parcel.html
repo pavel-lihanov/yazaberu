@@ -7,8 +7,8 @@
   </div>
   <p class="direction-lbl"><label for="from" class="input">из</label><input id="from" class="from" value="Москва" placeholder="Город"></p>
   <p class="direction-lbl"><label for="to" class="input">в</label><input class="to" id="to" value="Тверь" placeholder="Город"></p>
-  <p class="direction-lbl"><input class="time calendar" value="" placeholder="Доставить до">
-  {% calendar %}
+  <p class="direction-lbl"><input class="time calendar" id="due_date_input" value="" placeholder="Доставить до">
+  {% calendar "due_date" %}
   </p>
   <p class="place"><a href="#">Уточнить место встречи</a></p>
   <div class="task-alerting switch"><span>Уведомлять о предложениях доставки</span>

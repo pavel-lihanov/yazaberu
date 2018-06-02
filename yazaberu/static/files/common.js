@@ -16,9 +16,7 @@ $('.prof-hello a').click(function(){
 $('.header .sub-menu').slideToggle();
 });
 
-$('svg.calendar-icon').click(function(){
-    $(".responsive-calendar").slideToggle();
-});
+
 
 //open popup
 	$('.popup-trigger').on('click', function(event){
@@ -90,52 +88,33 @@ $('.count').each(function () {
 
 //TABS - переключение анкеты
 
-		$('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
-		
-		$('.tab ul.tabs li a').click(function (g) { 
-			var tab = $(this).closest('.tab'), 
-				index = $(this).closest('li').index();
-			
-			tab.find('ul.tabs > li').removeClass('current');
-			$(this).closest('li').addClass('current');
-			
-			tab.find('.tab_content').find('div.tabs_item').not('div.tabs_item:eq(' + index + ')').slideUp();
-			tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
-			
-			g.preventDefault();
-		} );
-        var $cal = $('.responsive-calendar');
-	
-        $cal.responsiveCalendar({
-            events: {},
-            onDayClick: function(events){
-                var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
-                $('.calendar').val($i)
-                $('.responsive-calendar').hide()
-            },
-            onActiveDayHover: function(events) {
-                var $today, $dayEvents, $i, $isHoveredOver, $placeholder, $output;
-                $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
-                $isHoveredOver = $(this).is(":hover");
-                $placeholder = $(".responsive-calendar-placeholder");
-                $today = events[$i];
-                $dayEvents = $today.dayEvents;
-                $output = '<div class="responsive-calendar-modal">';
-                $.each($dayEvents, function() {
-                    $.each($(this), function(key) {
-                        $output += '<h1>Title: ' + $(this)[key].title + '</h1>' + '<p>Status: ' + $(this)[key].status + '<br />' + $(this)[key].time + '</p>';
-                    });
-                });
-                $output + '</div>';
+$('.tab ul.tabs').addClass('active').find('> li:eq(0)').addClass('current');
 
-                if ($isHoveredOver) {
-                    $placeholder.html($output);
-                } else {
-                    fadeOutModalBox(500);
-                }
-            },
-        }); /* end $cal */
+$('.tab ul.tabs li a').click(function (g) { 
+    var tab = $(this).closest('.tab'), 
+        index = $(this).closest('li').index();
+    
+    tab.find('ul.tabs > li').removeClass('current');
+    $(this).closest('li').addClass('current');
+    
+    tab.find('.tab_content').find('div.tabs_item').not('div.tabs_item:eq(' + index + ')').slideUp();
+    tab.find('.tab_content').find('div.tabs_item:eq(' + index + ')').slideDown();
+    
+    g.preventDefault();
+} );
+/*
+var $cal = $('.responsive-calendar');
+$cal.responsiveCalendar({
+    events: {},
+    onDayClick: function(events){
+        var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+        $('.calendar').val($i)
+        $('.responsive-calendar').hide()
+    },
+    });
+*/    
 });
+
 
 	
 

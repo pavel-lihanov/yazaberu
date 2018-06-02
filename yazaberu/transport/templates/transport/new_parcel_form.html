@@ -14,7 +14,7 @@ function f_add_parcel() {
   document.getElementById('new_parcel_form').submit();
 }
 function initPopup() {
-    initCalendar();
+    //initCalendar();
 }
 </script>
 
@@ -50,8 +50,9 @@ function initPopup() {
     <input id="to" class="to" name="to" value="" placeholder="Город">
   </p>
   <p class="direction-lbl">
-    <input class="time calendar" name="date" value="" placeholder="Дата поездки">
-    {% calendar %}
+    <input class="time calendar" id="trip_date_input" name="date" value="" placeholder="Дата поездки">
+    {% calendar "trip_date" %}
+    <input class="minutes" name="time" value="" placeholder="00:00">
   </p>
   <p>
     <button class="btn btn-small blk" onclick="f_add_parcel()">Добавить заказ</button>

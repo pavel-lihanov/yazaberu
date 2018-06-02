@@ -3,14 +3,23 @@
   <div class="mainban sender-baner short">
     <div class="container">	
     <div class="search-form">
-      <div class="inpt"><input type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
-      <div class="inpt"><input type="text" value="{{destination}}" placeholder="Куда"></div>
-      <div class="inpt"><input type="text" value="{{due_date}}" class="calendar" value="" placeholder="Любая дата">
-      {% calendar %}
+      <div class="inpt"><input id="trip_orig" type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
+      <div class="inpt"><input id="trip_dest" type="text" value="{{destination}}" placeholder="Куда"></div>
+      <div class="inpt"><input id="due_date_input" type="text" value="{{due_date}}" class="calendar" value="" placeholder="Любая дата">
+      {% calendar "due_date" %}
       </div>
-      <button class="btn blu" onclick="" >Найти перевозчика</button>
+      <button class="btn blu" onclick="_find_trip()" >Найти перевозчика</button>
     </div>
     <p class="create-alerting"><a href="#"><img src="/static/files/notification-empt.svg"> Создайте уведомление</a>, не пропускайте новые поездки</p>
     </div>
   </div>
 </section>
+
+<script>
+  function _find_trip () {
+    var orig=document.getElementById('trip_orig');
+    var dest=document.getElementById('trip_dest');
+    var date=document.getElementById('due_date_input');
+    document.location = '/transport/parcel_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
+  }
+</script>
