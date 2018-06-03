@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^auth/', include('myauth.urls')),
     url(r'^transport/', include('transport.urls')),
     url(r'^profile/', include('myprofile.urls')),
+    url(r'^comments/', include('comments.urls')),
     #dev server only
     url(r'^media/(?P<path>.*)$', serve, {'document_root': './media'}),
     url(r'^send/$', globals.views.landing_sender),

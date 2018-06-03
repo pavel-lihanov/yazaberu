@@ -130,15 +130,16 @@
   </div>
   
   <div class="ask-form">
-    <form id="ask-aboutdeal">
-      <textarea name="ask-field" placeholder="Задайте вопрос"></textarea>
+    <form id="ask-aboutdeal" method="post" action="/comments/parcel/{{parcel.id}}/ask_question">
+      {% csrf_token %}
+      <textarea name="question_text" placeholder="Задайте вопрос"></textarea>
       <div class="btn-qsend"><button onclick="loadPopup('/comments/parcel/{{parcel.id}}/ask_question')" class="btn blk">Отправить</button></div>
     </form>
   </div>
 
   <h4>Вопросы по условиям доставки</h4>
   {% for c in questions %}
-    {% include "comments/question.html" with comment=c%}
+    {% include "comments/question.html" with question=c%}
 	{% endfor %}
 
   <h4 id="offersmans">Предложения по доставке</h4>

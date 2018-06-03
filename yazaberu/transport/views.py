@@ -5,8 +5,12 @@ from django.template import loader
 
 from django.db.models import Q
 from transport.models import Trip, Parcel, Route, City, Location, Offer, Delivery
+from comments.models import Question
 from globals.models import Profile
 from django.utils import timezone
+import datetime
+import pytz
+from django.utils.dateparse import parse_date, parse_datetime
 # Create your views here.
 
 def add_trip(request):
@@ -20,7 +24,29 @@ def add_trip(request):
     elif request.method=='POST':
         _from = request.POST['from']
         _to=request.POST['to']
-        _date=request.POST['date']
+        _date_start=request.POST['date']
+        if 'date_end' in request.POST:
+            _date_end=request.POST['date_end']
+        else:
+            _date_end = _date_start
+            
+        if 'time' in request.POST and ':' in request.POST['time']:
+            h,m = request.POST['time'].split(':')
+            _time_start=datetime.time(hour=int(h), minute=int(m))
+        else:
+            _time_start = datetime.time(hour=22, minute=0)
+        if 'time_end' in request.POST and ':' in request.POST['time_end']:
+            h,m = request.POST['time_end'].split(':')
+            _time_end=datetime.time(hour=int(h), minute=int(m))
+        else:
+            _time_end = datetime.time(hour=23, minute=0)
+
+        if 'tz' in request.POST:
+            _tz = int(request.POST['tz'])/60
+        else:
+            _tz = +2 #use central Russia/Moscow as a default
+            
+            
         p = Profile.objects.get(user=request.user)
         try:
             route = Route.objects.get(start__name=_from, end__name=_to)
@@ -38,8 +64,13 @@ def add_trip(request):
                 end.save()
             route = Route(start=start, end=end)
             route.save()
-
-        trip = Trip(start_date=_date, end_date=_date)
+        ds = parse_date(_date_start)
+        de = parse_date(_date_end)
+        ds = datetime.datetime.combine(ds, _time_start)
+        de = datetime.datetime.combine(de, _time_end)
+        ds = ds.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(_tz)*3600)))
+        de = de.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(_tz)*3600)))
+        trip = Trip(start_date=ds, end_date=de)
         trip.rider=p
         trip.route=route
         trip.transport=0
@@ -179,6 +210,7 @@ def parcel_search(request):
         return HttpResponse('Not valid', status=422)
         
 def parcel(request, id):
+    user = request.user
     if request.method=='GET':
         try:
             parcel = Parcel.objects.get(id=id)
@@ -186,8 +218,10 @@ def parcel(request, id):
             context = {'parcel': parcel}
             if user.is_authenticated():
                 profile=Profile.objects.get(user=user)
-                context['profile']=profile
-                context['mine']=parcel.owner==profile
+                context['profile'] = profile
+                context['mine'] = parcel.owner==profile
+                qs = list(Question.objects.filter(parcel=parcel))
+                context['questions'] = qs
             else:
                 context['profile']=None
             return  HttpResponse(template.render(context, request))
@@ -256,7 +290,9 @@ def parcel_deal(request, id):
             context['profile']=p
             context['parcel']=parcel
             context['offers']=list(offers)
-            context['questions']=list(Question.objects.get(parcel=parcel))
+            qs = list(Question.objects.filter(parcel=parcel))
+            print(qs)
+            context['questions']=qs
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseForbidden()
@@ -274,7 +310,7 @@ def trip_deal(request, id):
             context['profile']=p
             context['trip']=trip
             context['offers']=list(offers)
-            context['questions']=list(Question.objects.get(trip=trip))
+            context['questions']=list(Question.objects.filter(trip=trip))
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseForbidden()
@@ -302,7 +338,7 @@ def offer_trip(request, id):
             parcel.owner.notify(topic='Trip offer', text='{0} offered to transport {1} for {2}'.format(p.name_public, parcel.description, offer.price))
         else:
             return HttpResponseForbidden()
-        return HttpResponseRedirect('/transport/deal/{0}'.format(parcel.id))
+        return HttpResponseRedirect('/transport/parcel/{0}/deal'.format(parcel.id))
 
 def offer_parcel(request, id):
     trip = Trip.objects.get(id=id)
@@ -311,9 +347,22 @@ def offer_parcel(request, id):
         template = loader.get_template('transport/offer_parcel_form.html')
         parcels = Parcel.objects.filter(
             owner=p,
-            destination__city=trip.destination,
-            due_date__le=trip.end_date)
-        context = {'profile':p, 'parcels':parcels}
+            origin__city=trip.route.start,
+            destination__city=trip.route.end,
+            due_date__lt=trip.end_date)
+        context = {'profile':p, 'parcels':parcels, 'trip':trip}
         return  HttpResponse(template.render(context, request))
     elif request.method == 'POST':
-        return HttpResponse('Not implemented', status=422)
+        parcel = Parcel.objects.get(id=int(request.POST['parcel']))
+        if parcel.owner == p:
+            offer = Offer()
+            offer.receiver = parcel.owner
+            offer.parcel = parcel
+            offer.trip = trip
+            offer.price = int(request.POST['price'])
+            offer.save()
+            parcel.owner.notify(topic='Trip offer', text='{0} offered to transport {1} for {2}'.format(p.name_public, parcel.description, offer.price))
+        else:
+            return HttpResponseForbidden()
+        return HttpResponseRedirect('/transport/parcel/{0}'.format(parcel.id))
+        #return HttpResponseRedirect('/transport/trip/{0}/deal'.format(trip.id))

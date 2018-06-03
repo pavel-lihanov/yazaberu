@@ -49,9 +49,14 @@ function initPopup() {
             <input class="to" name="to" id="to_single" value="" placeholder="Город">
           </p>
           <p class="direction-lbl">
-            <input class="time calendar" name="date" id="trip_start_input" value="" placeholder="Туда">
+            <input class="time calendar" name="date" id="trip_start_input" value="" placeholder="Выезжаю">
             {% calendar "trip_start" %}
             <input class="minutes" name="time" value="" placeholder="00:00">
+          </p>
+          <p class="direction-lbl">
+            <input class="time calendar" name="date_end" id="trip_end_input" value="" placeholder="Приезжаю">
+            {% calendar "trip_end" %}
+            <input class="minutes" name="time_end" value="" placeholder="00:00">
           </p>
           <!--
           <p class="direction-lbl">

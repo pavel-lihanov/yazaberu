@@ -1,7 +1,8 @@
 <div class="add-new-form">
-  <form>
+  <form method="post" action="/transport/trip/{{trip.id}}/offer_parcel">
     {% csrf_token %}
-    <input id="parcel_id" type="text" style="display:none" value="">
+    <input id="parcel_id" name="parcel" type="text" style="display:none" value="">
+    <input id="price" name="price" type="text" style="display:none" value="111">
     <h4>Какую посылку вы хотите отправить?</h4>
     <p class="wayname">Ваши текущие отправления</p>
     {% for p in parcels %}
@@ -18,5 +19,5 @@
     {% endfor %}
   </form>
   <p><button class="btn btn-small blu">или Добавьте новый заказ</button></p>
-  <p><button class="btn blk">Отправить предложение Имя Ф.</button></p>
+  <p><button class="btn blk">Отправить предложение {{trip.rider.name_public}}</button></p>
 </div>

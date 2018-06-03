@@ -12,13 +12,23 @@ from django.template import loader
 
 def ask_question(request, id):
     profile = Profile.objects.get(user=request.user)
-    parcel = parcel.objects.get(id=id)
+    parcel = Parcel.objects.get(id=id)
     if request.method=='GET':
         template = loader.get_template('comments/ask_question_form.html')
         context = {'profile': profile}
         return  HttpResponse(template.render(context, request))
     elif request.method=='POST':
-        pass
+        parcel = Parcel.objects.get(id=id)
+        msg = Message()
+        msg.text = request.POST['question_text']
+        msg.author = profile
+        msg.receiver = parcel.owner
+        msg.save()
+        q = Question()
+        q.message = msg
+        q.parcel = parcel
+        q.save()
+        return HttpResponseRedirect('/transport/parcel/{0}'.format(parcel.id))
     else:
         return HttpResponse('Not valid', status=422)
         
@@ -28,7 +38,7 @@ def reply(request, id):
     if request.method=='GET':
         template = loader.get_template('comments/reply_form.html')
         context={'profile': profile, 'message': message}
-        return  HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
     elif request.method=='POST':
         text = request.POST['text']
         msg = Message()
@@ -51,3 +61,21 @@ def answer_review(request, id):
     review = Review.objects.get(id=id)
     if request.method == 'GET':
         template = loader.get_template('comments/reply_form.html')
+        context = {'question': review}
+        return HttpResponse(template.render(context, request))
+
+def answer_question(request, id):
+    profile = Profile.objects.get(user=request.user)
+    question = Question.objects.get(id=id)
+    if request.method == 'GET':
+        template = loader.get_template('comments/reply_form.html')
+        context = {'question': question}
+        return HttpResponse(template.render(context, request))
+
+def review_driver(request, id):
+    profile = Profile.objects.get(user=request.user)
+    return HttpResponse('Not implemented', status=422)
+    
+def review_sender(request, id):
+    profile = Profile.objects.get(user=request.user)
+    return HttpResponse('Not implemented', status=422)
