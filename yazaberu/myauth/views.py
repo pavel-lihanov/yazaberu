@@ -92,19 +92,6 @@ def register(request):
         auth_login(request, p.user)
         return HttpResponseRedirect('/auth/change_password')
 
-@sensitive_post_parameters('password')
-@sensitive_post_parameters('password2')
-def change_password(request):
-    if request.method == 'GET':
-        profile=Profile.objects.get(user=request.user)
-        template = loader.get_template('myauth/change_password_form.html')
-        context = {'profile': profile}
-        return  HttpResponse(template.render(context, request))
-    elif request.method=='POST':
-        pass
-    else:
-        return HttpResponse('Not valid', status=422)
-
 def welcome(request):
     if request.method == 'GET':
         return do_welcome(request, profile=Profile.objects.get(user=request.user))
@@ -129,6 +116,8 @@ def logout(request):
     auth_logout(request)
     return HttpResponseRedirect('/')
     
+@sensitive_post_parameters('password')
+@sensitive_post_parameters('password2')
 def change_password(request):
     user = request.user
     if request.method == 'POST':
@@ -150,7 +139,7 @@ def change_password(request):
         context = {'has_password': user.is_authenticated() and user.has_usable_password()}
         return HttpResponse(template.render(context, request))
     else:
-        return HttpResponse('Not valid', status=422)
+        return HttpResponse('Not valid {0}'.format(request.method), status=422)
         
 def reset_done(request):
     #TODO: page for reset confirm
