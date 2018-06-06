@@ -66,6 +66,7 @@ function loadPopup (url) {
     if (this.readyState == 4 && this.status == 200) {
       var el = $('#popup-content');
       el.html(this.responseText);
+      el = $('#popup');
       el.addClass('is-visible');
       initPopup();
     } else if (this.readyState == 4 && this.status == 302) {

@@ -16,6 +16,9 @@ from django.contrib.auth import authenticate, update_session_auth_hash
 from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 from django.views.decorators.debug import sensitive_post_parameters
 
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
+
 from globals.social_network import providers
 
 auth_sessions = {}
@@ -129,7 +132,8 @@ def logout(request):
 def change_password(request):
     user = request.user
     if request.method == 'POST':
-        if user.has_usable_password():
+        print(request.POST)
+        if user.is_authenticated() and user.has_usable_password():
             form = PasswordChangeForm(user, data=request.POST)
         else:
             form = SetPasswordForm(user, data=request.POST)
@@ -141,8 +145,62 @@ def change_password(request):
             print('Validation failed:', form.errors)
             return HttpResponse('Validation error', status=422)
     elif request.method == 'GET':
+        print('change_password', request.GET, request.session, request.user)
         template = loader.get_template('myauth/password_change_form.html')
-        context = {'has_password': user.has_usable_password()}
+        context = {'has_password': user.is_authenticated() and user.has_usable_password()}
         return HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid', status=422)
+        
+def reset_done(request):
+    #TODO: page for reset confirm
+    return HttpResponse("Reset done, please check your inbox")
+    
+class MyPasswordResetView(PasswordResetView):
+    template_name = 'myauth/forgot_form.html'
+    
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, *args, **kwargs):
+        print('MyPasswordResetView', self.request.GET)
+        return super(MyPasswordResetView, self).get(*args, **kwargs)
+        
+    
+class MyPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'myauth/reset.html'
+    def form_invalid(self, form):
+        return HttpResponse(json.dumps({'ok': False, 'errors': form.errors}), content_type="application/json")
+        
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse('Password changed, you can now login using email and your new password')
+
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, *args, **kwargs):
+        print('MyPasswordResetConfirmView', self.request.GET)
+        res = super(MyPasswordResetConfirmView, self).get(*args, **kwargs)
+        print(res)
+        return res
+        
+class MyPasswordChangeView(PasswordChangeView):
+    @property
+    def form_class(self):
+        user = self.request.user
+        if user.has_usable_password():
+            return PasswordChangeForm
+        else:
+            return SetPasswordForm
+        
+    def form_invalid(self, form):
+        return HttpResponse("Error!")
+        
+    def form_valid(self, form):
+        form.save()
+        update_session_auth_hash(self.request, form.user)
+        return HttpResponseRedirect('/profile')
+        
+    @method_decorator(ensure_csrf_cookie)
+    def get(self, *args, **kwargs):
+        print('MyPasswordChangeView', self.request.GET, self.request.session, self.request.user)
+        return super(MyPasswordChangeView, self).get(*args, **kwargs)
+
+

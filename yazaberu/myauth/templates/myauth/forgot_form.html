@@ -1,0 +1,10 @@
+<div class="authorized-form">
+  <h4>Восстановить доступ</h4>
+  <form id="forgot" method="post" action="/auth/forgot/">
+    {% csrf_token %}
+    <div class="form-forgot">
+      <p><input type="text" name="email" value="" placeholder="Электронная почта"></p>
+      <p><button class="btn noactive blk" type="submit">Сбросить пароль</button></p>
+    </div>
+  </form>
+</div>

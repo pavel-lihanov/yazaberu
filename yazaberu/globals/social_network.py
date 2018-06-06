@@ -34,11 +34,11 @@ class AuthProvider:
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     
 class GoogleAuth(AuthProvider):
-    #test
-    #client_id = '106930731650-sh2hbnmqb2i7fhe5nfndqlqaemoce2sj.apps.googleusercontent.com'
-    #client_secret = 'fvershdSUSCI2V8WlgiqfJ6a'
-    client_id = '837181319545-gh2tt1592lr4dj2pmdo8t9bokk4k1nll.apps.googleusercontent.com'
-    client_secret = 'EFXtL44g0TJ8NQT7nM6rhlgm'
+    #test - use account yazaberu-test
+    client_id = '106930731650-sh2hbnmqb2i7fhe5nfndqlqaemoce2sj.apps.googleusercontent.com'
+    client_secret = 'fvershdSUSCI2V8WlgiqfJ6a'
+    #client_id = '837181319545-gh2tt1592lr4dj2pmdo8t9bokk4k1nll.apps.googleusercontent.com'
+    #client_secret = 'EFXtL44g0TJ8NQT7nM6rhlgm'
     scope = [
         "https://www.googleapis.com/auth/userinfo.email",
         "https://www.googleapis.com/auth/userinfo.profile"
