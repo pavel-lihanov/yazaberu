@@ -136,7 +136,7 @@ def change_password(request):
     elif request.method == 'GET':
         print('change_password', request.GET, request.session, request.user)
         template = loader.get_template('myauth/password_change_form.html')
-        context = {'has_password': user.is_authenticated() and user.has_usable_password()}
+        context = {'has_password': user.is_authenticated() and user.has_usable_password(), 'action': '/auth/change_password'}
         return HttpResponse(template.render(context, request))
     else:
         return HttpResponse('Not valid {0}'.format(request.method), status=422)
