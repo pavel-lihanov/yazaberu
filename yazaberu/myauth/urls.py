@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^confirm$', myauth.views.confirm , name='confirm'),
     url(r'^welcome$', myauth.views.welcome , name='welcome'),
     url(r'^logout$', myauth.views.logout , name='logout'),
-    #url(r'^change_password$', myauth.views.change_password, name='change_pass'),
+    url(r'^change_password$', myauth.views.change_password, name='change_pass'),
     
     url(r'^accounts/password_change/$', myauth.views.MyPasswordChangeView.as_view(template_name='myauth/password_change_form.html')),
     url(r'^accounts/password_change_done/$', auth_views.PasswordChangeDoneView.as_view(template_name='myauth/password_change_done.html')),
