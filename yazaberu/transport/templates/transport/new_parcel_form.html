@@ -1,4 +1,5 @@
 {% load calendar %}
+{% load timeinput %}
 <script>
 function f_add_parcel() {
 /*
@@ -57,7 +58,8 @@ function initPopup() {
   <p class="direction-lbl">
     <input class="time calendar" id="trip_date_input" name="date" value="" placeholder="Дата поездки">
     {% calendar "trip_date" %}
-    <input class="minutes" name="time" value="" placeholder="00:00">
+    {% timeinput "time" "time" %}
+    <!--<input class="minutes" name="time" value="" placeholder="00:00">-->
   </p>
   <p>
     <button class="btn btn-small blk" onclick="f_add_parcel()">Добавить заказ</button>

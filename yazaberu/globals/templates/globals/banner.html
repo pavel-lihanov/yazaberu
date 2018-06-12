@@ -4,13 +4,17 @@
 	<div class="container">
 	<h1>Передавайте посылки близким с попутчиками и экономьте до 75% на доставке</h1>
 	<div class="search-form">
-		<div class="inpt"><input id="origin" type="text" value="Москва" placeholder="Откуда"/></div>
-		<div class="inpt"><input id="destination" type="text" value=""  placeholder="Куда"/></div>
-		<div class="inpt"><input id="date_input" type="text" class="calendar" value=""  placeholder="Любая дата"/>
-    {% calendar "date" %}
+    <form method="get" action="/transport/parcel_search">
+    {% csrf_token %}
+		<div class="inpt"><input id="origin" type="text" name="origin" value="" placeholder="Откуда"/></div>
+		<div class="inpt"><input id="destination" type="text" name="destination" value=""  placeholder="Куда"/></div>
+		<div class="inpt">
+      <input id="date_input" type="text" name="date" class="calendar" value=""  placeholder="Любая дата"/>
+      {% calendar "date" %}
 		</div>
-		<button class="btn orng" onclick="find_parcel()">Найти заказы</button>
-		<!--<button class="btn blu">Найти перевозчика</button>-->
+		<button class="btn orng">Найти заказы</button>
+		</form>
+    <!--<button class="btn blu">Найти перевозчика</button>-->
 	</div>
 	</div>
 </div>

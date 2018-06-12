@@ -45,6 +45,17 @@ def add_trip(request):
             _tz = int(request.POST['tz'])/60
         else:
             _tz = +2 #use central Russia/Moscow as a default
+
+        if 'min_price' in request.POST:
+            _min_price = int(request.POST['min_price'])
+        else:
+            _min_price = 0
+
+        if 'max_weight' in request.POST:
+            _max_weight = int(request.POST['max_weight'])
+        else:
+            _max_weight = 0
+
             
             
         p = Profile.objects.get(user=request.user)
@@ -75,6 +86,8 @@ def add_trip(request):
         trip.route=route
         trip.transport=0
         trip.duration = 0
+        trip.price = _min_price
+        trip.max_weight = _max_weight
         trip.save()
         return HttpResponseRedirect('/profile/deliveries')
     

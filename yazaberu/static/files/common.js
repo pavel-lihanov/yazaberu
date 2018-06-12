@@ -17,7 +17,6 @@ $('.header .sub-menu').slideToggle();
 });
 
 
-
 //open popup
 	$('.popup-trigger').on('click', function(event){
 		event.preventDefault();

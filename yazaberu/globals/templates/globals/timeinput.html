@@ -1,0 +1,6 @@
+<input class="minutes" id="{{id}}" name="{{name}}" value="{{value}}" placeholder="00:00">
+<script>
+  var selector = document.getElementById("{{id}}");
+  var im = new Inputmask("99:99");
+  im.mask(selector);
+</script>

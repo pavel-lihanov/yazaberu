@@ -1,4 +1,5 @@
 {% load calendar %}
+{% load timeinput%}
 <script>
  function f_add_single_trip() {
     //don't use, just submit the form
@@ -53,15 +54,20 @@ function initPopup() {
           <p class="direction-lbl">
             <input class="time calendar" name="date" id="trip_start_input" value="" placeholder="Выезжаю">
             {% calendar "trip_start" %}
-            <input class="minutes" name="time" value="" placeholder="00:00">
+            {% timeinput "time_start" "time" %}
+            <!--<input class="minutes" name="time" value="" placeholder="00:00">-->
           </p>
           <p class="direction-lbl">
             <input class="time calendar" name="date_end" id="trip_end_input" value="" placeholder="Приезжаю">
             {% calendar "trip_end" %}
-            <input class="minutes" name="time_end" value="" placeholder="00:00">
+            {% timeinput "time_end" "time_end" %}
+            <!--<input class="minutes" name="time_end" value="" placeholder="00:00">-->
           </p>
           <p class="direction-lbl">
-            <input class="maxprice" id="min_price" name="min_price" value="" placeholder="Минмальная цена за посылку, руб">
+            <input class="maxprice" id="min_price" name="min_price" value="" placeholder="Цена за посылку, руб">
+          </p>
+          <p class="direction-lbl">
+            <input class="maxprice" id="max_weight" name="max_weight" value="" placeholder="Вес посылки не более, кг">
           </p>
           <!--
           <p class="direction-lbl">
