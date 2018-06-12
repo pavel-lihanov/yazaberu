@@ -18,7 +18,7 @@ class City(models.Model):
         return '{0}, {1}'.format(self.name, self.country)
     
 class Location(models.Model):
-    city=models.ForeignKey(City)
+    city=models.ForeignKey(City, on_delete=models.CASCADE)
     lat=models.DecimalField(max_digits=10, decimal_places=4, blank=True, null=True)
     lng=models.DecimalField(max_digits=10, decimal_places=4, blank=True, null=True)
     address=models.CharField(max_length=255)
@@ -30,7 +30,7 @@ class Parcel(models.Model):
     #short description of what's in the parcel
     description=models.CharField(max_length=255)
     #owner
-    owner=models.ForeignKey(Profile)
+    owner=models.ForeignKey(Profile, on_delete=models.CASCADE)
     #approx weight in kg
     weight=models.IntegerField(default=1)
     #declared value in RUB
@@ -40,9 +40,9 @@ class Parcel(models.Model):
     #photo
     image=models.ImageField(null=True)
     #location from where the parcel is sent, address is used as meeting place
-    origin=models.ForeignKey(Location, related_name='parcels_from', null=True)
+    origin=models.ForeignKey(Location, related_name='parcels_from', null=True, on_delete=models.CASCADE)
     #location to where the parcel should be delivered
-    destination=models.ForeignKey(Location, related_name='parcels_to', null=True)
+    destination=models.ForeignKey(Location, related_name='parcels_to', null=True, on_delete=models.CASCADE)
     #when the parcel was created
     creation_date = models.DateTimeField(auto_now_add=True, null=True)
     #date by which the parcel should be delivered
@@ -61,8 +61,8 @@ class Parcel(models.Model):
         return self.description
         
 class Route(models.Model):
-    start=models.ForeignKey(City, related_name='starts')
-    end=models.ForeignKey(City, related_name='ends')
+    start=models.ForeignKey(City, related_name='starts', on_delete=models.CASCADE)
+    end=models.ForeignKey(City, related_name='ends', on_delete=models.CASCADE)
     
     def __str__(self):
         return 'Route from {0} to {1}'.format(self.start, self.end)
@@ -74,8 +74,8 @@ class Route(models.Model):
         return 2
     
 class Trip(models.Model):
-    rider=models.ForeignKey(Profile)
-    route=models.ForeignKey(Route)
+    rider=models.ForeignKey(Profile, on_delete=models.CASCADE)
+    route=models.ForeignKey(Route, on_delete=models.CASCADE)
     transport=models.IntegerField()
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
@@ -90,9 +90,9 @@ class Trip(models.Model):
 
 class Delivery(models.Model):
     #what is delivered
-    parcel=models.ForeignKey(Parcel)
+    parcel=models.ForeignKey(Parcel, on_delete=models.CASCADE)
     #the route where the parcel will go
-    trip=models.ForeignKey(Trip, blank=True, null=True)
+    trip=models.ForeignKey(Trip, blank=True, null=True, on_delete=models.CASCADE)
     #agreed price
     price = models.IntegerField()
     #when rider got the parcel
@@ -118,12 +118,12 @@ class Delivery(models.Model):
         self.parcel.owner.save()
 
 class Offer(models.Model):
-    receiver = models.ForeignKey(Profile)
-    parcel = models.ForeignKey(Parcel)
-    trip = models.ForeignKey(Trip)
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    parcel = models.ForeignKey(Parcel, on_delete=models.CASCADE)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     price = models.IntegerField(default=0)
-    meeting_1 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_from')
-    meeting_2 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_to')
+    meeting_1 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_from', on_delete=models.CASCADE)
+    meeting_2 = models.ForeignKey(Location, blank=True, null=True, related_name='offers_to', on_delete=models.CASCADE)
     
     def accept(self):
         d = Delivery()

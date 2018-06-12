@@ -82,7 +82,7 @@ function loadPopup (url) {
   xhttp.send();
 }
 
-function add_trip(_from, _to, _date){
+function add_trip(_from, _to, _date, _time, _tz, _min_price){
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {

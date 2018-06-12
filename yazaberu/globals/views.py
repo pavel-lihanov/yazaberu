@@ -12,7 +12,7 @@ def landing(request):
         routes = transport.models.get_popular_routes()
         delivered = transport.models.get_advert_delivered()
         context = {'routes':routes, 'delivered': delivered}
-        if user.is_authenticated():
+        if user.is_authenticated:
             context['profile']=globals.models.Profile.objects.get(user=user)
         else:
             context['profile']=None
@@ -26,7 +26,7 @@ def landing_sender(request):
         template = loader.get_template('globals/landing_sender.html')
         delivered = transport.models.get_advert_delivered()
         context = {'delivered': delivered}
-        if user.is_authenticated():
+        if user.is_authenticated:
             context['profile']=globals.models.Profile.objects.get(user=user)
         else:
             context['profile']=None
@@ -44,7 +44,7 @@ def landing_rider(request):
             'count_delivered_parcels': transport.models.delivered_parcels_count(),
             'total_income': transport.models.total_income()
         }
-        if user.is_authenticated():
+        if user.is_authenticated:
             context['profile']=globals.models.Profile.objects.get(user=user)
         else:
             context['profile']=None
@@ -57,7 +57,7 @@ def user_view(request, id):
         u = globals.models.Profile.objects.get(id=id)
         template = loader.get_template('globals/user.html')
         context={'user': u}
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             context['profile']=globals.models.Profile.objects.get(user=request.user)
         return  HttpResponse(template.render(context, request))
     else:

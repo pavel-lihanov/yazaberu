@@ -6,7 +6,7 @@ import uuid
 class SocialNetwork(models.Model):
     class Meta:
         abstract = True
-    profile = models.ForeignKey('Profile')
+    profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
     sn_id = models.CharField(max_length=512)
         
 class Facebook(SocialNetwork):
@@ -88,7 +88,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=100)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=32)
-    avatar = models.OneToOneField('Avatar', null=True)
+    avatar = models.OneToOneField('Avatar', null=True, on_delete=models.CASCADE)
     rider_rating = models.IntegerField(default=0)
     sender_rating = models.IntegerField(default=0)
     join_date = models.DateTimeField(auto_now_add=True)

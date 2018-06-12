@@ -92,6 +92,7 @@ def add_parcel(request):
         _to=request.POST['to']
         _date=request.POST['date']
         _time=request.POST['time']
+        _weight==request.POST['weight']
         p = Profile.objects.get(user=request.user)
         try:
             start = City.objects.get(name = _from)
@@ -120,6 +121,7 @@ def add_parcel(request):
         parcel.destination = le
         parcel.due_date = _date
         parcel.comment = request.POST['descr']
+        parcel.weight=int(_weight)
         parcel.save()
         return HttpResponseRedirect('/profile/parcels')
 
@@ -150,7 +152,7 @@ def trip_search(request):
             date = Q(end_date__gt=timezone.now())
             due_date = ''
 
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             p = Profile.objects.get(user=user)
             mine = Q(rider=p)
             trips = Trip.objects.filter(actual & orig & dest & date & ~mine)
@@ -158,7 +160,7 @@ def trip_search(request):
             trips = Trip.objects.filter(actual & orig & dest & date)
 
         context = {'trips': trips, 'origin':origin, 'destination':destination, 'due_date':due_date}
-        if user.is_authenticated():
+        if user.is_authenticated:
             context['profile']=p
         else:
             context['profile']=None
@@ -193,7 +195,7 @@ def parcel_search(request):
             
         actual = Q(delivery=None, published=True)
         
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             p = Profile.objects.get(user=user)
             mine = Q(owner=p)
             parcels = Parcel.objects.filter(orig & dest & date & actual & ~mine)
@@ -201,7 +203,7 @@ def parcel_search(request):
             parcels = Parcel.objects.filter(orig & dest & date & actual)
             
         context = {'parcels': parcels, 'origin':origin, 'destination':destination, 'due_date':due_date}
-        if user.is_authenticated():
+        if user.is_authenticated:
             context['profile'] = p
         else:
             context['profile']=None
@@ -216,7 +218,7 @@ def parcel(request, id):
             parcel = Parcel.objects.get(id=id)
             template = loader.get_template('transport/deal.html')
             context = {'parcel': parcel}
-            if user.is_authenticated():
+            if user.is_authenticated:
                 profile=Profile.objects.get(user=user)
                 context['profile'] = profile
                 context['mine'] = parcel.owner==profile

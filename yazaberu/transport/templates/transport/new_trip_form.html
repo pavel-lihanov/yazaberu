@@ -1,10 +1,12 @@
 {% load calendar %}
 <script>
  function f_add_single_trip() {
+    //don't use, just submit the form
     var _from=document.getElementById('from_single');
     var _to=document.getElementById('to_single');
     var _date=document.getElementById('trip_start_input');
     var _time=document.getElementById('time_single');
+    var _min_price=document.getElementById('min_price');
     var is_return = false;
     /*
     if($('.add-new-form.tab.tabs#return').classList.contains('active')){
@@ -12,9 +14,9 @@
       is_return = true;
     }
     */
-    add_trip(_from.value, _to.value, _date.value, _time.value, _tz.value);
+    add_trip(_from.value, _to.value, _date.value, _time.value, _tz.value, _min_price);
     if(is_return){
-      add_trip(_to.value, _from.value, _date_return.value);
+      //add_trip(_to.value, _from.value, _date_return.value);
     }
  }
  
@@ -57,6 +59,9 @@ function initPopup() {
             <input class="time calendar" name="date_end" id="trip_end_input" value="" placeholder="Приезжаю">
             {% calendar "trip_end" %}
             <input class="minutes" name="time_end" value="" placeholder="00:00">
+          </p>
+          <p class="direction-lbl">
+            <input class="maxprice" id="min_price" name="min_price" value="" placeholder="Минмальная цена за посылку, руб">
           </p>
           <!--
           <p class="direction-lbl">

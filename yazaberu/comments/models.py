@@ -6,11 +6,11 @@ from globals.models import Profile
 #from transport.models import Parcel, Delivery
 
 class Comment(models.Model):
-    author = models.ForeignKey(Profile)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     text = models.CharField(max_length=500)
     
 class Notification(models.Model):
-    receiver = models.ForeignKey(Profile)
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE)
     topic = models.CharField(max_length=100)
     text = models.CharField(max_length=500)
     
@@ -24,10 +24,10 @@ class Notification(models.Model):
         receiver.notify(topic, text)
         
 class Message(models.Model):
-    author = models.ForeignKey(Profile, related_name='authored_messages')
-    receiver = models.ForeignKey(Profile, related_name='received_messages')
+    author = models.ForeignKey(Profile, related_name='authored_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Profile, related_name='received_messages', on_delete=models.CASCADE)
     text = models.CharField(max_length=500)
-    reply_to = models.ForeignKey('Message', blank=True, null=True, related_name='answers')
+    reply_to = models.ForeignKey('Message', blank=True, null=True, related_name='answers', on_delete=models.SET_NULL)
     date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
@@ -41,12 +41,12 @@ class Message(models.Model):
         return timezone.now() - self.date
         
 class Question(models.Model):
-    message =models.ForeignKey(Message)
-    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True)
-    trip = models.ForeignKey('transport.Trip', blank=True, null=True)
+    message =models.ForeignKey(Message, on_delete=models.CASCADE)
+    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True, on_delete=models.CASCADE)
+    trip = models.ForeignKey('transport.Trip', blank=True, null=True, on_delete=models.CASCADE)
     
 class Review(models.Model):
-    message =models.ForeignKey(Message)
-    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True)
-    trip = models.ForeignKey('transport.Trip', blank=True, null=True)
+    message =models.ForeignKey(Message, on_delete=models.CASCADE)
+    parcel = models.ForeignKey('transport.Parcel', blank=True, null=True, on_delete=models.CASCADE)
+    trip = models.ForeignKey('transport.Trip', blank=True, null=True, on_delete=models.CASCADE)
     rating = models.IntegerField()

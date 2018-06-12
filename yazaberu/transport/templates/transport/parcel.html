@@ -6,7 +6,7 @@
 </div>
 <div class="c12 xsc12 columns">
   <div class="c2 xsc4">
-    <div class="whatsend"><img src="{{parcel.image.url}}"></div>
+    <div class="whatsend"><img src="{% if parcel.image %}{{parcel.image.url}}{% endif %}"></div>
   </div>
   <div class="transporter-info c5 xsc8">
     <h5 class="whatsend">{{parcel.description}}</h5>
