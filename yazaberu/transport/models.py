@@ -204,7 +204,11 @@ def delivered_parcels_count():
     return Delivery.objects.filter(delivered=True).count()
     
 def total_income():
-    return Delivery.objects.filter(delivered=True).aggregate(Sum('price'))['price__sum']
+    delivered = Delivery.objects.filter(delivered=True)
+    if delivered.count() > 0:
+        return delivered.aggregate(Sum('price'))['price__sum']
+    else:
+        return 0
 
 @receiver(post_save, sender=Offer)
 def offer_saved(sender, instance, created, raw, using, update_fields, **kwargs):
