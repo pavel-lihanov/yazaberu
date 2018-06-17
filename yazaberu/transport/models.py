@@ -51,6 +51,14 @@ class Parcel(models.Model):
     comment=models.CharField(max_length=500, default='')
     published = models.BooleanField(default=True)
     
+    def due_day(self):
+        print(self.due_date, type(self.due_date), self.due_date.date)
+        return self.due_date.date()
+        
+    def due_time(self):
+        print(self.due_date, type(self.due_date), self.due_date.time)
+        return self.due_date.time()
+    
     def get_image_url(self):
         if self.image:
             return self.image.url

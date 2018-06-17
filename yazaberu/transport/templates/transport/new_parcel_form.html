@@ -21,6 +21,7 @@ function initPopup() {
 
   <form class="add-new-form" action="/transport/add_parcel" target="_parent" method="post" id="new_parcel_form">
   {% csrf_token %}
+  {{parcel}}
   <div class="add-tash-h">
     <h4>Создать заказ</h4>
   </div>
@@ -32,36 +33,37 @@ function initPopup() {
       Загрузить фото
     </button>
   </div>
+  <input id="id" name="id" style="display:none" value="{{parcel.id}}">
   <p class="direction-lbl">
     <!--<label for="name" class="input">Название посылки</label>-->
-    <input id="name" name="name" class="name" value="" placeholder="Название посылки"></p>
+    <input id="name" name="name" class="name" value="{{parcel.description}}" placeholder="Название посылки"></p>
   <p class="direction-lbl">
 <!--     <label for="descr" class="input">Описание</label> -->
-    <input id="descr" name="descr" class="descr" value="" placeholder="Описание"></p>
+    <input id="descr" name="descr" class="descr" value="{{parcel.comment}}" placeholder="Описание"></p>
   <p class="direction-lbl">
 <!--     <label for="max_price" class="input">Максимальная цена за доставку, руб</label> -->
-    <input class="maxprice" name="weight" value="" placeholder="Вес, кг">
+    <input class="maxprice" name="weight" value="{{parcel.weight}}" placeholder="Вес, кг">
   </p>
 
   <p class="direction-lbl">
 <!--     <label for="max_price" class="input">Максимальная цена за доставку, руб</label> -->
-    <input class="maxprice" name="max_price" value="" placeholder="Максимальная цена за доставку, руб">
+    <input class="maxprice" name="max_price" value="{{parcel.max_price}}" placeholder="Максимальная цена за доставку, руб">
   </p>
   <p class="direction-lbl">
     <label for="from" class="input">из</label>
-    <input id="from" name="from" class="from" value="" placeholder="Город">
+    <input id="from" name="from" class="from" value="{{parcel.origin.city.name}}" placeholder="Город">
   </p>
   <p class="direction-lbl">
     <label for="to" class="input">в</label>
-    <input id="to" class="to" name="to" value="" placeholder="Город">
+    <input id="to" class="to" name="to" value="{{parcel.destination.city.name}}" placeholder="Город">
   </p>
   <p class="direction-lbl">
-    <input class="time calendar" id="trip_date_input" name="date" value="" placeholder="Дата поездки">
-    {% calendar "trip_date" %}
-    {% timeinput "time" "time" %}
+    <input class="time calendar" id="trip_date_input" name="date" value="{{parcel.due_day.isoformat}}" placeholder="Дата поездки">
+    {% calendar "trip_date" parcel.due_day %}
+    {% timeinput "time" "time" parcel.due_time %}
     <!--<input class="minutes" name="time" value="" placeholder="00:00">-->
   </p>
   <p>
-    <button class="btn btn-small blk" onclick="f_add_parcel()">Добавить заказ</button>
+    <button class="btn btn-small blk" onclick="f_add_parcel()">{% if parcel %}Сохранить{% else %}Добавить заказ{% endif%}</button>
   </p>
   </form>

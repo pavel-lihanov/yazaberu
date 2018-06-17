@@ -60,7 +60,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function loadPopup (url) {
+function loadPopup (url, data) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
@@ -77,7 +77,13 @@ function loadPopup (url) {
       
     }
   }
-  xhttp.open('GET', url, true);
+  var params='?'
+  if(data){
+      for(var k in data){
+          params += '&' + encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+      }
+  }
+  xhttp.open('GET', url+params, true);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send();
 }

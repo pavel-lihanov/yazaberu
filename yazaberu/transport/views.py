@@ -13,6 +13,14 @@ import pytz
 from django.utils.dateparse import parse_date, parse_datetime
 # Create your views here.
 
+def create_datetime(date, time, tz):
+    h,m = time.split(':')
+    time = datetime.time(hour=int(h), minute=int(m))
+    date = parse_date(date)
+    dt = datetime.datetime.combine(date, time)
+    dt = dt.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(tz)*3600)))
+    return dt
+
 def add_trip(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
@@ -31,15 +39,14 @@ def add_trip(request):
             _date_end = _date_start
             
         if 'time' in request.POST and ':' in request.POST['time']:
-            h,m = request.POST['time'].split(':')
-            _time_start=datetime.time(hour=int(h), minute=int(m))
+            _time_start=request.POST['time']
         else:
-            _time_start = datetime.time(hour=22, minute=0)
+            _time_start = '22:00'
+            
         if 'time_end' in request.POST and ':' in request.POST['time_end']:
-            h,m = request.POST['time_end'].split(':')
-            _time_end=datetime.time(hour=int(h), minute=int(m))
+            _time_end=request.POST['time_end']
         else:
-            _time_end = datetime.time(hour=23, minute=0)
+            _time_end = '23:00'
 
         if 'tz' in request.POST:
             _tz = int(request.POST['tz'])/60
@@ -55,7 +62,6 @@ def add_trip(request):
             _max_weight = int(request.POST['max_weight'])
         else:
             _max_weight = 0
-
             
             
         p = Profile.objects.get(user=request.user)
@@ -75,12 +81,8 @@ def add_trip(request):
                 end.save()
             route = Route(start=start, end=end)
             route.save()
-        ds = parse_date(_date_start)
-        de = parse_date(_date_end)
-        ds = datetime.datetime.combine(ds, _time_start)
-        de = datetime.datetime.combine(de, _time_end)
-        ds = ds.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(_tz)*3600)))
-        de = de.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(_tz)*3600)))
+        ds = create_datetime(_date_start, _time_start, _tz)
+        de = create_datetime(_date_end, _time_end, _tz)
         trip = Trip(start_date=ds, end_date=de)
         trip.rider=p
         trip.route=route
@@ -92,11 +94,26 @@ def add_trip(request):
         return HttpResponseRedirect('/profile/deliveries')
     
 def add_parcel(request):
+    profile = Profile.objects.get(user=request.user)
     if request.method == 'GET':
+        print (request.GET)
         if request.user.is_authenticated:
-            template = loader.get_template('transport/new_parcel_form.html')
-            context = {}
-            return  HttpResponse(template.render(context, request))
+            if 'id' in request.GET:
+                parcel = Parcel.objects.get(id=request.GET['id'])
+                if parcel.owner != profile:
+                    return HttpResponseForbidden('')
+                if parcel.offer_set.count() > 0:
+                    print(parcel.offer_set)
+                    template = loader.get_template('globals/message_popup.html')
+                    context = {'message': 'Нельзя редактировать посылку с предложениями о доставке'}
+                else:
+                    template = loader.get_template('transport/new_parcel_form.html')
+                    context = {'parcel': parcel}
+                return  HttpResponse(template.render(context, request))
+            else:
+                template = loader.get_template('transport/new_parcel_form.html')
+                context = {}
+                return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseRedirect('/auth/login')
     elif request.method == 'POST':
@@ -105,7 +122,7 @@ def add_parcel(request):
         _to=request.POST['to']
         _date=request.POST['date']
         _time=request.POST['time']
-        _weight==request.POST['weight']
+        _weight=request.POST['weight']
         p = Profile.objects.get(user=request.user)
         try:
             start = City.objects.get(name = _from)
@@ -117,22 +134,28 @@ def add_parcel(request):
         except City.DoesNotExist:
             end = City(name=_to)
             end.save()
+
+        if 'id' in request.POST:
+            parcel = Parcel.objects.get(id=int(request.POST['id']))
+            if parcel.owner!=profile:
+                return HttpResponseForbidden()
+        else:
+            parcel = Parcel()
+
         ls = Location(address="Somwhere")
         ls.city = start
         ls.save()
         le = Location(address="Somewhere")
         le.city=end
         le.save()
-        
-        parcel = Parcel()
+
         parcel.description = request.POST['name']
         parcel.owner = p
-        parcel.weight = int(1)
         parcel.value = 100
         parcel.max_price = int(request.POST['max_price'])
         parcel.origin = ls
         parcel.destination = le
-        parcel.due_date = _date
+        parcel.due_date = create_datetime(_date, _time, +2)  #TODO: timezone
         parcel.comment = request.POST['descr']
         parcel.weight=int(_weight)
         parcel.save()
