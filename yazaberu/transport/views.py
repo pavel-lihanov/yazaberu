@@ -135,7 +135,7 @@ def add_parcel(request):
             end = City(name=_to)
             end.save()
 
-        if 'id' in request.POST:
+        if 'id' in request.POST and request.POST['id']!='':
             parcel = Parcel.objects.get(id=int(request.POST['id']))
             if parcel.owner!=profile:
                 return HttpResponseForbidden()
@@ -152,12 +152,18 @@ def add_parcel(request):
         parcel.description = request.POST['name']
         parcel.owner = p
         parcel.value = 100
-        parcel.max_price = int(request.POST['max_price'])
+        try:
+            parcel.max_price = int(request.POST['max_price'])
+        except ValueError:
+            parcel.max_price = 0
         parcel.origin = ls
         parcel.destination = le
         parcel.due_date = create_datetime(_date, _time, +2)  #TODO: timezone
         parcel.comment = request.POST['descr']
-        parcel.weight=int(_weight)
+        try:
+            parcel.weight=int(_weight)
+        except ValueError:
+            parcel.weight=0
         parcel.save()
         return HttpResponseRedirect('/profile/parcels')
 
