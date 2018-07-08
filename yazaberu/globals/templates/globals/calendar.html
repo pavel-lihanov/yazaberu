@@ -33,8 +33,8 @@ $cal_{{id}}.responsiveCalendar({
     events: {},
     onDayClick: function(events){
         var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
-        $('#{{id}}_input').val($i)
-        $('#{{id}}').hide()
+        $('#{{id}}').val($i)
+        $('#{{id}}_calendar').hide()
     },
 }); /* end $cal */
 

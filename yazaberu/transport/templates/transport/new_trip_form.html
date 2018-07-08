@@ -1,133 +1,45 @@
 {% load calendar %}
 {% load timeinput%}
+{% load edit %}
 <script>
- function f_add_single_trip() {
-    //don't use, just submit the form
-    var _from=document.getElementById('from_single');
-    var _to=document.getElementById('to_single');
-    var _date=document.getElementById('trip_start_input');
-    var _time=document.getElementById('time_single');
-    var _min_price=document.getElementById('min_price');
-    var is_return = false;
-    /*
-    if($('.add-new-form.tab.tabs#return').classList.contains('active')){
-      var _date_return=document.getElementById('date_return');
-      is_return = true;
-    }
-    */
-    add_trip(_from.value, _to.value, _date.value, _time.value, _tz.value, _min_price);
-    if(is_return){
-      //add_trip(_to.value, _from.value, _date_return.value);
-    }
- }
+
  
 function initPopup() {
     //initCalendar();
 }
 </script>
 
-  <form class="add-new-form" action="/transport/add_trip" target="_parent" method="post" id="new_trip_form">
-    {% csrf_token %}
-    <div class="add-tash-h">
-      <img src="/static/files/add-new-task.png">
-      <h4>Добавить поездку</h4>
-      <p>сообщите о поездке остальным, чтообы зарабатывать в каждом путешествии</p>
-    </div>
-    <div class="tab">
-      <ul class="tabs active">
-          <li id="single" class="current"><a href="#">Разовая поездка</a></li>
-          <!--
-          <li id="return"><a href="#">Туда-Обратно</a></li>
-          <li id="regular"><a href="#">Езжу постоянно</a></li>
-          -->
-      </ul>
-      <div class="tab_content">
-        <div class="tabs_item">
-          <p class="direction-lbl">
-            <label for="from_single" class="input">из</label>
-            <input id="from_single" name="from" class="from" value="" placeholder="Город">
-          </p>
-          <p class="direction-lbl">
-            <label for="to_single" class="input">в</label>
-            <input class="to" name="to" id="to_single" value="" placeholder="Город">
-          </p>
-          <p class="direction-lbl">
-            <input class="time calendar" name="date" id="trip_start_input" value="" placeholder="Выезжаю">
-            {% calendar "trip_start" %}
-            {% timeinput "time_start" "time" %}
-            <!--<input class="minutes" name="time" value="" placeholder="00:00">-->
-          </p>
-          <p class="direction-lbl">
-            <input class="time calendar" name="date_end" id="trip_end_input" value="" placeholder="Приезжаю">
-            {% calendar "trip_end" %}
-            {% timeinput "time_end" "time_end" %}
-            <!--<input class="minutes" name="time_end" value="" placeholder="00:00">-->
-          </p>
-          <p class="direction-lbl">
-            <input class="maxprice" id="min_price" name="min_price" value="" placeholder="Цена за посылку, руб">
-          </p>
-          <p class="direction-lbl">
-            <input class="maxprice" id="max_weight" name="max_weight" value="" placeholder="Вес посылки не более, кг">
-          </p>
-          <!--
-          <p class="direction-lbl">
-            <input class="time" id="date_single_return" value="" disabled="" placeholder="Обратно">
-            <a class="calendar-icon" href="#">
-            <svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a>
-          </p>
-          <p class="place"><a href="#">Уточнить место встречи</a></p>
-          <p class="direction-lbl">
-            <label for="weight" class="input">Ограничить вес, кг</label>
-            <input class="weight" id="weight" value="" placeholder="">
-           </p>
-           -->
-           <!--
-          <div class="what-transport">
-            <p>На чем поедете?
-              <a href="#"><img src="files/train.svg" width="36px"></a>
-              <a class="plan" href="#"><img src="files/t-plan.svg" width="36px"></a>
-              <a class="car" href="#"><img src="files/t-car.svg" width="40px"></a>
-            </p>
-          </div>
-          -->
-          <!--
-          <div class="task-alerting switch"><span>Уведомлять о новых заявках</span>
-            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked="checked">
-            <label for="cmn-toggle-1"></label>
-          </div>
-          -->
-          <p><button class="btn btn-small blk">Добавить поездку</button></p>
-        </div>
-        <div class="tabs_item">
-          <span href="">Каждый день</span>
-          <span href="">1 раз / неделю</span>
-          <span href="">1 раз в 2-3 дня</span>
-          <p class="direction-lbl">
-            <label for="from_regular" class="input">из</label>
-            <input id="from_regular" class="from" value="" placeholder="Город">
-          </p>
-          <p class="direction-lbl">
-            <label for="to" class="input">в</label>
-            <input class="to" id="to" value="" placeholder="Город">
-          </p>
-          <p class="direction-lbl"><input class="time" value="" placeholder="Туда"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
-          <p class="direction-lbl"><input class="time" value="" disabled="" placeholder="Обратно"><a class="calendar-icon" href="#"><svg width="21" height="19" vector-effect="non-scaling-stroke" class="icon calendar-icon w20 h20 st-bb" viewBox="0 0 20 18"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M1 7.3h17M.5 2.1h18v14.4H.5zM5 .5v3.1M14 .5v3.1"></path></svg></a></p>
-          <p class="place"><a href="#">Уточнить место встречи</a></p>
-          <div class="what-transport">
-            <p>На чем поедете?
-              <a href="#"><img src="/static/files/train.svg" width="36px"></a>
-              <a class="plan" href="#"><img src="/static/files/t-plan.svg" width="36px"></a>
-              <a class="car" href="#"><img src="/static/files/t-car.svg" width="40px"></a>
-            </p>
-          </div>
-          <div class="task-alerting switch"><span>Уведомлять о новых заявках</span>
-            <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round-flat" type="checkbox" checked="checked">
-            <label for="cmn-toggle-2"></label>
-          </div>
-          <!--
-          <p><button type="submit" class="btn btn-small blk">Добавить поездку</button></p>
-          -->
-        </div>
+<form class="add-new-form" action="/transport/add_trip" target="_parent" method="post" id="new_trip_form">
+  {% csrf_token %}
+  <div class="add-tash-h">
+    <img src="/static/files/add-new-task.png">
+    <h4>Добавить поездку</h4>
+    <p>сообщите о поездке остальным, чтообы зарабатывать в каждом путешествии</p>
+  </div>
+  <div class="tab">
+    <ul class="tabs active">
+        <li id="single" class="current"><a href="#">Разовая поездка</a></li>
+        <!--
+        <li id="return"><a href="#">Туда-Обратно</a></li>
+        <li id="regular"><a href="#">Езжу постоянно</a></li>
+        -->
+    </ul>
+    <div class="tab_content">
+      <div class="tabs_item">
+        {% edit id="from_single" name="from" _class="from" value="" placeholder="Город" label="из" container_class="direction-lbl" %}
+        {% edit id="to_single" name="to" _class="to" value="" placeholder="Город" label="в" container_class="direction-lbl" %}
+
+        {% edit id="trip_start" name="date" _class="time calendar" value="" placeholder="Выезжаю" show_calendar=True %}
+        {% timeinput "time_start" "time" %}
+
+        {% edit id="trip_end" name="date_end" _class="time calendar" value="" placeholder="Приезжаю" show_calendar=True %}
+        {% timeinput "time_end" "time_end" %}
+
+        {% edit id="min_price" _class="maxprice" value="" placeholder="Цена за посылку, руб" %}
+        {% edit id="max_weight" _class="maxprice" value="" placeholder="Вес посылки не более, кг" %}
+
+        <p><button onclick="f_add_single_trip()" type="button" class="btn btn-small blk">Добавить поездку</button></p>
       </div>
     </div>
-  </form>
+  </div>
+</form>

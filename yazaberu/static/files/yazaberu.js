@@ -253,3 +253,27 @@ function declineOffer(offer_id) {
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
   xhttp.send();    
 }
+
+
+
+//======================================================
+function f_add_single_trip() {
+  $('.input-error').hide()
+  $('#new_trip_form').ajaxForm()
+  $('#new_trip_form').ajaxSubmit({
+      type:'POST',
+      success:function(responseText, statusText, xhr, form_el ){document.location="/profile/deliveries"},
+      error:function(responseText, statusText, xhr, form_el){
+        var data = responseText.responseJSON
+        var f=false
+        for(d in data.errors){
+          $('#'+d+"_error").show()
+          $('#'+d+"_error").html(data.errors[d])
+          if(!f){
+            $('#'+d).scrollintoview()
+            f=true
+          }
+        }
+      }
+    })
+}

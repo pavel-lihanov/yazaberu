@@ -1,3 +1,4 @@
+{% load tz %}
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -16,6 +17,7 @@
 </head>
 <body>
 
+{% timezone None %}
 {% include "globals/header.html"%}
 
 {% block content %}
@@ -43,5 +45,6 @@
 	</div>
 </div>
 -->
+{% endtimezone %}
 </body>
 </html>

@@ -1,0 +1,15 @@
+{% load calendar %}
+<div class="inpt {{container_class}}">
+  <p class="direction-lbl">
+  {% if label %}
+  <label for="{{id}}" class="input">{{label}}</label>
+  {% endif %}
+  <input id="{{id}}" name="{{name}}" class="{{class}}" value="{{value}}" placeholder="{{placeholder}}">
+  {% if show_calendar %}
+  {% calendar id calendar_d %}
+  {% endif %}
+  </p>
+  <div class="list-container">
+    <span class="input-error" id="{{id}}_error"></span>
+  </div>
+</div>

@@ -3,26 +3,12 @@
 {% load edit %}
 <script>
 function f_add_parcel() {
-/*
-    var _from=document.getElementById('from');
-    var _to=document.getElementById('to');
-    var _date=document.getElementById('date');
-    var _name=document.getElementById('name')
-    var _comment=document.getElementById('descr');
-    var _max_price = document.getElementById('max_price');
-    var _img = document.getElementById('parcel_img');
-    add_parcel(_from.value, _to.value, _date.value, _name.value, _comment.value, _max_price.value, _img.file.files[0]);
-*/
-  //document.getElementById('new_parcel_form').submit();
   $('.input-error').hide()
   $('#new_parcel_form').ajaxForm()
   $('#new_parcel_form').ajaxSubmit({
       type:'POST',
-      success:function(responseText, statusText, xhr, form_el ){alert('OK')},
+      success:function(responseText, statusText, xhr, form_el ){document.location="/profile/parcels"},
       error:function(responseText, statusText, xhr, form_el){
-        //alert('Error')
-        console.log(responseText.responseJSON)
-        //console.log(xhr.responseText)
         var data = responseText.responseJSON
         var f=false
         for(d in data.errors){
@@ -43,7 +29,6 @@ function initPopup() {
 
   <form class="add-new-form" action="/transport/add_parcel" target="_parent" method="post" id="new_parcel_form">
   {% csrf_token %}
-  {{parcel}}
   <div class="add-tash-h">
     <h4>Создать заказ</h4>
   </div>

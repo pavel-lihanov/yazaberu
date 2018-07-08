@@ -11,7 +11,9 @@ from django.utils import timezone
 import datetime
 import pytz
 from django.utils.dateparse import parse_date, parse_datetime
+from django.utils.timezone import get_current_timezone
 import json
+import traceback
 # Create your views here.
 
 def create_datetime(date, time, tz):
@@ -19,8 +21,47 @@ def create_datetime(date, time, tz):
     time = datetime.time(hour=int(h), minute=int(m))
     date = parse_date(date)
     dt = datetime.datetime.combine(date, time)
-    dt = dt.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(tz)*3600)))
+    dt = dt.replace(tzinfo=get_current_timezone())
+    #dt = dt.replace(tzinfo=datetime.timezone(datetime.timedelta(seconds=int(tz)*3600)))
     return dt
+
+class ValidationError(Exception):
+    def __init__(self, errors):
+        Exception.__init__(self)
+        self.errors = errors
+
+def validate_trip(request):
+    errors = {}
+    _from = request['from']
+    if not _from:
+        errors['from']="Origin must be specified"
+            
+    _to=request['to']
+    if not _to:
+        errors['to']="Destination must be specified"
+    try:
+        _date=request['date']
+        _time=request['time']
+        due_date = create_datetime(_date, _time, +2)
+    except:
+        traceback.print_exc()
+        errors['date']='Invalid date'
+        errors['time']='Invalid date'
+        
+    try:
+        _date=request['date_end']
+        _time=request['time_end']
+        due_date = create_datetime(_date, _time, +2)
+    except:
+        traceback.print_exc()
+        errors['date_end']='Invalid date'
+        errors['time_end']='Invalid date'
+
+    if errors:
+        raise ValidationError(errors)
+
+    return
+
 
 def add_trip(request):
     if request.method == 'GET':
@@ -31,6 +72,11 @@ def add_trip(request):
         else:
             return HttpResponseRedirect('/auth/login')
     elif request.method=='POST':
+        try:
+            validate_trip(request.POST)
+        except ValidationError as ex:
+            return HttpResponseServerError(json.dumps({'errors':ex.errors}), content_type="application/json")
+
         _from = request.POST['from']
         _to=request.POST['to']
         _date_start=request.POST['date']
@@ -55,15 +101,20 @@ def add_trip(request):
             _tz = +2 #use central Russia/Moscow as a default
 
         if 'min_price' in request.POST:
-            _min_price = int(request.POST['min_price'])
+            try:
+                _min_price = int(request.POST['min_price'])
+            except:
+                _min_price = 0
         else:
             _min_price = 0
 
         if 'max_weight' in request.POST:
-            _max_weight = int(request.POST['max_weight'])
+            try:
+                _max_weight = int(request.POST['max_weight'])
+            except ValueError:
+                _max_weight = 20
         else:
             _max_weight = 0
-            
             
         p = Profile.objects.get(user=request.user)
         try:
@@ -98,11 +149,6 @@ def add_trip(request):
             return offer_trip(request, id=request.POST['offer_to'])
         else:
             return HttpResponseRedirect('/profile/deliveries')
-
-class ValidationError(Exception):
-    def __init__(self, errors):
-        Exception.__init__(self)
-        self.errors = errors
         
 def validate_parcel(request):
     errors = {}
@@ -213,7 +259,6 @@ def add_parcel(request):
             else:
                 return HttpResponseRedirect('/profile/parcels')
         except ValidationError as ex:
-            print(ex.errors)
             return HttpResponseServerError(json.dumps({'errors':ex.errors}), content_type="application/json")
             
 def trip_search(request):
