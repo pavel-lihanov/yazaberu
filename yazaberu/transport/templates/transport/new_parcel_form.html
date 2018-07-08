@@ -1,5 +1,6 @@
 {% load calendar %}
 {% load timeinput %}
+{% load edit %}
 <script>
 function f_add_parcel() {
 /*
@@ -12,7 +13,28 @@ function f_add_parcel() {
     var _img = document.getElementById('parcel_img');
     add_parcel(_from.value, _to.value, _date.value, _name.value, _comment.value, _max_price.value, _img.file.files[0]);
 */
-  document.getElementById('new_parcel_form').submit();
+  //document.getElementById('new_parcel_form').submit();
+  $('.input-error').hide()
+  $('#new_parcel_form').ajaxForm()
+  $('#new_parcel_form').ajaxSubmit({
+      type:'POST',
+      success:function(responseText, statusText, xhr, form_el ){alert('OK')},
+      error:function(responseText, statusText, xhr, form_el){
+        //alert('Error')
+        console.log(responseText.responseJSON)
+        //console.log(xhr.responseText)
+        var data = responseText.responseJSON
+        var f=false
+        for(d in data.errors){
+          $('#'+d+"_error").show()
+          $('#'+d+"_error").html(data.errors[d])
+          if(!f){
+            $('#'+d).scrollintoview()
+            f=true
+          }
+        }
+      }
+    });
 }
 function initPopup() {
     //initCalendar();
@@ -33,37 +55,32 @@ function initPopup() {
       Загрузить фото
     </button>
   </div>
-  <input id="id" name="id" style="display:none" value="{{parcel.id}}">
+  <input id="id" name="id" style="display:none" value="{{parcel.id}}" />
   <p class="direction-lbl">
     <!--<label for="name" class="input">Название посылки</label>-->
-    <input id="name" name="name" class="name" value="{{parcel.description}}" placeholder="Название посылки"></p>
+    {% edit id="name" _class="name" value=parcel.description placeholder="Название посылки" %}
+  </p>
   <p class="direction-lbl">
-<!--     <label for="descr" class="input">Описание</label> -->
-    <input id="descr" name="descr" class="descr" value="{{parcel.comment}}" placeholder="Описание"></p>
+    {% edit id="descr" _class="descr" value=parcel.comment placeholder="Описание" %}
+  </p>
   <p class="direction-lbl">
-<!--     <label for="max_price" class="input">Максимальная цена за доставку, руб</label> -->
-    <input class="maxprice" name="weight" value="{{parcel.weight}}" placeholder="Вес, кг">
+    {% edit id="weight" _class="maxprice" value=parcel.weight placeholder="Вес, кг" %}
   </p>
 
   <p class="direction-lbl">
-<!--     <label for="max_price" class="input">Максимальная цена за доставку, руб</label> -->
-    <input class="maxprice" name="max_price" value="{{parcel.max_price}}" placeholder="Максимальная цена за доставку, руб">
+    {% edit id="max_price" _class="maxprice" value=parcel.max_price placeholder="Максимальная цена за доставку, руб" %}
   </p>
   <p class="direction-lbl">
-    <label for="from" class="input">из</label>
-    <input id="from" name="from" class="from" value="{{parcel.origin.city.name}}" placeholder="Город">
+    {% edit id="from" _class="from" value=parcel.origin.city.name placeholder="" label="из" container_class="direction-lbl" %}
   </p>
   <p class="direction-lbl">
-    <label for="to" class="input">в</label>
-    <input id="to" class="to" name="to" value="{{parcel.destination.city.name}}" placeholder="Город">
+    {% edit id="to" _class="to" value=parcel.destination.city.name placeholder="" label="в" container_class="direction-lbl"%}
   </p>
   <p class="direction-lbl">
-    <input class="time calendar" id="trip_date_input" name="date" value="{{parcel.due_day.isoformat}}" placeholder="Дата поездки">
-    {% calendar "trip_date" parcel.due_day %}
+    {% edit id="trip_date" name="date" _class="time calendar" value=parcel.due_day.isoformat placeholder="Доставить до" show_calendar=True calendar_d=parcel.due_day %}
     {% timeinput "time" "time" parcel.due_time %}
-    <!--<input class="minutes" name="time" value="" placeholder="00:00">-->
   </p>
   <p>
-    <button class="btn btn-small blk" onclick="f_add_parcel()">{% if parcel %}Сохранить{% else %}Добавить заказ{% endif%}</button>
+    <button type="button" class="btn btn-small blk" onclick="f_add_parcel()">{% if parcel %}Сохранить{% else %}Добавить заказ{% endif%}</button>
   </p>
   </form>

@@ -11,6 +11,7 @@ from django.utils import timezone
 import datetime
 import pytz
 from django.utils.dateparse import parse_date, parse_datetime
+import json
 # Create your views here.
 
 def create_datetime(date, time, tz):
@@ -91,8 +92,46 @@ def add_trip(request):
         trip.price = _min_price
         trip.max_weight = _max_weight
         trip.save()
-        return HttpResponseRedirect('/profile/deliveries')
+        if 'offer_to' in request.POST:
+            request.POST['trip']=str(trip.id)
+            #TODO: price
+            return offer_trip(request, id=request.POST['offer_to'])
+        else:
+            return HttpResponseRedirect('/profile/deliveries')
+
+class ValidationError(Exception):
+    def __init__(self, errors):
+        Exception.__init__(self)
+        self.errors = errors
+        
+def validate_parcel(request):
+    errors = {}
+    _from = request['from']
+    if not _from:
+        errors['from']="Origin must be specified"
+            
+    _to=request['to']
+    if not _to:
+        errors['to']="Destination must be specified"
+    try:
+        _date=request['date']
+        _time=request['time']
+        due_date = create_datetime(_date, _time, +2)
+    except:
+        errors['date']='Invalid date'
+        errors['time']='Invalid date'
+
+    if not request['name']:
+        errors['name'] = 'Name must be specified'
+        
+    _weight=request['weight']
+
+    if errors:
+        raise ValidationError(errors)
+
+    return
     
+
 def add_parcel(request):
     profile = Profile.objects.get(user=request.user)
     if request.method == 'GET':
@@ -118,55 +157,65 @@ def add_parcel(request):
             return HttpResponseRedirect('/auth/login')
     elif request.method == 'POST':
         print(request.POST)
-        _from = request.POST['from']
-        _to=request.POST['to']
-        _date=request.POST['date']
-        _time=request.POST['time']
-        _weight=request.POST['weight']
-        p = Profile.objects.get(user=request.user)
         try:
-            start = City.objects.get(name = _from)
-        except City.DoesNotExist:
-            start = City(name=_from)
-            start.save()
-        try:
-            end = City.objects.get(name = _to)
-        except City.DoesNotExist:
-            end = City(name=_to)
-            end.save()
+            prc = validate_parcel(request.POST)
+            _from = request.POST['from']
+            _to=request.POST['to']
+            _date=request.POST['date']
+            _time=request.POST['time']
+            _weight=request.POST['weight']
+            p = Profile.objects.get(user=request.user)
+            try:
+                start = City.objects.get(name = _from)
+            except City.DoesNotExist:
+                start = City(name=_from)
+                start.save()
+            try:
+                end = City.objects.get(name = _to)
+            except City.DoesNotExist:
+                end = City(name=_to)
+                end.save()
 
-        if 'id' in request.POST and request.POST['id']!='':
-            parcel = Parcel.objects.get(id=int(request.POST['id']))
-            if parcel.owner!=profile:
-                return HttpResponseForbidden()
-        else:
-            parcel = Parcel()
+            if 'id' in request.POST and request.POST['id']!='':
+                parcel = Parcel.objects.get(id=int(request.POST['id']))
+                if parcel.owner!=profile:
+                    return HttpResponseForbidden()
+            else:
+                parcel = Parcel()
 
-        ls = Location(address="Somwhere")
-        ls.city = start
-        ls.save()
-        le = Location(address="Somewhere")
-        le.city=end
-        le.save()
+            ls = Location(address="Somwhere")
+            ls.city = start
+            ls.save()
+            le = Location(address="Somewhere")
+            le.city=end
+            le.save()
 
-        parcel.description = request.POST['name']
-        parcel.owner = p
-        parcel.value = 100
-        try:
-            parcel.max_price = int(request.POST['max_price'])
-        except ValueError:
-            parcel.max_price = 0
-        parcel.origin = ls
-        parcel.destination = le
-        parcel.due_date = create_datetime(_date, _time, +2)  #TODO: timezone
-        parcel.comment = request.POST['descr']
-        try:
-            parcel.weight=int(_weight)
-        except ValueError:
-            parcel.weight=0
-        parcel.save()
-        return HttpResponseRedirect('/profile/parcels')
-
+            parcel.description = request.POST['name']
+            parcel.owner = p
+            parcel.value = 100
+            try:
+                parcel.max_price = int(request.POST['max_price'])
+            except ValueError:
+                parcel.max_price = 0
+            parcel.origin = ls
+            parcel.destination = le
+            parcel.due_date = create_datetime(_date, _time, +2)  #TODO: timezone
+            parcel.comment = request.POST['descr']
+            try:
+                parcel.weight=int(_weight)
+            except ValueError:
+                parcel.weight=0
+            parcel.save()
+            if 'offer_for' in request.POST:
+                request.POST['parcel']=str(parcel.id)
+                #TODO: price
+                return offer_trip(request, id=request.POST['offer_to'])
+            else:
+                return HttpResponseRedirect('/profile/parcels')
+        except ValidationError as ex:
+            print(ex.errors)
+            return HttpResponseServerError(json.dumps({'errors':ex.errors}), content_type="application/json")
+            
 def trip_search(request):
     if request.method == 'GET':
         user = request.user
@@ -271,7 +320,7 @@ def parcel(request, id):
             return  HttpResponse(template.render(context, request))
         except Parcel.DoesNotExist:
             return HttpResponseNotFound()
-
+'''
 def offer_trip(request, parcel):
     if request.method=='GET':
         return HttpResponse('Not valid', status=422)
@@ -303,7 +352,7 @@ def offer_parcel(request, trip):
         offer.receiver = trip.rider
         offer.save()
         return HttpResponse('OK')
-        
+'''
 def accept_offer(request, id):
     if request.method=='GET':
         return HttpResponse('Not valid', status=422)

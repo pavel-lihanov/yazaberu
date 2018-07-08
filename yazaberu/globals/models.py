@@ -133,7 +133,10 @@ class Profile(models.Model):
         
     @property
     def name_public(self):
-        return '{0} {1}.'.format(self.first_name, self.last_name[0])
+        if self.last_name:
+            return '{0} {1}.'.format(self.first_name, self.last_name[0])
+        else:
+            return '{0}'.format(self.first_name)
         
     def get_avatar(self):
         if self.avatar.image:

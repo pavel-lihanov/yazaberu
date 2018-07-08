@@ -1,12 +1,13 @@
 {% extends "globals/base.html" %}
 {% load rating %}
+{% load avatar %}
 {% block content%}
 <section class="user-profile">
   <div class="container980">
     <div class="user-info columns">
       <div class="user-name c12 xsc12">
         <div class="container15">
-          <div class="avatar av-profile"><a href="#"><img src="{{user.avatar.image.url}}"></a></div>
+          {% avatar user %}
           <h3>{{user.first_name}} {{user.last_name}}</h3>
           <span class="reg-date">В сообществе с {{user.join_date}}</span>
           <div class="user-sendmail">
@@ -31,7 +32,7 @@
               <span>({{user.completed_delivery_count}})</span>
             </div>
           </div>
-        
+          {% comment %}
           <div class="approved-info columns">
             <div>Подтвержденные данные</div>
             <div>
@@ -49,6 +50,7 @@
           <div class="user-editprofile">
             <button class="btn grey">Редактировать профиль</button>
           </div>
+          {% endcomment %}
         </div>
       </div>
     </div>

@@ -17,7 +17,12 @@
           {% include "transport/trip.html" with trip=trip only %}
       {% endfor %}
       {% else %}
-        <p>Ничего не найдено</p>
+        <div class="no-found">
+        <p>Перевозчиков не найдено</p>
+        <!--
+        <button href="#" onclick="loadPopup('transport/add_trip')" class="popup-trigger btn orng">Предложить доставку</button>
+        -->
+      </div>
       {% endif%}
     </div>
     {% comment %}

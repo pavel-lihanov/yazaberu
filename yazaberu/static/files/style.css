@@ -103,7 +103,42 @@ h5 {font-size: 19px;line-height: 27px;font-weight: 400;margin: 0px;}
 .search-form {text-align: center;}
 .search-form .inpt {position:relative;display:inline-block}
 .search-form .chang-icon {text-align: center; margin-left: 5px;line-height: 10px; font-size: 19px;    vertical-align: middle;cursor:pointer;display:inline-block}
-
+.input-error {font-size: 13px; color: #F53F5B; padding: 7px 10px 7px 12px;}
+.no-found {text-align:center}
+.list-container {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+	text-align:left;
+}
+.list-container ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border: 1px solid #ddd;
+    border-top: 0;
+    text-align: left;
+}
+.list-container ul li{line-height: 20px;}
+.list-container ul li a {
+    border-top: 1px solid #ddd;
+    background: #fff;
+    color: #054752;
+    text-decoration: none;
+    display: block;
+    padding: 7px 10px 7px 12px;
+    outline: none;
+    font-size: 13px;
+}
+.list-container ul li a:hover { background: #fcfbf8;    color: #15b3ee;}
+.list-container ul li a span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    display: block;
+  
+}
 
 /* icons */
 .calendar-icon {position:absolute;right:7px; top:31%;vertical-align: middle;}

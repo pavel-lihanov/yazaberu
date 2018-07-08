@@ -1,4 +1,9 @@
+<div class="inpt">
 <input class="minutes" id="{{id}}" name="{{name}}" value="{{value}}" placeholder="00:00">
+  <div class="list-container">
+    <span class="input-error" id="{{id}}_error"></span>
+  </div>
+</div class="inpt">
 <script>
   var selector = document.getElementById("{{id}}");
   var im = new Inputmask("99:99");

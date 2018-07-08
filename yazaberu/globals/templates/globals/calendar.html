@@ -5,7 +5,7 @@
 </a>
 
 <!--календарь дат-->
-<div class="responsive-calendar" id="{{id}}">
+<div class="responsive-calendar" id="{{id}}_calendar">
   <div class="controls">
       <a class="pull-left" data-go="prev"><div class="bbtn"><</div></a>
       <span data-head-month> </span> <span data-head-year></span>
@@ -27,7 +27,7 @@
 </div>
 
 <script>
-var $cal_{{id}} = $('#{{id}}');
+var $cal_{{id}} = $('#{{id}}_calendar');
 $cal_{{id}}.responsiveCalendar({
     time: '{{value}}',
     events: {},
@@ -39,7 +39,7 @@ $cal_{{id}}.responsiveCalendar({
 }); /* end $cal */
 
 $('svg#{{id}}_icon').click(function(){
-    $("#{{id}}").slideToggle();
+    $("#{{id}}_calendar").slideToggle();
 });
 
 </script>

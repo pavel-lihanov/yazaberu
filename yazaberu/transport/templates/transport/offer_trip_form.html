@@ -2,7 +2,7 @@
   {% csrf_token %}
   <div id="deal-offer">	
     <p><strong>Укажите желаемую стоимость доставки</strong></p>
-    <input class="deal-price" name="price" id="deal-price" value="" placeholder="100 р.">
+    <input class="deal-price" name="price" id="deal-price" value="{{parcel.max_price}}" placeholder="100 р.">
   </div>
   <h4>Уточните маршрут</h4>
   <p class="wayname">Ваши текущие поездки</p>
@@ -18,6 +18,6 @@
     </div>
   </div>
   {% endfor %}
-	<p><button onclick="" class="btn btn-small blu">или Добавьте новую поездку</button></p>
+	<p><button type="button" onclick="" class="btn btn-small blu">или Добавьте новую поездку</button></p>
 	<!--<p><button type="submit" class="btn blk">Отправить предложение {{parcel.owner.name_public}}</button></p>-->
 </form>

@@ -8,11 +8,13 @@ from globals.models import Profile
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     text = models.CharField(max_length=500)
+    viewed = models.BooleanField(default=False)
     
 class Notification(models.Model):
     receiver = models.ForeignKey(Profile, on_delete=models.CASCADE)
     topic = models.CharField(max_length=100)
     text = models.CharField(max_length=500)
+    viewed = models.BooleanField(default=False)
     
     @classmethod
     def create(cls, receiver, topic, text):
@@ -29,6 +31,7 @@ class Message(models.Model):
     text = models.CharField(max_length=500)
     reply_to = models.ForeignKey('Message', blank=True, null=True, related_name='answers', on_delete=models.SET_NULL)
     date = models.DateTimeField(auto_now_add=True)
+    viewed = models.BooleanField(default=False)
     
     def __str__(self):
         return '{0}@{1}:{2}'.format(self.author, self.receiver, self.text)

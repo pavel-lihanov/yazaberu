@@ -19,7 +19,11 @@
     </div>
   {% endfor %}
   {% else %}
-    <p>Ничего не найдено</p>
+    <div class="no-found">
+      <p>Посылок к доставке не найдено, но они могут появиться...</p>
+      <!--<button href="#" onclick="loadPopup('/transport/add_parcel')" class="popup-trigger btn orng">Предложить доставку</button>
+      -->
+    </div>
   {% endif%}
   {% comment %}
   <div class="c3 xsc12">
