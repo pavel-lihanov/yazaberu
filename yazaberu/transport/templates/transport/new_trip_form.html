@@ -26,8 +26,8 @@ function initPopup() {
     </ul>
     <div class="tab_content">
       <div class="tabs_item">
-        {% edit id="from_single" name="from" _class="from" value="" placeholder="Город" label="из" container_class="direction-lbl" %}
-        {% edit id="to_single" name="to" _class="to" value="" placeholder="Город" label="в" container_class="direction-lbl" %}
+        {% edit id="from_single" url="/city" name="from" _class="from" value="" placeholder="Город" label="из" container_class="direction-lbl" %}
+        {% edit id="to_single" url="/city" name="to" _class="to" value="" placeholder="Город" label="в" container_class="direction-lbl" %}
 
         {% edit id="trip_start" name="date" _class="time calendar" value="" placeholder="Выезжаю" show_calendar=True %}
         {% timeinput "time_start" "time" %}

@@ -4,7 +4,7 @@
   {% if label %}
   <label for="{{id}}" class="input">{{label}}</label>
   {% endif %}
-  <input id="{{id}}" name="{{name}}" class="{{class}}" value="{{value}}" placeholder="{{placeholder}}">
+  <input {% if url %}onkeyup="{{name}}_update()"{% endif%}id="{{id}}" name="{{name}}" class="{{class}}" value="{{value}}" placeholder="{{placeholder}}">
   {% if show_calendar %}
   {% calendar id calendar_d %}
   {% endif %}
@@ -13,3 +13,22 @@
     <span class="input-error" id="{{id}}_error"></span>
   </div>
 </div>
+{% if url %}
+<script>
+  var {{name}}_hints=[]
+  $('#{{name}}').autocomplete({source:{{name}}_hints})
+  function {{name}}_update() {
+    $.ajax({
+      url:'{{url}}',
+      data: {
+        search: $('#{{name}}').val()
+      },
+      dataType:'json',
+      success: function(data, textStatus, jqXHR) {
+        {{name}}_hints = data
+        $('#{{name}}').autocomplete({source:{{name}}_hints})
+      }
+    })
+  }
+</script>
+{% endif %}

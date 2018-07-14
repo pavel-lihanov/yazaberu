@@ -1,4 +1,5 @@
 {% load calendar %}
+{% load edit %}
 <section class="banner">
 <div class="mainban mainpage-ban">
 	<div class="container">
@@ -6,11 +7,16 @@
 	<div class="search-form">
     <form method="get" action="/transport/parcel_search">
     {% csrf_token %}
-		<div class="inpt"><input id="origin" type="text" name="origin" value="" placeholder="Откуда"/></div>
-		<div class="inpt"><input id="destination" type="text" name="destination" value=""  placeholder="Куда"/></div>
 		<div class="inpt">
-      <input id="date_input" type="text" name="date" class="calendar" value=""  placeholder="Любая дата"/>
-      {% calendar "date" %}
+      {% edit id="origin" url="/city" value="" placeholder="Откуда" %}
+      <!--<input id="origin" type="text" name="origin" value="" placeholder="Откуда"/>-->
+    </div>
+		<div class="inpt">
+      {% edit id="destination" url="/city" value="" placeholder="Куда" %}
+      <!--<input id="destination" type="text" name="destination" value=""  placeholder="Куда"/>-->
+    </div>
+		<div class="inpt">
+      {% edit id="date" name="date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
 		</div>
 		<button class="btn orng">Найти заказы</button>
 		</form>

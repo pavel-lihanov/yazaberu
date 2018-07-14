@@ -1,13 +1,22 @@
 {% load calendar %}
+{% load edit %}
 <section class="banner">
 
 <div class="mainban sender-baner short">
   <div class="container">
     <div class="search-form">
-      <div class="inpt"><input id="parcel_orig" type="text" value="{{origin}}" placeholder="Откуда"></div><div class="inpt chang-icon">→<br>←</div>
-      <div class="inpt"><input id="parcel_dest" type="text" value="{{destination}}" placeholder="Куда"></div>
-      <div class="inpt"><input id="parcel_date_input" type="text" class="calendar" value="{{due_date}}" placeholder="Любая дата">
-      {% calendar "parcel_date" %}
+      <div class="inpt">
+        <!--<input id="parcel_orig" type="text" value="{{origin}}" placeholder="Откуда">-->
+        {% edit id="parcel_orig" url="/city" value=origin placeholder="Откуда" %}
+      </div>
+      <div class="inpt chang-icon">→<br>←</div>
+      <div class="inpt">
+        <!--<input id="parcel_dest" type="text" value="{{destination}}" placeholder="Куда">-->
+        {% edit id="parcel_dest" url="/city" value=destination placeholder="Куда" %}
+      </div>
+      <div class="inpt">
+        <input id="parcel_date_input" type="text" class="calendar" value="{{due_date}}" placeholder="Любая дата">
+        {% calendar "parcel_date" %}
       </div>
       <button class="btn orng" onclick="_find_parcel()">Найти, что доставить</button>
     </div>

@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve, {'document_root': './media'}),
     url(r'^send/$', globals.views.landing_sender),
     url(r'^deliver/$', globals.views.landing_rider),
+    url(r'^city/$', globals.views.city_search),
     url(r'^$', globals.views.landing),
     url(r'^user/(?P<id>[0-9]+)$', globals.views.user_view),
     url(r'^avatar/(?P<id>[0-9]+)/upload$', globals.views.upload_avatar),

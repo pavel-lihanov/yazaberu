@@ -27,19 +27,20 @@
 </div>
 
 <script>
-var $cal_{{id}} = $('#{{id}}_calendar');
-$cal_{{id}}.responsiveCalendar({
-    time: '{{value}}',
-    events: {},
-    onDayClick: function(events){
-        var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
-        $('#{{id}}').val($i)
-        $('#{{id}}_calendar').hide()
-    },
-}); /* end $cal */
+jQuery(document).ready(function($){
+  var $cal_{{id}} = $('#{{id}}_calendar');
+  $cal_{{id}}.responsiveCalendar({
+      time: '{{value}}',
+      events: {},
+      onDayClick: function(events){
+          var $i = $(this).data('year') + '-' + zero($(this).data('month')) + '-' + zero($(this).data('day'));
+          $('#{{id}}').val($i)
+          $('#{{id}}_calendar').hide()
+      },
+  }); /* end $cal */
 
-$('svg#{{id}}_icon').click(function(){
-    $("#{{id}}_calendar").slideToggle();
+  $('svg#{{id}}_icon').click(function(){
+      $("#{{id}}_calendar").slideToggle();
+  });
 });
-
 </script>

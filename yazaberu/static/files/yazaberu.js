@@ -254,8 +254,6 @@ function declineOffer(offer_id) {
   xhttp.send();    
 }
 
-
-
 //======================================================
 function f_add_single_trip() {
   $('.input-error').hide()

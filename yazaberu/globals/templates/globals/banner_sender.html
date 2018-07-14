@@ -1,9 +1,10 @@
 {% load calendar %}
+{% load edit %}
 <script>
 function f_find_trip() {
   _from = document.getElementById('trip_from').value;
   _to = document.getElementById('trip_to').value;
-  _date = document.getElementById('date_input').value;
+  _date = document.getElementById('date').value;
   find_trip(_from, _to, _date);
 }
 </script>
@@ -16,10 +17,16 @@ function f_find_trip() {
 	<h1>Отправляйте документы и посылки с ЯЗабе.ру<br>
 <span>перевозчики доставят их как можно скорее</span></h1>
 	<div class="search-form">
-		<div class="inpt"><input type="text" id="trip_from" value="{{origin}}" placeholder="Откуда"/></div>
-		<div class="inpt"><input type="text" id="trip_to" value="{{destination}}"  placeholder="Куда"/></div>
-		<div class="inpt"><input type="text" id="date_input" class="calendar" value=""  placeholder="Любая дата"/>
-    {% calendar "date" %}
+		<div class="inpt">
+      {% edit id="trip_from" url="/city" value=origin placeholder="Откуда" %}
+      <!--<input type="text" id="trip_from" value="{{origin}}" placeholder="Откуда"/>-->
+    </div>
+		<div class="inpt">
+      {% edit id="trip_to" url="/city" value=destination placeholder="Куда" %}
+      <!--<input type="text" id="trip_to" value="{{destination}}"  placeholder="Куда"/>-->
+    </div>
+		<div class="inpt">
+    {% edit id="date" name="date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
 		</div>
 		<button class="btn blu" onclick="f_find_trip()">Найти перевозчика</button>
 	</div>

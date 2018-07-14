@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidde
 from django.template import loader
 import globals.models
 import transport.models
+import json
 
 def landing(request):
     if request.method == 'GET':
@@ -88,3 +89,9 @@ def upload_avatar(request, id):
         else:
             return HttpResponseServerError('Not valid')
         return HttpResponseRedirect('/profile')
+        
+def city_search(request):
+    if request.method == 'GET':
+        search = request.GET['search']
+        cities = transport.models.City.objects.filter(name__icontains=search)
+        return HttpResponse(json.dumps([c.name for c in cities]), content_type="application/json")

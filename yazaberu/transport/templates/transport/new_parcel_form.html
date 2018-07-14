@@ -56,10 +56,10 @@ function initPopup() {
     {% edit id="max_price" _class="maxprice" value=parcel.max_price placeholder="Максимальная цена за доставку, руб" %}
   </p>
   <p class="direction-lbl">
-    {% edit id="from" _class="from" value=parcel.origin.city.name placeholder="" label="из" container_class="direction-lbl" %}
+    {% edit id="from" url="/city" _class="from" value=parcel.origin.city.name placeholder="" label="из" container_class="direction-lbl" %}
   </p>
   <p class="direction-lbl">
-    {% edit id="to" _class="to" value=parcel.destination.city.name placeholder="" label="в" container_class="direction-lbl"%}
+    {% edit id="to" url="/city" _class="to" value=parcel.destination.city.name placeholder="" label="в" container_class="direction-lbl"%}
   </p>
   <p class="direction-lbl">
     {% edit id="trip_date" name="date" _class="time calendar" value=parcel.due_day.isoformat placeholder="Доставить до" show_calendar=True calendar_d=parcel.due_day %}

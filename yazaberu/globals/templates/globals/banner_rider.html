@@ -1,5 +1,6 @@
 {% load calendar %}
-
+{% load edit %}
+{% load edit_variants %}
 <script>
 function f_find_parcel() {
   _from = document.getElementById('parcel_from').value;
@@ -15,11 +16,13 @@ function f_find_parcel() {
 	<div class="container">
 	<h1>Зарабатывайте в каждой поездке с ЯЗабе.ру</h1>
 	<div class="search-form">
+    <!--
 		<div class="inpt"><input type="text" value="{{origin}}" id="parcel_from" placeholder="Откуда"/></div>
 		<div class="inpt"><input type="text" value="{{destination}}" id="parcel_to" placeholder="Куда"/></div>
-		<div class="inpt"><input type="text" class="calendar" value="" id="parcel_date_input" placeholder="Любая дата"/>
-		{% calendar "parcel_date" %}
-    </div>
+		-->
+    <div class="inpt">{% edit id="parcel_from" url="/city" value=origin placeholder="Откуда" %}</div>
+    <div class="inpt">{% edit id="parcel_to" url="/city" value=destination placeholder="Куда" %}</div>
+    {% edit id="parcel_date" name="date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
 		
 		<button class="btn orng" onclick="f_find_parcel()">Найти, что доставить</button>
 	</div>
