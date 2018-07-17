@@ -291,6 +291,7 @@ def trip_search(request):
         if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
             date = Q(end_date__lt=request.GET['date'])
             due_date = request.GET['date']
+            due_date = parse_date(due_date)
         else:
             date = Q(end_date__gt=timezone.now())
             due_date = ''
@@ -332,6 +333,7 @@ def parcel_search(request):
         if 'date' in request.GET and request.GET['date']!='' and request.GET['date']!='any':
             date = Q(due_date__gt=request.GET['date'])
             due_date = request.GET['date']
+            due_date = parse_date(due_date)
         else:
             date = Q(due_date__gt=timezone.now())
             due_date = ''

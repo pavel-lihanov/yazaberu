@@ -15,8 +15,16 @@
         {% edit id="parcel_dest" url="/city" value=destination placeholder="Куда" %}
       </div>
       <div class="inpt">
+        <!--
         <input id="parcel_date_input" type="text" class="calendar" value="{{due_date}}" placeholder="Любая дата">
         {% calendar "parcel_date" %}
+        -->
+        {% if due_date %}
+          {% edit id="parcel_date" _class="time calendar" value=due_date.isoformat placeholder="Любая дата" show_calendar=True calendar_d=due_date %}
+        {% else %}
+          {% edit id="parcel_date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
+        {% endif %}
+
       </div>
       <button class="btn orng" onclick="_find_parcel()">Найти, что доставить</button>
     </div>
@@ -29,7 +37,7 @@
   function _find_parcel () {
     var orig=document.getElementById('parcel_orig');
     var dest=document.getElementById('parcel_dest');
-    var date=document.getElementById('parcel_date_input');
+    var date=document.getElementById('parcel_date');
     document.location = '/transport/parcel_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
   }
 </script>

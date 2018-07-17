@@ -13,8 +13,16 @@
         <!--<input id="trip_dest" type="text" value="{{destination}}" placeholder="Куда">-->
         {% edit id="trip_dest" url="/city" value=destination placeholder="Куда" %}
       </div>
-      <div class="inpt"><input id="due_date_input" type="text" value="{{due_date}}" class="calendar" value="" placeholder="Любая дата">
-      {% calendar "due_date" %}
+      <div class="inpt">
+        <!--
+        <input id="due_date_input" type="text" value="{{due_date}}" class="calendar" value="" placeholder="Любая дата">
+        {% calendar "due_date" %}
+        -->
+        {% if due_date %}
+          {% edit id="due_date" _class="time calendar" value=due_date.isoformat placeholder="Любая дата" show_calendar=True calendar_d=due_date %}
+        {% else %}
+          {% edit id="due_date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
+        {% endif %}
       </div>
       <button class="btn blu" onclick="_find_trip()" >Найти перевозчика</button>
     </div>
@@ -27,7 +35,7 @@
   function _find_trip () {
     var orig=document.getElementById('trip_orig');
     var dest=document.getElementById('trip_dest');
-    var date=document.getElementById('due_date_input');
-    document.location = '/transport/parcel_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
+    var date=document.getElementById('due_date');
+    document.location = '/transport/trip_search?origin='+orig.value+'&destination='+dest.value+'&date='+date.value;
   }
 </script>

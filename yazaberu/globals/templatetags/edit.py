@@ -4,7 +4,6 @@ register = template.Library()
 
 @register.inclusion_tag('globals/edit.html')
 def edit(id, value="", default="", _class="", placeholder="", name=None, label=None, container_class="", show_calendar=False, calendar_d=None, url=""):
-    print(calendar_d)
     return {
         'id': id, 
         'class': _class, 
