@@ -3,6 +3,27 @@
 {% load edit %}
 <script>
 
+function f_add_trip() {
+  $('.input-error').hide()
+  $('#new_trip_form').ajaxForm()
+  $('#new_trip_form').ajaxSubmit({
+      type:'POST',
+      success:function(responseText, statusText, xhr, form_el ){document.location="/profile/deliveries"},
+      error:function(responseText, statusText, xhr, form_el){
+        var data = responseText.responseJSON
+        var f=false
+        for(d in data.errors){
+          $('#'+d+"_error").show()
+          $('#'+d+"_error").html(data.errors[d])
+          if(!f){
+            $('#'+d).scrollintoview()
+            f=true
+          }
+        }
+      }
+    });
+}
+
  
 function initPopup() {
     //initCalendar();
@@ -11,6 +32,7 @@ function initPopup() {
 
 <form class="add-new-form" action="/transport/add_trip" target="_parent" method="post" id="new_trip_form">
   {% csrf_token %}
+  <input id="id" name="id" style="display:none" value="{{trip.id}}" />
   <div class="add-tash-h">
     <img src="/static/files/add-new-task.png">
     <h4>Добавить поездку</h4>
@@ -26,19 +48,19 @@ function initPopup() {
     </ul>
     <div class="tab_content">
       <div class="tabs_item">
-        {% edit id="from_single" url="/city" name="from" _class="from" value="" placeholder="Город" label="из" container_class="direction-lbl" %}
-        {% edit id="to_single" url="/city" name="to" _class="to" value="" placeholder="Город" label="в" container_class="direction-lbl" %}
+        {% edit id="from" url="/city" name="from" _class="from" value=trip.route.start.name placeholder="Город" label="из" container_class="direction-lbl" %}
+        {% edit id="to" url="/city" name="to" _class="to" value=trip.route.end.name placeholder="Город" label="в" container_class="direction-lbl" %}
 
-        {% edit id="trip_start" name="date" _class="time calendar" value="" placeholder="Выезжаю" show_calendar=True %}
-        {% timeinput "time_start" "time" %}
+        {% edit id="trip_start" name="date" _class="time calendar" value=trip.start_day.isoformat placeholder="Выезжаю" show_calendar=True %}
+        {% timeinput "time_start" "time" trip.start_time%}
 
-        {% edit id="trip_end" name="date_end" _class="time calendar" value="" placeholder="Приезжаю" show_calendar=True %}
-        {% timeinput "time_end" "time_end" %}
+        {% edit id="trip_end" name="date_end" _class="time calendar" value=trip.end_day.isoformat placeholder="Приезжаю" show_calendar=True %}
+        {% timeinput "time_end" "time_end" trip.end_time%}
 
-        {% edit id="min_price" _class="maxprice" value="" placeholder="Цена за посылку, руб" %}
-        {% edit id="max_weight" _class="maxprice" value="" placeholder="Вес посылки не более, кг" %}
+        {% edit id="min_price" _class="maxprice" default="0" value=trip.price placeholder="Цена за посылку, руб" %}
+        {% edit id="max_weight" _class="maxprice" default="10" value=trip.max_weight placeholder="Вес посылки не более, кг" %}
 
-        <p><button onclick="f_add_single_trip()" type="button" class="btn btn-small blk">Добавить поездку</button></p>
+        <p><button onclick="f_add_trip()" type="button" class="btn btn-small blk">{%if trip%}Сохранить{%else%}Добавить поездку{%endif%}</button></p>
       </div>
     </div>
   </div>

@@ -8,6 +8,8 @@
       <div class="transport-type"><img src="/static/files/train.svg" width="30px"/></div>
       <p class="price"><strong>от {{trip.price}} р.</strong></p>
       <p class="max-weight">макс. {{trip.max_weight}} кг</p>
-      <div class="take-order"><button class="btn btn-small emptycolor">Редактировать</button></div>
+      <div class="take-order">
+        <button onclick="loadPopup('/transport/add_trip', {id:{{trip.id}}})" class="btn btn-small emptycolor">Редактировать</button>
+      </div>
   </div>
 </div>

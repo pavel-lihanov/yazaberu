@@ -1,5 +1,5 @@
 <div class="inpt">
-<input class="minutes" id="{{id}}" name="{{name}}" value="{{value}}" placeholder="00:00">
+<input class="minutes" id="{{id}}" name="{{name}}" value="{% if value %}{{value}}{% else %}{{default}}{% endif %}" placeholder="__:__">
   <div class="list-container">
     <span class="input-error" id="{{id}}_error"></span>
   </div>

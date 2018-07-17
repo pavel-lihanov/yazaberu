@@ -52,11 +52,11 @@ class Parcel(models.Model):
     published = models.BooleanField(default=True)
     
     def due_day(self):
-        print(self.due_date, type(self.due_date), self.due_date.date)
+        #print(self.due_date, type(self.due_date), self.due_date.date)
         return self.due_date.date()
         
     def due_time(self):
-        print(self.due_date, type(self.due_date), self.due_date.time)
+        #print(self.due_date, type(self.due_date), self.due_date.time)
         return self.due_date.time()
     
     def get_image_url(self):
@@ -92,6 +92,18 @@ class Trip(models.Model):
     price = models.IntegerField(default=0)
     max_weight = models.IntegerField(default=5)
     published = models.BooleanField(default=True)
+    
+    def start_day(self):
+        return self.start_date.date()
+        
+    def start_time(self):
+        return self.start_date.time()
+
+    def end_day(self):
+        return self.end_date.date()
+        
+    def end_time(self):
+        return self.end_date.time()
 
     def __str__(self):
         return 'Trip {0} by {1} @ {2}'.format(self.route, self.rider, self.start_date)

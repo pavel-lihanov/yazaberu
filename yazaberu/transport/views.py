@@ -32,6 +32,7 @@ class ValidationError(Exception):
 
 def validate_trip(request):
     errors = {}
+    print('validate_trip', request)
     _from = request['from']
     if not _from:
         errors['from']="Origin must be specified"
@@ -45,8 +46,8 @@ def validate_trip(request):
         due_date = create_datetime(_date, _time, +2)
     except:
         traceback.print_exc()
-        errors['date']='Invalid date'
-        errors['time']='Invalid date'
+        errors['trip_start']='Invalid date'
+        errors['time_start']='Invalid date'
         
     try:
         _date=request['date_end']
@@ -54,7 +55,7 @@ def validate_trip(request):
         due_date = create_datetime(_date, _time, +2)
     except:
         traceback.print_exc()
-        errors['date_end']='Invalid date'
+        errors['trip_end']='Invalid date'
         errors['time_end']='Invalid date'
 
     if errors:
@@ -66,8 +67,14 @@ def validate_trip(request):
 def add_trip(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
-            template = loader.get_template('transport/new_trip_form.html')
             context = {}
+            if 'id' in request.GET:
+                profile = Profile.objects.get(user=request.user)
+                trip = Trip.objects.get(id=int(request.GET['id']))
+                context['trip']=trip
+                if trip.rider != profile:
+                    return HttpResponseForbidden()
+            template = loader.get_template('transport/new_trip_form.html')
             return  HttpResponse(template.render(context, request))
         else:
             return HttpResponseRedirect('/auth/login')
