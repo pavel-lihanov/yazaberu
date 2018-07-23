@@ -74,7 +74,14 @@ function loadPopup (url, data) {
     } else if (this.readyState < 4){
       
     } else if (this.status != 200) {
-      
+      try{
+          data = JSON.parse(this.responseText)
+          if(data.reason == 'auth_required'){
+            loadPopup(data.url, {next: data.next, next_form:data.form})
+          }
+      } catch (ex) {
+          
+      }
     }
   }
   var params='?'
@@ -188,11 +195,24 @@ function login_using (provider) {
 function login_with_cr () {
   var id = document.getElementById('user_id').value;
   var passwd = document.getElementById('password').value;
+  var next = document.getElementById('next').value;
+  var next_form = document.getElementById('next_form').value;
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
+      try{
+          data = JSON.parse(this.responseText)
+          if(data.form){
+              loadPopup(data.form, {})
+              return
+          }
+      } catch (ex) {
+          
+      }
       document.body.innerHTML = this.responseText;
       document.location = this.responseURL;
+    } else if (this.readyState == 4 && this.status == 302) {
+        document.location = this.responseText;
     } else if (this.readyState < 4){
       
     } else if (this.status != 200) {
@@ -203,7 +223,7 @@ function login_with_cr () {
   var csrftoken = getCookie('csrftoken');
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send('id='+encodeURIComponent(id)+'&password='+encodeURIComponent(passwd));
+  xhttp.send('id='+encodeURIComponent(id)+'&password='+encodeURIComponent(passwd)+'&next='+encodeURIComponent(next)+'&next_form='+encodeURIComponent(next_form));
 }
 
 function offerTrip(parcel_id){
@@ -251,7 +271,25 @@ function declineOffer(offer_id) {
   var csrftoken = getCookie('csrftoken');
   xhttp.setRequestHeader("X-CSRFToken", csrftoken);
   xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  xhttp.send();    
+  xhttp.send();
+}
+
+function send_message(person, text){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if (this.readyState == 4 && this.status == 200) {
+      alert('Сообщение отправлено');
+    } else if (this.readyState < 4){
+      
+    } else if (this.status != 200) {
+      alert('Error', this.readyState);
+    }
+  }
+  xhttp.open('POST', '/comments/send/', true);
+  var csrftoken = getCookie('csrftoken');
+  xhttp.setRequestHeader("X-CSRFToken", csrftoken);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.send('person='+person+'&text='+encodeURIComponent(text));
 }
 
 //======================================================

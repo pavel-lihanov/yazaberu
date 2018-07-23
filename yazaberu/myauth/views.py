@@ -21,6 +21,8 @@ from django.views.decorators.csrf import csrf_exempt, ensure_csrf_cookie
 
 from globals.social_network import providers
 
+import json
+
 auth_sessions = {}
 
 #TODO!!! login decorators
@@ -29,25 +31,34 @@ auth_sessions = {}
 def login(request):
     if request.method == 'GET':
         template = loader.get_template('myauth/login_form.html')
-        context = {}
+        context = {
+            'next': request.GET['next'] if 'next' in request.GET else '',
+            'next_form':request.GET['next_form'] if 'next_form' in request.GET else ''
+        }
         return  HttpResponse(template.render(context, request))
-    else:
+    elif request.method=='POST':
         id=request.POST['id'].strip()
-        print('Login, id="{0}"'.format(id))
         passwd = request.POST['password'].strip()
         try:
-            print('Users:', [u.email for u in User.objects.all()])
             user = User.objects.get(email=id)
             u = authenticate(request, username=user.username, password=passwd)
             if u:
-                print('Logging in')
                 auth_login(request, u)
                 profile = Profile.objects.get(user=u)
-                return HttpResponseRedirect('/profile')
+                next=request.POST['next']
+                next_form=request.POST['next_form']
+                print('next=',next, 'next_form=',next_form)
+                if next and next!='null' and next!='undefined':
+                    print('Redirect', next)
+                    return HttpResponseRedirect(next)
+                elif next_form and next_form!='null' and next_form!='undefined':
+                    print('Redirect form', next_form)
+                    return HttpResponse(json.dumps({'form':next_form}), content_type='application/json')
+                else:
+                    return HttpResponseRedirect('/profile')
             else:
                 return HttpResponseForbidden('Invalid password')
         except User.DoesNotExist:
-            print('User not found', id)
             return HttpResponseNotFound('User not found')
         return HttpResponse('Not valid', status=422)
         

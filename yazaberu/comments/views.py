@@ -10,6 +10,19 @@ from django.template import loader
 
 # Create your views here.
 
+def send_messsage(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method=='POST':
+        print(request.POST)
+        recipient = Profile.objects.get(id=int(request.POST['person']))
+        text = request.POST['text']
+        msg = Message()
+        msg.text = text
+        msg.author = profile
+        msg.receiver = recipient
+        msg.save()
+        return HttpResponse('OK')
+        
 def ask_question(request, id):
     profile = Profile.objects.get(user=request.user)
     parcel = Parcel.objects.get(id=id)

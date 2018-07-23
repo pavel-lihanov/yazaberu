@@ -93,5 +93,5 @@ def upload_avatar(request, id):
 def city_search(request):
     if request.method == 'GET':
         search = request.GET['search']
-        cities = transport.models.City.objects.filter(name__icontains=search)
+        cities = transport.models.City.objects.filter(name__istartswith=search.capitalize())
         return HttpResponse(json.dumps([c.name for c in cities]), content_type="application/json")

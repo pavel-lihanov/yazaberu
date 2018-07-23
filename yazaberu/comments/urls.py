@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^delivery/(?P<id>[0-9]+)/review_driver$', comments.views.review_driver, name='review_driver'),
     url(r'^delivery/(?P<id>[0-9]+)/review_sender$', comments.views.review_sender, name='review_sender'),
     url(r'^review/(?P<id>[0-9]+)/answer$', comments.views.answer_review, name='answer_review'),
+    url(r'^send/$', comments.views.send_messsage, name='send_messsage')
 ]

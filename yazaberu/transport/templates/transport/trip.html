@@ -13,9 +13,10 @@
   </div>
   <div class="c9 xsc12 columns">
   <div class="transporter-info c7 xsc12">
-      <p class="delivery-date"><strong>{{trip.end_time}}</strong></p>
+      <p class="delivery-date"><strong>{{trip.end_day}} {{trip.end_time}}</strong></p>
+      <p class="delivery-date">(выезжаю {{trip.start_day}} {{trip.start_time}})</p>
       <p class="direction">{{trip.route.start.name}} <span>→</span> {{trip.route.end.name}}</p>
-      <p class="place"><span>Место встречи: </span>{{trip.meeting_place}}</p>
+      <!--<p class="place"><span>Место встречи: </span>{{trip.meeting_place}}</p>-->
   </div>
   <div class="transport-info c5 xsc12">
       <div class="transport-type"><img src="/static/files/train.svg" width="30px"></div>

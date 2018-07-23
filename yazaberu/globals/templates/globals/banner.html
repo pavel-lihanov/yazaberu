@@ -5,7 +5,7 @@
 	<div class="container">
 	<h1>Передавайте посылки близким с попутчиками и экономьте до 75% на доставке</h1>
 	<div class="search-form">
-    <form method="get" action="/transport/parcel_search">
+    <form method="get" action="/transport/trip_search">
     {% csrf_token %}
 		<div class="inpt">
       {% edit id="origin" url="/city" value="" placeholder="Откуда" %}
@@ -18,7 +18,8 @@
 		<div class="inpt">
       {% edit id="date" name="date" _class="time calendar" value="" placeholder="Любая дата" show_calendar=True %}
 		</div>
-		<button class="btn orng">Найти заказы</button>
+		<!--<button class="btn orng">Найти заказы</button>-->
+    <button class="btn blu">Найти перевозчика</button>
 		</form>
     <!--<button class="btn blu">Найти перевозчика</button>-->
 	</div>

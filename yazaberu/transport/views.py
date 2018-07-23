@@ -129,20 +129,27 @@ def add_trip(request):
         except Route.DoesNotExist:
             #TODO: move to Route.create()
             try:
-                start = City.objects.get(name = _from)
+                start = City.objects.get(name = _from.capitalize())
             except City.DoesNotExist:
-                start = City(name=_from)
+                start = City(name=_from.capitalize())
                 start.save()
             try:
-                end = City.objects.get(name = _to)
+                end = City.objects.get(name = _to.capitalize())
             except City.DoesNotExist:
-                end = City(name=_to)
+                end = City(name=_to.capitalize())
                 end.save()
             route = Route(start=start, end=end)
             route.save()
         ds = create_datetime(_date_start, _time_start, _tz)
         de = create_datetime(_date_end, _time_end, _tz)
-        trip = Trip(start_date=ds, end_date=de)
+        if 'id' in request.POST:
+            trip = Trip.objects.get(id=int(request.GET['id']))
+            if trip.rider != p:
+                return HttpResponseForbidden()
+        else:
+            trip = Trip()
+        trip.start_date=ds
+        trip.end_date=de
         trip.rider=p
         trip.route=route
         trip.transport=0
@@ -152,7 +159,6 @@ def add_trip(request):
         trip.save()
         if 'offer_to' in request.POST:
             request.POST['trip']=str(trip.id)
-            #TODO: price
             return offer_trip(request, id=request.POST['offer_to'])
         else:
             return HttpResponseRedirect('/profile/deliveries')
@@ -209,7 +215,6 @@ def add_parcel(request):
         else:
             return HttpResponseRedirect('/auth/login')
     elif request.method == 'POST':
-        print(request.POST)
         try:
             prc = validate_parcel(request.POST)
             _from = request.POST['from']
@@ -219,14 +224,14 @@ def add_parcel(request):
             _weight=request.POST['weight']
             p = Profile.objects.get(user=request.user)
             try:
-                start = City.objects.get(name = _from)
+                start = City.objects.get(name = _from.capitalize())
             except City.DoesNotExist:
-                start = City(name=_from)
+                start = City(name=_from.capitalize())
                 start.save()
             try:
-                end = City.objects.get(name = _to)
+                end = City.objects.get(name = _to.capitalize())
             except City.DoesNotExist:
-                end = City(name=_to)
+                end = City(name=_to.capitalize())
                 end.save()
 
             if 'id' in request.POST and request.POST['id']!='':
@@ -489,6 +494,13 @@ def offer_trip(request, id):
 
 def offer_parcel(request, id):
     trip = Trip.objects.get(id=id)
+    if not request.user.is_authenticated:
+        if request.method=='GET':
+            print('offer_parcel(): auth required')
+            return HttpResponse(json.dumps({'reason':'auth_required', 'url':'/auth/login', 'next':None, 'form':request.get_full_path()}), status=401, content_type='application/json')
+        else:
+            return HttpResponseForbidden()
+    print('Auth OK')
     p = Profile.objects.get(user=request.user)
     if request.method == 'GET':
         template = loader.get_template('transport/offer_parcel_form.html')

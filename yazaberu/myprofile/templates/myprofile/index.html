@@ -1,20 +1,12 @@
 ﻿{% extends "globals/base.html" %}
+{% load profile_menu %}
 
 {% block content %}
 <section class="edit user-profile">
   <div class="container980 columns">
-    <div class="sub-menu c4 xsc12 s-hide">
-      {% block profile_menu %}
-      <ul>
-          <li><a class="active" href="/profile/">Профиль</a></li>
-          <li><a href="/profile/messages">Сообщения {{new_messages.count}}</a></li>
-          <li><a href="/profile/deliveries">Ваши поездки</a></li>
-          <li><a href="/profile/parcels">Отправления</a></li>
-          <li><a href="/profile/reviews">Отзывы</a></li>
-        </ul>
-      {% endblock %}
-    </div>
-    
+    {% block menu %}
+    {% profile_menu profile 0 %}
+    {% endblock %}
     <div class="user-info c8 xsc12">
       {% block profile_content %}
       <div class="user-name c12 xsc12">

@@ -43,6 +43,7 @@ def mydeliveries(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/deliveries.html')
         me=Profile.objects.get(user=request.user)
+        new_messages = Message.objects.filter(receiver=me, viewed=False)
         all_trips = Trip.objects.filter(rider=me)
         trips = {'future': all_trips.filter(start_date__gt=timezone.now()), 'completed': all_trips.filter(end_date__lt=timezone.now())}
         context = {'profile': me, 'trips': trips}
@@ -54,6 +55,7 @@ def my_delivery_list(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/delivery_list.html')
         me=Profile.objects.get(user=request.user)
+        new_messages = Message.objects.filter(receiver=me, viewed=False)
         all_trips = Trip.objects.filter(rider=me)
         trips = {'future': all_trips.filter(start_date__gt=timezone.now()), 'completed': all_trips.filter(end_date__lt=timezone.now()),'draft': []}
         context = {'profile': me, 'trips': trips}
@@ -65,6 +67,7 @@ def my_parcel_list(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/parcel_list.html')
         me=Profile.objects.get(user=request.user)
+        new_messages = Message.objects.filter(receiver=me, viewed=False)
         pending = Q(delivery=None) | Q(delivery__delivered=False)
         pending_parcels=Parcel.objects.filter(pending, owner=me)
         deliveries_for_me=Delivery.objects.filter(parcel__owner=me, delivered=True)
@@ -77,6 +80,7 @@ def myparcels(request):
     if request.method == 'GET':
         template = loader.get_template('myprofile/parcels.html')
         me=Profile.objects.get(user=request.user)
+        new_messages = Message.objects.filter(receiver=me, viewed=False)
         pending = Q(delivery=None) | Q(delivery__delivered=False)
         pending_parcels=Parcel.objects.filter(pending, owner=me)
         deliveries_for_me=Delivery.objects.filter(parcel__owner=me, delivered=True)
@@ -91,7 +95,10 @@ def mymessages(request):
         me=Profile.objects.get(user=request.user)
         messages=Message.objects.filter(receiver=me)
         context = {'profile': me, 'messages':messages}
-        return  HttpResponse(template.render(context, request))
+        res = HttpResponse(template.render(context, request))
+        new_messages = Message.objects.filter(receiver=me, viewed=False)
+        new_messages.update(viewed=True)
+        return res
     else:
         return HttpResponse('Not valid', status=422)
         
@@ -101,6 +108,9 @@ def myreviews(request):
         me=Profile.objects.get(user=request.user)
         reviews=Review.objects.filter(message__receiver=me)
         context = {'profile': me, 'reviews':reviews}
-        return  HttpResponse(template.render(context, request))
+        res = HttpResponse(template.render(context, request))
+        new_msgs = Message.objects.filter(review__isnull=False, receiver=me, viewed=False)
+        new_msgs.update(viewed=True)
+        return res
     else:
         return HttpResponse('Not valid', status=422)
