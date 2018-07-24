@@ -518,7 +518,10 @@ def offer_parcel(request, id):
             offer.receiver = parcel.owner
             offer.parcel = parcel
             offer.trip = trip
-            offer.price = int(request.POST['price'])
+            if 'price' in request.POST:
+                offer.price = int(request.POST['price'])
+            else:
+                offer.price = offer.parcel.max_price
             offer.save()
             parcel.owner.notify(topic='Trip offer', text='{0} offered to transport {1} for {2}'.format(p.name_public, parcel.description, offer.price))
         else:

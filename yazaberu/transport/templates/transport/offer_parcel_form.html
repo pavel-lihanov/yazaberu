@@ -3,13 +3,17 @@ function f_send_message(){
   var msg = document.getElementById('ask-field').value
   send_message({{trip.rider.id}}, msg)
 }
+
+function f_add_parcel_and_offer(){
+  alert('Not implemented')
+}
 </script>
 <div class="add-new-form">
   <form method="post" id="offer_parcel_form" action="/transport/trip/{{trip.id}}/offer_parcel">
     {% csrf_token %}
     <input id="parcel_id" name="parcel" type="text" style="display:none" value="">
-    <input id="price" name="price" type="text" style="display:none" value="111">
     {% if parcels %}
+    <input id="price" name="price" type="text" value="" placeholder="Цена">
     <h4>Какую посылку вы хотите отправить?</h4>
     <p class="wayname">Ваши текущие отправления</p>
     {% for p in parcels %}
@@ -28,7 +32,7 @@ function f_send_message(){
       <h4>У Вас нет подходящих посылок</h4>
       <textarea name="ask-field" id="ask-field" placeholder="Ваше сообщение"></textarea>
       <p><button type="button" onclick="f_send_message()" class="btn blk">Отправить сообщение {{trip.rider.name_public}}</button></p>
-      <p><button class="btn btn-small blu">или Добавьте новый заказ</button></p>
+      <p><button type="button" onclick="f_add_parcel_and_offer({{trip.id}})" class="btn btn-small blu">или Добавьте новый заказ</button></p>
     {% endif %}
   </form>
 </div>
