@@ -1,0 +1,7 @@
+<div class="sub-menu c4 xsc12 s-hide">
+  <ul>
+    {% for i in items %}
+      <li><a {% if i.active %}class="active" {% endif %} href="{{i.url}}">{{i.name}} {% if i.count %}({{i.count}}){% endif %}</a></li>
+    {% endfor %}
+  </ul>
+</div>
