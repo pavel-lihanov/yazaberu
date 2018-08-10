@@ -1,0 +1,12 @@
+<div class="ask-form">
+<h4>Написать {{recipient.name_public}}</h4>
+	<form id="ask-privatmsg" method="post" action="/comments/send/">
+    {% csrf_token %}
+    <input style="display:none" name="person" value={{recipient.id}}>
+    <input style="display:none" name="reply_to" value={{reply_to.id}}>
+		<textarea name="text" placeholder="Ваше сообщение"></textarea>
+		<div class="btn-qsend">
+      <button type="submit" class="btn blk">Отправить</button>
+    </div>
+	</form>
+</div>

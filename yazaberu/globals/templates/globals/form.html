@@ -1,0 +1,6 @@
+<form>
+  {% csrf_token %}
+  <input style="display:none" name="next" value="{% block next %}{% endblock %}">
+  {% block content %}
+  {% endblock %}
+</form>

@@ -11,18 +11,31 @@ from django.template import loader
 # Create your views here.
 
 def send_messsage(request):
-    profile = Profile.objects.get(user=request.user)
-    if request.method=='POST':
-        print(request.POST)
-        recipient = Profile.objects.get(id=int(request.POST['person']))
-        text = request.POST['text']
-        msg = Message()
-        msg.text = text
-        msg.author = profile
-        msg.receiver = recipient
-        msg.save()
-        return HttpResponse('OK')
-        
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        if request.method=='POST':
+            recipient = Profile.objects.get(id=int(request.POST['person']))
+            text = request.POST['text']
+            msg = Message()
+            msg.text = text
+            msg.author = profile
+            msg.receiver = recipient
+            if 'reply_to' in request.POST:
+                msg.reply_to = Message.objects.get(id=request.POST['reply_to'])
+            msg.save()
+            #TODO: redirect back from where the user came
+            return HttpResponseRedirect('/user/{0}'.format(recipient.id))
+        elif request.method=='GET':
+            template = loader.get_template('comments/send_message_form.html')
+            recipient = Profile.objects.get(id=request.GET['person'])
+            context = {'profile': profile, 'recipient': recipient}
+            if 'reply_to' in request.GET:
+                context['reply_to'] = Message.objects.get(id=request.GET['reply_to'])
+            
+            return  HttpResponse(template.render(context, request))
+    else:
+        return HttpResponseRedirect('/auth/login')
+
 def ask_question(request, id):
     profile = Profile.objects.get(user=request.user)
     parcel = Parcel.objects.get(id=id)
@@ -60,7 +73,7 @@ def reply(request, id):
         msg.text = text
         msg.reply_to = message
         msg.save()
-        return HttpResponse('OK')
+        return HttpResponseRedirect('OK')
     else:
         return HttpResponse('Not valid', status=422)
 
